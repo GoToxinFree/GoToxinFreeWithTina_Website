@@ -6,6 +6,7 @@ import Link from 'next/link';
 import { ArrowLeft, Save, Globe, Eye, Layout, Settings as SettingsIcon } from 'lucide-react';
 import Editor from '@/components/admin/Editor';
 import EditorTips from '@/components/admin/EditorTips';
+import ArticlePreview from '@/components/admin/ArticlePreview';
 import styles from '../../layout.module.css';
 
 export default function NewPostPage() {
@@ -21,6 +22,7 @@ export default function NewPostPage() {
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [error, setError] = useState('');
 
   // Auto-generate slug from title
@@ -77,6 +79,14 @@ export default function NewPostPage() {
         
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button 
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className={styles.btnAction}
+            style={{ backgroundColor: 'white', color: 'var(--admin-primary)', border: '1px solid var(--admin-border)' }}
+          >
+            <Eye size={20} /> Preview
+          </button>
+          <button 
             type="submit" 
             form="post-form"
             disabled={isSubmitting}
@@ -86,6 +96,17 @@ export default function NewPostPage() {
           </button>
         </div>
       </header>
+
+      <ArticlePreview 
+        isOpen={showPreview} 
+        onClose={() => setShowPreview(false)} 
+        data={{
+          title: formData.title,
+          content: formData.content,
+          imageUrl: formData.imageUrl,
+          published: formData.published
+        }}
+      />
 
       {error && (
         <div style={{ padding: '1rem 1.5rem', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '2rem', border: '1px solid #fca5a5', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

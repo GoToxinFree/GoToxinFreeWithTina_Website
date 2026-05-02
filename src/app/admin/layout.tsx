@@ -6,7 +6,8 @@ import { signOut } from 'next-auth/react';
 import { 
   LayoutDashboard, FileText, 
   Settings, LogOut, Home, 
-  Leaf, ChevronRight, User as UserIcon
+  Leaf, ChevronRight, User as UserIcon,
+  MessageSquare, Users
 } from 'lucide-react';
 import styles from './layout.module.css';
 
@@ -41,6 +42,18 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             <FileText size={20} />
             Articles
             {pathname.startsWith('/admin/posts') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
+          </Link>
+
+          <Link href="/admin/comments" className={`${styles.navItem} ${pathname.startsWith('/admin/comments') ? styles.navItemActive : ''}`}>
+            <MessageSquare size={20} />
+            Discussions
+            {pathname.startsWith('/admin/comments') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
+          </Link>
+
+          <Link href="/admin/subscribers" className={`${styles.navItem} ${pathname.startsWith('/admin/subscribers') ? styles.navItemActive : ''}`}>
+            <Users size={20} />
+            Subscribers
+            {pathname.startsWith('/admin/subscribers') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
 
           <Link href="/admin/profile" className={`${styles.navItem} ${pathname === '/admin/profile' ? styles.navItemActive : ''}`}>

@@ -1,18 +1,31 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import { Clock, User, ArrowRight, FileText, Leaf } from 'lucide-react';
+import { Clock, User, ArrowRight, FileText, Leaf, Search, Tag as TagIcon, Send } from 'lucide-react';
 import styles from '../page.module.css';
 import './listing.css';
+import NewsletterForm from '@/components/blog/NewsletterForm';
 
-export default async function BlogPage() {
+export default async function BlogPage({ searchParams }: { searchParams: Promise<{ q?: string; tag?: string }> }) {
+  const { q, tag } = await searchParams;
+
   const allPosts = await prisma.post.findMany({
-    where: { published: true },
+    where: { 
+      published: true,
+      AND: [
+        q ? { title: { contains: q } } : {},
+        tag ? { tags: { some: { name: tag } } } : {}
+      ]
+    },
     orderBy: { createdAt: 'desc' },
-    include: { author: true }
+    include: { author: true, tags: true }
   });
 
-  const featuredPost = allPosts[0];
-  const remainingPosts = allPosts.slice(1);
+  const featuredPost = !q && !tag ? allPosts[0] : null;
+  const listPosts = !q && !tag ? allPosts.slice(1) : allPosts;
+
+  const allTags = await prisma.tag.findMany({
+    where: { posts: { some: { published: true } } }
+  });
 
   return (
     <div style={{ backgroundColor: 'var(--surface)', minHeight: '100vh' }}>
@@ -38,13 +51,81 @@ export default async function BlogPage() {
           </span>
           <h1>The Knowledge Hub</h1>
           <p>
-            Evidence-based research, in-depth chemical analysis, and practical guides 
-            for families pursuing a life free from environmental toxins.
+            Evidence-based research and practical guides for toxin-free living.
           </p>
+          
+          {/* Search Bar */}
+          <div style={{ marginTop: '2.5rem', maxWidth: '600px', margin: '2.5rem auto 0', position: 'relative' }}>
+            <form action="/blog" method="GET">
+              <Search size={20} style={{ position: 'absolute', left: '1.25rem', top: '50%', transform: 'translateY(-50%)', color: 'rgba(255,255,255,0.5)' }} />
+              <input 
+                name="q"
+                type="text" 
+                placeholder="Search research articles..." 
+                defaultValue={q}
+                style={{ 
+                  width: '100%', 
+                  padding: '1.25rem 1.25rem 1.25rem 3.5rem', 
+                  borderRadius: '99px', 
+                  border: 'none', 
+                  backgroundColor: 'rgba(255,255,255,0.1)', 
+                  color: 'white', 
+                  fontSize: '1.1rem',
+                  backdropFilter: 'blur(10px)',
+                  boxShadow: '0 10px 30px rgba(0,0,0,0.1)',
+                  outline: 'none'
+                }} 
+              />
+            </form>
+          </div>
         </div>
       </section>
 
       <main className="container">
+        {/* Tag Filters */}
+        {allTags.length > 0 && (
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.75rem', marginBottom: '3rem', justifyContent: 'center' }}>
+             <Link href="/blog" style={{ textDecoration: 'none' }}>
+               <span style={{ 
+                 padding: '0.5rem 1.25rem', 
+                 borderRadius: '99px', 
+                 fontSize: '0.875rem', 
+                 fontWeight: 600,
+                 backgroundColor: !tag ? 'var(--secondary)' : 'white',
+                 color: !tag ? 'white' : 'var(--text-muted)',
+                 border: '1px solid var(--border)',
+                 transition: 'all 0.2s'
+               }}>All Topics</span>
+             </Link>
+             {allTags.map(t => (
+               <Link key={t.id} href={`/blog?tag=${t.name}`} style={{ textDecoration: 'none' }}>
+                 <span style={{ 
+                   padding: '0.5rem 1.25rem', 
+                   borderRadius: '99px', 
+                   fontSize: '0.875rem', 
+                   fontWeight: 600,
+                   backgroundColor: tag === t.name ? 'var(--secondary)' : 'white',
+                   color: tag === t.name ? 'white' : 'var(--text-muted)',
+                   border: '1px solid var(--border)',
+                   transition: 'all 0.2s',
+                   display: 'flex',
+                   alignItems: 'center',
+                   gap: '0.35rem'
+                 }}><TagIcon size={14} /> {t.name}</span>
+               </Link>
+             ))}
+          </div>
+        )}
+
+        {(q || tag) && (
+          <div style={{ marginBottom: '2rem', textAlign: 'center' }}>
+            <h2 style={{ fontSize: '1.5rem', color: 'var(--primary)' }}>
+              {allPosts.length} Results for {q ? `"${q}"` : ''} {tag ? `in #${tag}` : ''}
+            </h2>
+            <Link href="/blog" style={{ color: 'var(--secondary)', fontSize: '0.9rem' }}>Clear all filters</Link>
+          </div>
+        )}
+
         {featuredPost && (
           <div className="featuredCard">
             {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -79,7 +160,7 @@ export default async function BlogPage() {
           </div>
         ) : (
           <div className="blogGrid">
-            {remainingPosts.map((post) => (
+            {listPosts.map((post) => (
               <article key={post.id} className="postCard">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img 
@@ -102,6 +183,18 @@ export default async function BlogPage() {
           </div>
         )}
       </main>
+
+      {/* Newsletter Section */}
+      <section style={{ backgroundColor: 'var(--primary)', padding: '5rem 0', marginTop: '5rem', color: 'white' }}>
+        <div className="container" style={{ textAlign: 'center', maxWidth: '700px' }}>
+          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stay Updated</h2>
+          <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', marginBottom: '2.5rem' }}>
+            Get the latest toxin-free research and guides delivered straight to your inbox. 
+            No spam, just evidence-based health insights.
+          </p>
+          <NewsletterForm />
+        </div>
+      </section>
 
       <footer className={styles.footer}>
         <div className="container">

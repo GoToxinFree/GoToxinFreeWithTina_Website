@@ -3,9 +3,10 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Save, Globe, Settings as SettingsIcon, Trash2 } from 'lucide-react';
+import { ArrowLeft, Save, Globe, Settings as SettingsIcon, Trash2, Eye } from 'lucide-react';
 import Editor from '@/components/admin/Editor';
 import EditorTips from '@/components/admin/EditorTips';
+import ArticlePreview from './ArticlePreview';
 import styles from '@/app/admin/layout.module.css';
 
 interface EditPostFormProps {
@@ -26,6 +27,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
   
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [error, setError] = useState('');
 
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -95,24 +97,46 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button 
-            onClick={handleDelete}
-            disabled={isDeleting || isSubmitting}
-            className={styles.logoutBtn}
-            style={{ backgroundColor: '#fee2e2', color: '#ef4444', border: '1px solid #fecaca', borderRadius: '8px', padding: '0.75rem 1.25rem' }}
+            type="button"
+            onClick={() => setShowPreview(true)}
+            className={styles.btnAction}
+            style={{ backgroundColor: 'white', color: 'var(--admin-primary)', border: '1px solid var(--admin-border)' }}
           >
-            {isDeleting ? 'Deleting...' : <Trash2 size={20} />}
+            <Eye size={20} /> Preview
           </button>
           
           <button 
+            type="button" 
+            onClick={handleDelete}
+            disabled={isDeleting}
+            className={styles.logoutBtn}
+            style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#ef4444' }}
+            title="Delete Article"
+          >
+            <Trash2 size={20} />
+          </button>
+
+          <button 
             type="submit" 
             form="post-form"
-            disabled={isSubmitting || isDeleting}
+            disabled={isSubmitting}
             className={styles.btnAction}
           >
             {isSubmitting ? 'Saving...' : <><Save size={20} /> Update Article</>}
           </button>
         </div>
       </header>
+
+      <ArticlePreview 
+        isOpen={showPreview} 
+        onClose={() => setShowPreview(false)} 
+        data={{
+          title: formData.title,
+          content: formData.content,
+          imageUrl: formData.imageUrl,
+          published: formData.published
+        }}
+      />
 
       {error && (
         <div style={{ padding: '1rem 1.5rem', backgroundColor: '#fee2e2', color: '#b91c1c', borderRadius: '8px', marginBottom: '2rem', border: '1px solid #fca5a5', display: 'flex', alignItems: 'center', gap: '0.75rem' }}>

@@ -9,6 +9,15 @@ export const authConfig = {
     }),
   ],
   callbacks: {
+    authorized({ auth, request: { nextUrl } }) {
+      const isLoggedIn = !!auth?.user;
+      const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+      if (isOnAdmin) {
+        if (isLoggedIn) return true;
+        return false; // Redirect unauthenticated users to login page
+      }
+      return true;
+    },
     async signIn({ user }) {
       const adminEmail = process.env.ADMIN_EMAIL || "drtinapramanik@gmail.com";
       // Only allow the whitelisted admin email to log in

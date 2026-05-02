@@ -1,70 +1,115 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import { PlusCircle, FileText, BarChart3, Clock, ArrowUpRight } from "lucide-react";
 import styles from './layout.module.css';
+import { PlusCircle, FileText, BarChart3, Clock, ArrowUpRight, MessageSquare, Eye, Users } from "lucide-react";
 
 export default async function AdminDashboard() {
   const postsCount = await prisma.post.count();
   const publishedCount = await prisma.post.count({ where: { published: true } });
-  const draftCount = postsCount - publishedCount;
+  
+  const totalViewsResult = await prisma.post.aggregate({
+    _sum: { views: true }
+  });
+  const totalViews = totalViewsResult._sum.views || 0;
+
+  const totalComments = await prisma.comment.count();
+  const pendingCommentsCount = await prisma.comment.count({ where: { status: 'pending' } });
+  const totalSubscribers = await prisma.subscriber.count({ where: { status: 'active' } });
+
+  const recentPosts = await prisma.post.findMany({
+    orderBy: { createdAt: 'desc' },
+    take: 5,
+    include: { _count: { select: { comments: true } } }
+  });
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Welcome back, Tina</h1>
-          <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '1.1rem' }}>Here's what's happening with your blog today.</p>
+          <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Dashboard</h1>
+          <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '1.1rem' }}>Welcome back, Dr. Tina. Here is your research impact.</p>
         </div>
-        <Link href="/admin/posts/new" className={styles.btnAction}>
-          <PlusCircle size={20} /> New Research Article
-        </Link>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          {pendingCommentsCount > 0 && (
+            <Link href="/admin/comments" className={styles.logoutBtn} style={{ backgroundColor: '#fef3c7', border: '1px solid #f59e0b', color: '#92400e', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1.25rem' }}>
+              <MessageSquare size={18} /> {pendingCommentsCount} Pending Comments
+            </Link>
+          )}
+          <Link href="/admin/posts/new" className={styles.btnAction}>
+            <PlusCircle size={20} /> New Research Article
+          </Link>
+        </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
         <StatCard 
-          title="Total Articles" 
+          title="Total Views" 
+          value={totalViews} 
+          icon={<Eye size={24} />} 
+          color="#3b82f6" 
+        />
+        <StatCard 
+          title="Articles" 
           value={postsCount} 
           icon={<FileText size={24} />} 
           color="var(--admin-secondary)" 
         />
         <StatCard 
-          title="Published Research" 
-          value={publishedCount} 
-          icon={<ArrowUpRight size={24} />} 
+          title="Comments" 
+          value={totalComments} 
+          icon={<MessageSquare size={24} />} 
           color="var(--admin-accent)" 
         />
         <StatCard 
-          title="Ongoing Drafts" 
-          value={draftCount} 
-          icon={<Clock size={24} />} 
-          color="var(--admin-text-muted)" 
+          title="Subscribers" 
+          value={totalSubscribers} 
+          icon={<Users size={24} />} 
+          color="#8b5cf6" 
         />
       </div>
 
       <div className={styles.card} style={{ padding: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <BarChart3 size={24} /> Recent Activity
+            <Clock size={24} /> Recent Activity
           </h2>
           <Link href="/admin/posts" style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--admin-secondary)', textDecoration: 'none' }}>
-            View All Articles &rarr;
+            View All &rarr;
           </Link>
         </div>
 
-        {postsCount === 0 ? (
+        {recentPosts.length === 0 ? (
           <div style={{ textAlign: 'center', padding: '4rem 0' }}>
-            <div style={{ width: '64px', height: '64px', backgroundColor: 'var(--admin-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 1.5rem', color: 'var(--admin-text-muted)' }}>
-              <FileText size={32} />
-            </div>
-            <h3 style={{ margin: 0, color: 'var(--admin-primary)' }}>No articles yet</h3>
-            <p style={{ color: 'var(--admin-text-muted)', marginBottom: '1.5rem' }}>Start your first research article to see activity here.</p>
-            <Link href="/admin/posts/new" className={styles.btnAction}>
-              Start Writing
-            </Link>
+            <h3 style={{ margin: 0, color: 'var(--admin-primary)' }}>No activity yet</h3>
           </div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-             <p style={{ color: 'var(--admin-text-muted)' }}>You have {postsCount} articles in your database. Head over to the Articles tab to manage them.</p>
+            {recentPosts.map(post => (
+              <div key={post.id} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '1rem', backgroundColor: 'var(--admin-bg)', borderRadius: '12px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+                   <div style={{ width: '40px', height: '40px', borderRadius: '8px', backgroundColor: 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'var(--admin-secondary)' }}>
+                     <FileText size={20} />
+                   </div>
+                   <div>
+                     <div style={{ fontWeight: 700, color: 'var(--admin-primary)' }}>{post.title}</div>
+                     <div style={{ fontSize: '0.75rem', color: 'var(--admin-text-muted)' }}>{new Date(post.createdAt).toLocaleDateString()} &bull; {post.published ? 'Published' : 'Draft'}</div>
+                   </div>
+                </div>
+                <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--admin-primary)' }}>{post.views}</div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--admin-text-muted)', textTransform: 'uppercase' }}>Views</div>
+                  </div>
+                  <div style={{ textAlign: 'right' }}>
+                    <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--admin-primary)' }}>{post._count.comments}</div>
+                    <div style={{ fontSize: '0.65rem', color: 'var(--admin-text-muted)', textTransform: 'uppercase' }}>Comments</div>
+                  </div>
+                  <Link href={`/admin/posts/edit/${post.id}`} className={styles.logoutBtn} style={{ backgroundColor: 'white' }}>
+                    <ArrowUpRight size={18} />
+                  </Link>
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </div>

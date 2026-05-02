@@ -49,16 +49,19 @@
   margin: 2rem 0;
 }
 
-.prose-content .video-container {
+.prose-content .video-container,
+.prose-content [data-youtube-video] {
   position: relative;
-  padding-bottom: 56.25%;
+  padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
   height: 0;
   overflow: hidden;
-  margin: 2rem 0;
-  border-radius: 12px;
+  margin: 2.5rem 0;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
 }
 
-.prose-content .video-container iframe {
+.prose-content .video-container iframe,
+.prose-content [data-youtube-video] iframe {
   position: absolute;
   top: 0;
   left: 0;

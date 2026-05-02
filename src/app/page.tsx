@@ -13,10 +13,23 @@ async function getLatestPosts() {
 }
 
 export default async function Home() {
-  const posts = await getLatestPosts();
+  let posts: any[] = [];
+  let fetchError = null;
+
+  try {
+    posts = await getLatestPosts();
+  } catch (err: any) {
+    console.error("Home page fetch error:", err);
+    fetchError = err.message;
+  }
 
   return (
     <div className={styles.main}>
+      {fetchError && (
+        <div style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '1rem', textAlign: 'center', fontSize: '0.9rem' }}>
+          Database Error: {fetchError}. Please ensure the database is initialized.
+        </div>
+      )}
       {/* Header */}
       <header className={styles.header}>
         <div className={`container ${styles.headerContainer}`}>
