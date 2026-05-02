@@ -3,35 +3,34 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
-import { ArrowLeft, Save, Globe, Eye, Layout, Settings as SettingsIcon } from 'lucide-react';
+import { ArrowLeft, Save, Globe, Settings as SettingsIcon, Trash2 } from 'lucide-react';
 import Editor from '@/components/admin/Editor';
 import EditorTips from '@/components/admin/EditorTips';
-import styles from '../../layout.module.css';
+import styles from '@/app/admin/layout.module.css';
 
-export default function NewPostPage() {
+interface EditPostFormProps {
+  post: any;
+}
+
+export default function EditPostForm({ post }: EditPostFormProps) {
   const router = useRouter();
   
   const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    excerpt: '',
-    content: '',
-    imageUrl: '',
-    published: false,
+    title: post.title,
+    slug: post.slug,
+    excerpt: post.excerpt || '',
+    content: post.content,
+    imageUrl: post.imageUrl || '',
+    published: post.published,
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState('');
 
-  // Auto-generate slug from title
   const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const title = e.target.value;
-    const slug = title
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)+/g, '');
-      
-    setFormData({ ...formData, title, slug });
+    setFormData({ ...formData, title });
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -40,8 +39,8 @@ export default function NewPostPage() {
     setError('');
 
     try {
-      const res = await fetch('/api/posts', {
-        method: 'POST',
+      const res = await fetch(`/api/posts/${post.id}`, {
+        method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -51,7 +50,7 @@ export default function NewPostPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        throw new Error(data.error || 'Failed to create post');
+        throw new Error(data.error || 'Failed to update post');
       }
 
       router.push('/admin/posts');
@@ -59,6 +58,25 @@ export default function NewPostPage() {
     } catch (err: any) {
       setError(err.message);
       setIsSubmitting(false);
+    }
+  };
+
+  const handleDelete = async () => {
+    if (!confirm('Are you sure you want to delete this article? This action cannot be undone.')) return;
+    
+    setIsDeleting(true);
+    try {
+      const res = await fetch(`/api/posts/${post.id}`, {
+        method: 'DELETE',
+      });
+
+      if (!res.ok) throw new Error('Failed to delete post');
+
+      router.push('/admin/posts');
+      router.refresh();
+    } catch (err: any) {
+      alert(err.message);
+      setIsDeleting(false);
     }
   };
 
@@ -70,19 +88,28 @@ export default function NewPostPage() {
             <ArrowLeft size={20} />
           </Link>
           <div>
-            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>New Article</h1>
-            <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '0.875rem' }}>Drafting a new research insight</p>
+            <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Edit Article</h1>
+            <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '0.875rem' }}>Refining your research</p>
           </div>
         </div>
         
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button 
+            onClick={handleDelete}
+            disabled={isDeleting || isSubmitting}
+            className={styles.logoutBtn}
+            style={{ backgroundColor: '#fee2e2', color: '#ef4444', border: '1px solid #fecaca', borderRadius: '8px', padding: '0.75rem 1.25rem' }}
+          >
+            {isDeleting ? 'Deleting...' : <Trash2 size={20} />}
+          </button>
+          
+          <button 
             type="submit" 
             form="post-form"
-            disabled={isSubmitting}
+            disabled={isSubmitting || isDeleting}
             className={styles.btnAction}
           >
-            {isSubmitting ? 'Saving...' : <><Save size={20} /> Save Article</>}
+            {isSubmitting ? 'Saving...' : <><Save size={20} /> Update Article</>}
           </button>
         </div>
       </header>
@@ -94,7 +121,6 @@ export default function NewPostPage() {
       )}
 
       <form id="post-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2.5rem' }}>
-        {/* Main Editor Section */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div className={styles.card} style={{ padding: '2.5rem' }}>
             <input
@@ -126,10 +152,7 @@ export default function NewPostPage() {
           </div>
         </div>
 
-        {/* Sidebar Settings Section */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          
-          {/* Status Card */}
           <div className={styles.card} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <Globe size={18} /> Visibility
@@ -164,7 +187,6 @@ export default function NewPostPage() {
             </label>
           </div>
 
-          {/* Meta Card */}
           <div className={styles.card} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <SettingsIcon size={18} /> Configuration

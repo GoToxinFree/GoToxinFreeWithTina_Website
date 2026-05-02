@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { ArrowLeft } from 'lucide-react';
+import { ArrowLeft, Leaf } from 'lucide-react';
 import styles from './page.module.css';
 import headerStyles from '../page.module.css'; // Reusing header/footer styles
 
@@ -9,7 +9,8 @@ export default function About() {
       <header className={headerStyles.header}>
         <div className={`container ${headerStyles.headerContainer}`}>
           <Link href="/" className={headerStyles.logo}>
-            GoToxinFree<span style={{color: 'var(--secondary)'}}>WithTina</span>
+            <Leaf size={24} color="var(--accent)" />
+            GoToxinFree<span>WithTina</span>
           </Link>
           <nav className={headerStyles.nav}>
             <Link href="/" className={headerStyles.navLink}>Home</Link>

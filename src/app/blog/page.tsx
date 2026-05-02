@@ -1,21 +1,26 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
-import { ArrowLeft, Clock, User } from 'lucide-react';
+import { Clock, User, ArrowRight, FileText, Leaf } from 'lucide-react';
 import styles from '../page.module.css';
+import './listing.css';
 
 export default async function BlogPage() {
-  const posts = await prisma.post.findMany({
+  const allPosts = await prisma.post.findMany({
     where: { published: true },
     orderBy: { createdAt: 'desc' },
     include: { author: true }
   });
+
+  const featuredPost = allPosts[0];
+  const remainingPosts = allPosts.slice(1);
 
   return (
     <div style={{ backgroundColor: 'var(--surface)', minHeight: '100vh' }}>
       <header className={styles.header}>
         <div className={`container ${styles.headerContainer}`}>
           <Link href="/" className={styles.logo}>
-            GoToxinFree<span style={{color: 'var(--secondary)'}}>WithTina</span>
+            <Leaf size={24} color="var(--accent)" />
+            GoToxinFree<span>WithTina</span>
           </Link>
           <nav className={styles.nav}>
             <Link href="/" className={styles.navLink}>Home</Link>
@@ -26,42 +31,71 @@ export default async function BlogPage() {
         </div>
       </header>
 
-      <main className="container" style={{ padding: '4rem 0' }}>
-        <div style={{ marginBottom: '3rem' }}>
-          <h1 style={{ fontSize: '2.5rem', color: 'var(--primary)', marginBottom: '1rem' }}>Blog & Research</h1>
-          <p style={{ fontSize: '1.2rem', color: 'var(--text-muted)', maxWidth: '800px' }}>
-            In-depth analysis, product reviews, and evidence-based research on living a toxin-free life.
+      <section className="blogHero">
+        <div className="container blogHeroContent">
+          <span className="categoryTag" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'white', border: '1px solid rgba(255,255,255,0.2)' }}>
+            Research & Insights
+          </span>
+          <h1>The Knowledge Hub</h1>
+          <p>
+            Evidence-based research, in-depth chemical analysis, and practical guides 
+            for families pursuing a life free from environmental toxins.
           </p>
         </div>
+      </section>
 
-        {posts.length === 0 ? (
-          <div style={{ textAlign: 'center', padding: '5rem 0', backgroundColor: 'white', borderRadius: '8px', border: '1px solid var(--border)' }}>
-            <h2 style={{ color: 'var(--primary)' }}>No articles published yet</h2>
-            <p style={{ color: 'var(--text-muted)' }}>Check back soon for new research and insights.</p>
-            <Link href="/" className="btn-primary" style={{ marginTop: '1.5rem', display: 'inline-block' }}>Back to Home</Link>
+      <main className="container">
+        {featuredPost && (
+          <div className="featuredCard">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img 
+              src={featuredPost.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200"} 
+              alt={featuredPost.title} 
+              className="featuredImage"
+            />
+            <div className="featuredContent">
+              <span className="categoryTag">Latest Research</span>
+              <div className="postMeta">
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><Clock size={16} /> {new Date(featuredPost.createdAt).toLocaleDateString()}</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}><User size={16} /> {featuredPost.author.name || 'Tina'}</span>
+              </div>
+              <h2>{featuredPost.title}</h2>
+              <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem' }}>{featuredPost.excerpt || 'Read our latest in-depth analysis on this environmental health topic...'}</p>
+              <Link href={`/blog/${featuredPost.slug}`} className="btn-primary" style={{ width: 'fit-content', padding: '1rem 2rem' }}>
+                Read Full Research <ArrowRight size={20} />
+              </Link>
+            </div>
+          </div>
+        )}
+
+        {allPosts.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '10rem 0' }}>
+            <div style={{ width: '80px', height: '80px', backgroundColor: 'white', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 2rem', color: 'var(--secondary)', boxShadow: '0 10px 20px rgba(0,0,0,0.05)' }}>
+              <FileText size={40} />
+            </div>
+            <h2 style={{ color: 'var(--primary)', marginBottom: '1rem' }}>No research articles found</h2>
+            <p style={{ color: 'var(--text-muted)', maxWidth: '400px', margin: '0 auto 2rem' }}>Our team is currently finalizing new research papers. Please check back later.</p>
+            <Link href="/" className="btn-primary">Return Home</Link>
           </div>
         ) : (
-          <div className={styles.blogGrid}>
-            {posts.map((post) => (
-              <article key={post.id} className={styles.articleCard}>
-                <div className={styles.articleImage}>
-                  {post.imageUrl ? (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img src={post.imageUrl} alt={post.title} />
-                  ) : (
-                    <div style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'rgba(0, 166, 206, 0.05)', color: 'var(--secondary)' }}>
-                      <FileText size={48} />
-                    </div>
-                  )}
-                </div>
-                <div className={styles.articleContent}>
-                  <div style={{ display: 'flex', gap: '1rem', fontSize: '0.8rem', color: 'var(--text-muted)', marginBottom: '0.5rem' }}>
+          <div className="blogGrid">
+            {remainingPosts.map((post) => (
+              <article key={post.id} className="postCard">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} 
+                  alt={post.title} 
+                  className="postCardImage"
+                />
+                <div className="postCardContent">
+                  <div className="postMeta">
                     <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><Clock size={14} /> {new Date(post.createdAt).toLocaleDateString()}</span>
-                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}><User size={14} /> {post.author.name || 'Tina'}</span>
                   </div>
                   <h3>{post.title}</h3>
-                  <p>{post.excerpt || 'Read our latest research on this topic...'}</p>
-                  <Link href={`/blog/${post.slug}`} className={styles.readMore}>Read Full Article &rarr;</Link>
+                  <p>{post.excerpt || 'A summary of our latest findings and methodology...'}</p>
+                  <Link href={`/blog/${post.slug}`} className="postReadMore">
+                    Read Article <ArrowRight size={18} />
+                  </Link>
                 </div>
               </article>
             ))}
@@ -79,8 +113,3 @@ export default async function BlogPage() {
     </div>
   );
 }
-
-// Stub for Lucide component
-const FileText = ({ size }: { size: number }) => (
-  <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M10 9H8"/><path d="M16 13H8"/><path d="M16 17H8"/></svg>
-);

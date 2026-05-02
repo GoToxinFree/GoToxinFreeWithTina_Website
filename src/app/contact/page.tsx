@@ -1,7 +1,7 @@
 "use client";
 
 import Link from 'next/link';
-import { Mail, MapPin, Phone, ArrowLeft } from 'lucide-react';
+import { Mail, MapPin, Phone, ArrowLeft, Leaf } from 'lucide-react';
 import styles from './page.module.css';
 import headerStyles from '../page.module.css';
 
@@ -11,7 +11,8 @@ export default function Contact() {
       <header className={headerStyles.header}>
         <div className={`container ${headerStyles.headerContainer}`}>
           <Link href="/" className={headerStyles.logo}>
-            GoToxinFree<span style={{color: 'var(--secondary)'}}>WithTina</span>
+            <Leaf size={24} color="var(--accent)" />
+            GoToxinFree<span>WithTina</span>
           </Link>
           <nav className={headerStyles.nav}>
             <Link href="/" className={headerStyles.navLink}>Home</Link>

@@ -1,36 +1,20 @@
 import Link from "next/link";
 import { Leaf, ArrowRight } from "lucide-react";
 import styles from "./page.module.css";
+import { prisma } from "@/lib/prisma";
 
-// Mock data for the MVP based on research
-const MOCK_POSTS = [
-  {
-    id: "1",
-    title: "The Hidden Toxins in Your Daily Routine (And How to Avoid Them)",
-    excerpt: "From parabens in your shampoo to synthetic fragrances in your living room, learn practical steps to reduce your daily chemical exposure.",
-    date: "May 1, 2026",
-    category: "Personal Care",
-    image: "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"
-  },
-  {
-    id: "2",
-    title: "Why Indoor Dust is a Chemical Soup",
-    excerpt: "Research shows household dust acts as a magnet for flame retardants and pesticides. Discover simple ways to improve your indoor air quality.",
-    date: "April 28, 2026",
-    category: "Home Health",
-    image: "https://images.unsplash.com/photo-1621451537084-482c73073e0f?auto=format&fit=crop&q=80&w=600"
-  },
-  {
-    id: "3",
-    title: "Ditching PFAS: The Safest Cookware for Your Family",
-    excerpt: "Non-stick pans often contain forever chemicals. We review the latest studies and safest alternatives like cast iron and stainless steel.",
-    date: "April 20, 2026",
-    category: "Kitchen & Diet",
-    image: "https://images.unsplash.com/photo-1584820927498-cafe2c1c7669?auto=format&fit=crop&q=80&w=600"
-  }
-];
+// Fetch latest published articles from DB
+async function getLatestPosts() {
+  return await prisma.post.findMany({
+    where: { published: true },
+    orderBy: { createdAt: 'desc' },
+    take: 3,
+  });
+}
 
-export default function Home() {
+export default async function Home() {
+  const posts = await getLatestPosts();
+
   return (
     <div className={styles.main}>
       {/* Header */}
@@ -102,23 +86,28 @@ export default function Home() {
         </div>
 
         <div className="grid-3">
-          {MOCK_POSTS.map(post => (
-            <article key={post.id} className={styles.card}>
-              <div className={styles.cardImage}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={post.image} alt={post.title} />
-                <span className={styles.cardCategory}>{post.category}</span>
-              </div>
-              <div className={styles.cardContent}>
-                <time className={styles.cardDate}>{post.date}</time>
-                <h3 className={styles.cardTitle}>{post.title}</h3>
-                <p className={styles.cardExcerpt}>{post.excerpt}</p>
-                <Link href={`/blog/${post.id}`} className={styles.cardReadMore}>
-                  Read Full Article <ArrowRight size={16} />
-                </Link>
-              </div>
-            </article>
-          ))}
+          {posts.length === 0 ? (
+            <p style={{ gridColumn: '1 / -1', textAlign: 'center', color: 'var(--text-muted)', padding: '2rem' }}>
+              Our research team is currently preparing new insights. Check back soon!
+            </p>
+          ) : (
+            posts.map(post => (
+              <article key={post.id} className={styles.card}>
+                <div className={styles.cardImage}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} alt={post.title} />
+                </div>
+                <div className={styles.cardContent}>
+                  <time className={styles.cardDate}>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                  <h3 className={styles.cardTitle}>{post.title}</h3>
+                  <p className={styles.cardExcerpt}>{post.excerpt || post.content.substring(0, 150).replace(/<[^>]*>/g, '') + '...'}</p>
+                  <Link href={`/blog/${post.slug}`} className={styles.cardReadMore}>
+                    Read Full Article <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </article>
+            ))
+          )}
         </div>
       </main>
 

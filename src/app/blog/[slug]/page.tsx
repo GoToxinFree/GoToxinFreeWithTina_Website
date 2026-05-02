@@ -1,12 +1,15 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
-import { ArrowLeft, Clock, User, Share2 } from 'lucide-react';
+import { ArrowLeft, Clock, User, Share2, Leaf } from 'lucide-react';
 import styles from '../../page.module.css';
+import '../blog.css';
 
-export default async function BlogPostPage({ params }: { params: { slug: string } }) {
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  
   const post = await prisma.post.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
     include: { author: true }
   });
 
@@ -19,7 +22,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <header className={styles.header}>
         <div className={`container ${styles.headerContainer}`}>
           <Link href="/" className={styles.logo}>
-            GoToxinFree<span style={{color: 'var(--secondary)'}}>WithTina</span>
+            <Leaf size={24} color="var(--accent)" />
+            GoToxinFree<span>WithTina</span>
           </Link>
           <nav className={styles.nav}>
             <Link href="/" className={styles.navLink}>Home</Link>
@@ -39,7 +43,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
           {post.imageUrl && (
             <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', marginBottom: '2rem', aspectRatio: '21/9' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'crop' }} />
+              <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           )}
 
@@ -69,8 +73,8 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
             </div>
           </header>
 
-          <div style={{ fontSize: '1.2rem', lineHeight: 1.7, color: 'var(--text-main)', whiteSpace: 'pre-wrap' }}>
-            {post.content}
+          <div className="prose-content" style={{ fontSize: '1.2rem', lineHeight: 1.7, color: 'var(--text-main)' }}>
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
           </div>
         </article>
       </main>
