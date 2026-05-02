@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from 'react';
+import Link from 'next/link';
 import { Send, CheckCircle2 } from 'lucide-react';
 
 export default function NewsletterForm() {
@@ -21,7 +22,7 @@ export default function NewsletterForm() {
       });
 
       const data = await res.json();
-      
+
       if (res.ok) {
         setStatus('success');
         setMessage(data.message);
@@ -44,7 +45,7 @@ export default function NewsletterForm() {
           <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Success!</h3>
         </div>
         <p style={{ margin: 0, opacity: 0.9, fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>{message}</p>
-        <button 
+        <button
           onClick={() => setStatus('idle')}
           style={{ background: 'none', border: 'none', color: 'var(--secondary)', textAlign: 'left', padding: 0, cursor: 'pointer', fontSize: '0.85rem', marginTop: '0.5rem', textDecoration: 'underline' }}
         >
@@ -55,21 +56,23 @@ export default function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ position: 'relative', width: '100%', maxWidth: '400px' }}>
-      <input 
-        type="email" 
+    <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px' }}>
+      <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
+        <input
+          type="email"
         required
-        placeholder="Enter your email address" 
+        placeholder="Enter your email address"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         disabled={status === 'loading'}
-        style={{ 
-          width: '100%', 
-          padding: '1rem 3.5rem 1rem 1.5rem', 
-          borderRadius: '999px', 
-          border: '1px solid rgba(255,255,255,0.2)', 
+        style={{
+          display: 'block',
+          width: '100%',
+          padding: '1rem 3.5rem 1rem 1.5rem',
+          borderRadius: '999px',
+          border: '1px solid rgba(255,255,255,0.2)',
           backgroundColor: 'rgba(255,255,255,0.05)',
-          fontSize: '1rem', 
+          fontSize: '1rem',
           color: 'white',
           outline: 'none',
           transition: 'all 0.2s ease',
@@ -78,10 +81,10 @@ export default function NewsletterForm() {
         onFocus={(e) => e.target.style.borderColor = 'var(--secondary)'}
         onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.2)'}
       />
-      <button 
+      <button
         disabled={status === 'loading'}
         title="Subscribe"
-        style={{ 
+        style={{
           position: 'absolute',
           right: '0.4rem',
           top: '50%',
@@ -108,16 +111,21 @@ export default function NewsletterForm() {
           <Send size={16} style={{ marginLeft: '-2px' }} />
         )}
       </button>
+      </div>
       {status === 'error' && (
         <p style={{ marginTop: '0.75rem', color: '#fca5a5', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#fca5a5' }} />
           {message}
         </p>
       )}
-      
-      <style dangerouslySetInnerHTML={{__html: `
+
+      <style dangerouslySetInnerHTML={{
+        __html: `
         @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
       `}} />
+      <div style={{ marginTop: '0.75rem', textAlign: 'center', fontSize: '0.8rem', color: 'rgba(255,255,255,0.6)' }}>
+        By subscribing, you agree to our <Link href="/privacy" style={{ textDecoration: 'underline', color: 'inherit' }}>Privacy Policy</Link>.
+      </div>
     </form>
   );
 }

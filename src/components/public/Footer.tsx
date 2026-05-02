@@ -37,12 +37,18 @@ export default function Footer() {
       </div>
       
       <div className="container">
-        <div className={styles.footerBottom} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-          <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
-          <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login">
-            {/* Subtle Lock Icon */}
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </Link>
+        <div className={styles.footerBottom} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+            <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
+            <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login">
+              {/* Subtle Lock Icon */}
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            </Link>
+          </div>
+          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem' }}>
+            <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Privacy Policy</Link>
+            <Link href="/copyright" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>Terms & Copyright</Link>
+          </div>
         </div>
       </div>
     </footer>
