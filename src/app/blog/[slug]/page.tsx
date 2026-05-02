@@ -7,6 +7,9 @@ import '../blog.css';
 
 import CommentSection from '@/components/blog/CommentSection';
 
+import Header from '@/components/public/Header';
+import Footer from '@/components/public/Footer';
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   
@@ -38,20 +41,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
   return (
     <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
-      <header className={styles.header}>
-        <div className={`container ${styles.headerContainer}`}>
-          <Link href="/" className={styles.logo}>
-            <Leaf size={24} color="var(--accent)" />
-            GoToxinFree<span>WithTina</span>
-          </Link>
-          <nav className={styles.nav}>
-            <Link href="/" className={styles.navLink}>Home</Link>
-            <Link href="/blog" className={styles.navLink} style={{color: 'var(--secondary)'}}>Blog</Link>
-            <Link href="/about" className={styles.navLink}>About Tina</Link>
-            <Link href="/contact" className={styles.navLink}>Contact</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <main>
         <article className="container" style={{ padding: '4rem 0', maxWidth: '800px' }}>
@@ -132,13 +122,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         </section>
       </main>
 
-      <footer className={styles.footer} style={{ marginTop: '5rem' }}>
-        <div className="container">
-          <div className={styles.footerBottom} style={{ textAlign: 'center' }}>
-            &copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

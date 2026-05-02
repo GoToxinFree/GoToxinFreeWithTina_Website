@@ -5,6 +5,9 @@ import styles from '../page.module.css';
 import './listing.css';
 import NewsletterForm from '@/components/blog/NewsletterForm';
 
+import Header from '@/components/public/Header';
+import Footer from '@/components/public/Footer';
+
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ q?: string; tag?: string }> }) {
   const { q, tag } = await searchParams;
 
@@ -29,20 +32,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
 
   return (
     <div style={{ backgroundColor: 'var(--surface)', minHeight: '100vh' }}>
-      <header className={styles.header}>
-        <div className={`container ${styles.headerContainer}`}>
-          <Link href="/" className={styles.logo}>
-            <Leaf size={24} color="var(--accent)" />
-            GoToxinFree<span>WithTina</span>
-          </Link>
-          <nav className={styles.nav}>
-            <Link href="/" className={styles.navLink}>Home</Link>
-            <Link href="/about" className={styles.navLink}>About Tina</Link>
-            <Link href="/research" className={styles.navLink}>Methodology</Link>
-            <Link href="/contact" className={styles.navLink}>Contact</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className="blogHero">
         <div className="container blogHeroContent">
@@ -184,25 +174,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
         )}
       </main>
 
-      {/* Newsletter Section */}
-      <section style={{ backgroundColor: 'var(--primary)', padding: '5rem 0', marginTop: '5rem', color: 'white' }}>
-        <div className="container" style={{ textAlign: 'center', maxWidth: '700px' }}>
-          <h2 style={{ fontSize: '2.5rem', marginBottom: '1rem' }}>Stay Updated</h2>
-          <p style={{ fontSize: '1.1rem', color: 'rgba(255,255,255,0.7)', marginBottom: '2.5rem' }}>
-            Get the latest toxin-free research and guides delivered straight to your inbox. 
-            No spam, just evidence-based health insights.
-          </p>
-          <NewsletterForm />
-        </div>
-      </section>
-
-      <footer className={styles.footer}>
-        <div className="container">
-          <div className={styles.footerBottom} style={{ textAlign: 'center' }}>
-            &copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

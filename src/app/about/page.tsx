@@ -1,26 +1,13 @@
 import Link from 'next/link';
-import { ArrowLeft, Leaf } from 'lucide-react';
+import { ArrowLeft, BookOpen, FlaskConical, Search, ShieldCheck } from 'lucide-react';
 import styles from './page.module.css';
-import headerStyles from '../page.module.css'; // Reusing header/footer styles
+import Header from '@/components/public/Header';
+import Footer from '@/components/public/Footer';
 
 export default function About() {
   return (
     <div>
-      <header className={headerStyles.header}>
-        <div className={`container ${headerStyles.headerContainer}`}>
-          <Link href="/" className={headerStyles.logo}>
-            <Leaf size={24} color="var(--accent)" />
-            GoToxinFree<span>WithTina</span>
-          </Link>
-          <nav className={headerStyles.nav}>
-            <Link href="/" className={headerStyles.navLink}>Home</Link>
-            <Link href="/about" className={headerStyles.navLink} style={{color: 'var(--secondary)'}}>About Tina</Link>
-            <Link href="/research" className={headerStyles.navLink}>Methodology</Link>
-            <Link href="/contact" className={headerStyles.navLink}>Contact</Link>
-            <Link href="/#articles" className={headerStyles.navLink}>Articles</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className={styles.aboutHero}>
         <div className="container">
@@ -34,9 +21,8 @@ export default function About() {
           <ArrowLeft size={16} /> Back to Home
         </Link>
         
-        <div className={styles.aboutContent}>
+        <div className={styles.aboutContent} style={{ marginBottom: '5rem' }}>
           <div className={styles.imageContainer}>
-            {/* Placeholder for Tina's Headshot */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" alt="Tina, founder of Go Toxin Free" />
           </div>
@@ -57,16 +43,51 @@ export default function About() {
             </p>
           </div>
         </div>
+
+        {/* Methodology Section Merged */}
+        <div style={{ paddingTop: '2rem', borderTop: '1px solid var(--border)' }}>
+          <h2 style={{ fontSize: '2rem', color: 'var(--primary)', textAlign: 'center', marginBottom: '1rem' }}>My Research Methodology</h2>
+          <p className={styles.introText}>
+            As a researcher, I know that navigating the world of "green" and "natural" products is filled with greenwashing. Marketing claims mean nothing without empirical evidence. My process is designed to cut through the noise and deliver actionable, scientifically sound advice for a toxin-free life.
+          </p>
+
+          <div className={styles.methodologyGrid}>
+            <div className={styles.methodCard}>
+              <div className={styles.methodIcon}>
+                <BookOpen size={24} />
+              </div>
+              <h3>1. Scientific Literature Review</h3>
+              <p>I rely on peer-reviewed studies published in reputable medical and environmental science journals (e.g., PubMed, The Lancet). I do not base conclusions on isolated, non-replicated studies or brand-sponsored research.</p>
+            </div>
+
+            <div className={styles.methodCard}>
+              <div className={styles.methodIcon}>
+                <Search size={24} />
+              </div>
+              <h3>2. Ingredient Deep-Dives</h3>
+              <p>Every product recommended is subjected to a strict ingredient analysis. I cross-reference chemical compounds with databases like the EWG (Environmental Working Group) and the EPA's list of chemicals of concern.</p>
+            </div>
+
+            <div className={styles.methodCard}>
+              <div className={styles.methodIcon}>
+                <FlaskConical size={24} />
+              </div>
+              <h3>3. Independent Verification</h3>
+              <p>I prioritize products and materials that hold respected third-party certifications, such as MADE SAFE®, GOTS (Global Organic Textile Standard), and OEKO-TEX®, ensuring objective safety standards are met.</p>
+            </div>
+
+            <div className={styles.methodCard}>
+              <div className={styles.methodIcon}>
+                <ShieldCheck size={24} />
+              </div>
+              <h3>4. Zero Brand Interference</h3>
+              <p>My research is completely independent. I do not accept payment from brands to alter reviews or hide the presence of toxins. If a formulation changes, the review is updated immediately.</p>
+            </div>
+          </div>
+        </div>
       </main>
 
-      <footer className={headerStyles.footer}>
-        <div className={`container ${headerStyles.footerBottom}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-          <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
-          <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

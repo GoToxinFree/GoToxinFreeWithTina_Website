@@ -4,24 +4,13 @@ import Link from 'next/link';
 import { Mail, MapPin, Phone, ArrowLeft, Leaf } from 'lucide-react';
 import styles from './page.module.css';
 import headerStyles from '../page.module.css';
+import Header from '@/components/public/Header';
+import Footer from '@/components/public/Footer';
 
 export default function Contact() {
   return (
     <div>
-      <header className={headerStyles.header}>
-        <div className={`container ${headerStyles.headerContainer}`}>
-          <Link href="/" className={headerStyles.logo}>
-            <Leaf size={24} color="var(--accent)" />
-            GoToxinFree<span>WithTina</span>
-          </Link>
-          <nav className={headerStyles.nav}>
-            <Link href="/" className={headerStyles.navLink}>Home</Link>
-            <Link href="/about" className={headerStyles.navLink}>About Tina</Link>
-            <Link href="/research" className={headerStyles.navLink}>Methodology</Link>
-            <Link href="/contact" className={headerStyles.navLink} style={{color: 'var(--secondary)'}}>Contact</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       <section className={styles.contactHero}>
         <div className="container">
@@ -78,14 +67,7 @@ export default function Contact() {
         </div>
       </main>
 
-      <footer className={headerStyles.footer}>
-        <div className={`container ${headerStyles.footerBottom}`} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-          <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
-          <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login">
-            <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </Link>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

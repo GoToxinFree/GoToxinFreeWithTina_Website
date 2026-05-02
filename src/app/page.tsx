@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { Leaf, ArrowRight } from "lucide-react";
 import styles from "./page.module.css";
+import Header from "@/components/public/Header";
+import Footer from "@/components/public/Footer";
 import { prisma } from "@/lib/prisma";
 
 // Fetch latest published articles from DB
@@ -31,21 +33,7 @@ export default async function Home() {
         </div>
       )}
       {/* Header */}
-      <header className={styles.header}>
-        <div className={`container ${styles.headerContainer}`}>
-          <Link href="/" className={styles.logo}>
-            <Leaf size={24} color="var(--accent)" />
-            GoToxinFree<span>WithTina</span>
-          </Link>
-          <nav className={styles.nav}>
-            <Link href="/" className={styles.navLink}>Home</Link>
-            <Link href="/about" className={styles.navLink}>About Tina</Link>
-            <Link href="/research" className={styles.navLink}>Methodology</Link>
-            <Link href="/contact" className={styles.navLink}>Contact</Link>
-            <Link href="#articles" className={styles.navLink}>Latest Articles</Link>
-          </nav>
-        </div>
-      </header>
+      <Header />
 
       {/* Hero Section */}
       <section className={styles.hero}>
@@ -81,8 +69,8 @@ export default async function Home() {
               <Link href="/about" style={{ color: 'var(--secondary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
                 Learn more about my journey <ArrowRight size={16} />
               </Link>
-              <Link href="/research" style={{ color: 'var(--primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
-                View my methodology <ArrowRight size={16} />
+              <Link href="/contact" style={{ color: 'var(--primary)', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+                Get in touch <ArrowRight size={16} />
               </Link>
             </div>
           </div>
@@ -125,38 +113,7 @@ export default async function Home() {
       </main>
 
       {/* Footer */}
-      <footer className={styles.footer}>
-        <div className={`container ${styles.footerContent}`}>
-          <div className={styles.footerCol}>
-            <Link href="/" className={styles.logo} style={{ color: 'white', marginBottom: '1.5rem', display: 'inline-flex' }}>
-              <Leaf size={24} color="var(--accent)" />
-              GoToxinFree<span style={{ color: 'var(--secondary)' }}>WithTina</span>
-            </Link>
-            <p style={{ opacity: 0.8, maxWidth: '400px' }}>
-              Dedicated to eliminating toxic pollutants and ensuring a safe, sustainable environment for generations to come.
-            </p>
-          </div>
-          <div className={styles.footerCol}>
-            <h3>Quick Links</h3>
-            <ul className={styles.footerLinks}>
-              <li><Link href="/">Home</Link></li>
-              <li><Link href="/about">About Tina</Link></li>
-              <li><Link href="/research">Research Methodology</Link></li>
-              <li><Link href="/contact">Contact</Link></li>
-              <li><Link href="/blog">Blog & Research</Link></li>
-            </ul>
-          </div>
-        </div>
-        <div className="container">
-          <div className={styles.footerBottom} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '1rem' }}>
-            <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
-            <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login">
-              {/* Subtle Lock Icon */}
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-            </Link>
-          </div>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }

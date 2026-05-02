@@ -38,13 +38,15 @@ export default function NewsletterForm() {
 
   if (status === 'success') {
     return (
-      <div style={{ padding: '2rem', backgroundColor: 'rgba(255,255,255,0.1)', borderRadius: '12px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
-        <CheckCircle2 size={48} color="#10b981" />
-        <h3 style={{ margin: 0, fontSize: '1.25rem' }}>Success!</h3>
-        <p style={{ margin: 0, opacity: 0.8 }}>{message}</p>
+      <div style={{ padding: '1.5rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981' }}>
+          <CheckCircle2 size={20} />
+          <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Success!</h3>
+        </div>
+        <p style={{ margin: 0, opacity: 0.9, fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>{message}</p>
         <button 
           onClick={() => setStatus('idle')}
-          style={{ background: 'none', border: '1px solid white', color: 'white', padding: '0.5rem 1rem', borderRadius: '4px', cursor: 'pointer', fontSize: '0.8rem', marginTop: '1rem' }}
+          style={{ background: 'none', border: 'none', color: 'var(--secondary)', textAlign: 'left', padding: 0, cursor: 'pointer', fontSize: '0.85rem', marginTop: '0.5rem', textDecoration: 'underline' }}
         >
           Subscribe another email
         </button>
@@ -53,28 +55,69 @@ export default function NewsletterForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div style={{ display: 'flex', gap: '0.5rem', maxWidth: '500px', margin: '0 auto' }}>
-        <input 
-          type="email" 
-          required
-          placeholder="Enter your email address" 
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          disabled={status === 'loading'}
-          style={{ flexGrow: 1, padding: '1rem 1.5rem', borderRadius: '8px', border: 'none', fontSize: '1rem', color: 'var(--primary)' }}
-        />
-        <button 
-          disabled={status === 'loading'}
-          className="btn-secondary" 
-          style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', backgroundColor: status === 'loading' ? 'rgba(255,255,255,0.5)' : undefined }}
-        >
-          {status === 'loading' ? 'Joining...' : <>{'Subscribe'} <Send size={18} /></>}
-        </button>
-      </div>
+    <form onSubmit={handleSubmit} style={{ position: 'relative', width: '100%', maxWidth: '400px' }}>
+      <input 
+        type="email" 
+        required
+        placeholder="Enter your email address" 
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        disabled={status === 'loading'}
+        style={{ 
+          width: '100%', 
+          padding: '1rem 3.5rem 1rem 1.5rem', 
+          borderRadius: '999px', 
+          border: '1px solid rgba(255,255,255,0.2)', 
+          backgroundColor: 'rgba(255,255,255,0.05)',
+          fontSize: '1rem', 
+          color: 'white',
+          outline: 'none',
+          transition: 'all 0.2s ease',
+          boxShadow: 'inset 0 2px 4px rgba(0,0,0,0.1)'
+        }}
+        onFocus={(e) => e.target.style.borderColor = 'var(--secondary)'}
+        onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.2)'}
+      />
+      <button 
+        disabled={status === 'loading'}
+        title="Subscribe"
+        style={{ 
+          position: 'absolute',
+          right: '0.4rem',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          backgroundColor: 'var(--secondary)',
+          color: 'white',
+          border: 'none',
+          width: '2.6rem',
+          height: '2.6rem',
+          borderRadius: '50%',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          cursor: 'pointer',
+          opacity: status === 'loading' ? 0.7 : 1,
+          transition: 'background-color 0.2s ease'
+        }}
+        onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary-hover)'}
+        onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
+      >
+        {status === 'loading' ? (
+          <div style={{ width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
+        ) : (
+          <Send size={16} style={{ marginLeft: '-2px' }} />
+        )}
+      </button>
       {status === 'error' && (
-        <p style={{ marginTop: '1rem', color: '#fecaca', fontSize: '0.9rem' }}>{message}</p>
+        <p style={{ marginTop: '0.75rem', color: '#fca5a5', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+          <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#fca5a5' }} />
+          {message}
+        </p>
       )}
+      
+      <style dangerouslySetInnerHTML={{__html: `
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+      `}} />
     </form>
   );
 }

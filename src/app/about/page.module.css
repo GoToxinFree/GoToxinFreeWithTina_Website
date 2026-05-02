@@ -61,3 +61,50 @@
     gap: 2rem;
   }
 }
+
+.methodologyGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 3rem;
+}
+
+.methodCard {
+  background: white;
+  border: 1px solid var(--border);
+  padding: 2rem;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+}
+
+.methodIcon {
+  width: 48px;
+  height: 48px;
+  background-color: var(--surface);
+  color: var(--secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.methodCard h3 {
+  color: var(--primary);
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.methodCard p {
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+.introText {
+  font-size: 1.15rem;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  color: var(--text-main);
+}
