@@ -108,7 +108,7 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Discussion Moderation</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Engage with your community and moderate research feedback</p>
         </div>
-        <button onClick={refetchComments} disabled={isRefreshing} style={{ background: 'none', border: '1px solid var(--admin-border)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.875rem', color: 'var(--admin-text-muted)' }}>
+        <button onClick={refetchComments} disabled={isRefreshing} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
           {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
         </button>
       </div>
@@ -176,13 +176,13 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button onClick={() => updateStatus(c.id, 'approved')} className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid #dcfce7', color: '#166534' }} title="Approve">
+                    <button onClick={() => updateStatus(c.id, 'approved')} className={`${styles.btnIcon} ${styles.btnApprove}`} title="Approve">
                       <CheckCircle size={18} />
                     </button>
-                    <button onClick={() => updateStatus(c.id, 'spam')} className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#991b1b' }} title="Mark as Spam">
+                    <button onClick={() => updateStatus(c.id, 'spam')} className={`${styles.btnIcon} ${styles.btnSpam}`} title="Mark as Spam">
                       <Flag size={18} />
                     </button>
-                    <button onClick={() => deleteComment(c.id)} className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#ef4444' }} title="Delete">
+                    <button onClick={() => deleteComment(c.id)} className={`${styles.btnIcon} ${styles.btnDelete}`} title="Delete">
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -229,7 +229,7 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
               style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--admin-border)', fontSize: '1rem', marginBottom: '1.5rem', resize: 'none' }}
             />
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-              <button onClick={() => setReplyingTo(null)} className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}>Cancel</button>
+              <button onClick={() => setReplyingTo(null)} className={styles.btnOutline}>Cancel</button>
               <button onClick={handleReply} className={styles.btnAction}>Send Reply</button>
             </div>
           </div>

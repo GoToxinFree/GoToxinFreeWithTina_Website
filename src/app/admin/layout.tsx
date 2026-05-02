@@ -102,7 +102,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div /> 
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <button onClick={() => signOut({ callbackUrl: '/' })} className={styles.logoutBtn} title="Sign Out">
+            <button onClick={() => signOut({ callbackUrl: '/' })} className={styles.btnIcon} title="Sign Out">
               <LogOut size={22} />
             </button>
           </div>

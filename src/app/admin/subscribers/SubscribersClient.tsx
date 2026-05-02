@@ -83,12 +83,12 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Newsletter Subscribers</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Manage your community and outreach</p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem' }}>
-          <button onClick={refetch} disabled={isRefreshing} style={{ background: 'none', border: '1px solid var(--admin-border)', padding: '0.5rem 1rem', borderRadius: '8px', cursor: 'pointer', fontSize: '0.875rem', color: 'var(--admin-text-muted)' }}>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <button onClick={refetch} disabled={isRefreshing} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
           </button>
-          <button onClick={exportCSV} className={styles.btnAction} style={{ backgroundColor: 'white', color: 'var(--admin-primary)', border: '1px solid var(--admin-border)' }}>
-            <Download size={18} /> Export List
+          <button onClick={exportCSV} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+            <Download size={16} /> Export CSV
           </button>
         </div>
       </div>
@@ -152,19 +152,17 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
                     <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
                       <button
                         onClick={() => toggleStatus(s.id, s.status)}
-                        className={styles.logoutBtn}
-                        style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}
+                        className={styles.btnIcon}
                         title={s.status === 'active' ? 'Unsubscribe' : 'Reactivate'}
                       >
                         {s.status === 'active' ? <UserMinus size={18} /> : <UserCheck size={18} />}
                       </button>
                       <button
                         onClick={() => deleteSubscriber(s.id)}
-                        className={styles.logoutBtn}
-                        style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#ef4444' }}
-                        title="Remove Subscriber"
+                        className={`${styles.btnIcon} ${styles.btnDelete}`}
+                        title="Delete subscriber"
                       >
-                        <Trash2 size={18} />
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </td>

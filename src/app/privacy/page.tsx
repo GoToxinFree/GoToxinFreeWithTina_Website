@@ -8,7 +8,7 @@ export default function PrivacyPolicy() {
     <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
       <Header />
       <main className="container" style={{ padding: '4rem 0', maxWidth: '800px' }}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem', color: 'var(--text-muted)', textDecoration: 'none' }}>
+        <Link href="/" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem' }}>
           <ArrowLeft size={16} /> Back to Home
         </Link>
         

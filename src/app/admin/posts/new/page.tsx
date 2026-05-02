@@ -68,7 +68,7 @@ export default function NewPostPage() {
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <Link href="/admin/posts" className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}>
+          <Link href="/admin/posts" className={styles.btnOutline}>
             <ArrowLeft size={20} />
           </Link>
           <div>
@@ -79,10 +79,9 @@ export default function NewPostPage() {
         
         <div style={{ display: 'flex', gap: '1rem' }}>
           <button 
-            type="button"
-            onClick={() => setShowPreview(true)}
-            className={styles.btnAction}
-            style={{ backgroundColor: 'white', color: 'var(--admin-primary)', border: '1px solid var(--admin-border)' }}
+            type="button" 
+            onClick={() => setShowPreview(true)} 
+            className={styles.btnOutline}
           >
             <Eye size={20} /> Preview
           </button>

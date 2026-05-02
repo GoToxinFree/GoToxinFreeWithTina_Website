@@ -81,7 +81,7 @@ function LoginForm() {
       </form>
 
       <div style={{ marginTop: '2rem' }}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.25rem', color: 'var(--text-muted)', fontSize: '0.875rem' }}>
+        <Link href="/" className="btn-ghost" style={{ fontSize: '0.875rem' }}>
           <ArrowLeft size={14} /> Back to Homepage
         </Link>
       </div>

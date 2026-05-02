@@ -151,13 +151,91 @@
   text-decoration: none;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
-  transition: all 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
+  transform: translateY(0);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.btnAction:hover {
+.btnAction:hover:not(:disabled) {
   background: var(--admin-primary);
-  box-shadow: 0 4px 12px rgba(0, 78, 100, 0.2);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(0, 78, 100, 0.2);
 }
+
+.btnAction:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btnAction:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btnOutline {
+  background: white;
+  color: var(--admin-primary);
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid var(--admin-border);
+  cursor: pointer;
+  transform: translateY(0);
+}
+
+.btnOutline:hover:not(:disabled) {
+  background: white;
+  border-color: var(--admin-primary);
+  color: var(--admin-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.btnOutline:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btnIcon {
+  background: white;
+  border: 1px solid var(--admin-border);
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateY(0);
+}
+
+.btnIcon:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+}
+
+.btnIcon:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: none;
+}
+
+.btnApprove { border-color: #dcfce7; color: #166534; }
+.btnApprove:hover:not(:disabled) { background-color: #dcfce7; border-color: #bbf7d0; }
+
+.btnSpam { border-color: #ffedd5; color: #c2410c; }
+.btnSpam:hover:not(:disabled) { background-color: #ffedd5; border-color: #fed7aa; }
+
+.btnDelete { border-color: #fee2e2; color: #ef4444; }
+.btnDelete:hover:not(:disabled) { background-color: #fee2e2; border-color: #fecaca; }

@@ -17,7 +17,7 @@ export default function About() {
       </section>
 
       <main className={`container ${styles.aboutMain}`}>
-        <Link href="/" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem', color: 'var(--text-muted)' }}>
+        <Link href="/" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem' }}>
           <ArrowLeft size={16} /> Back to Home
         </Link>
         

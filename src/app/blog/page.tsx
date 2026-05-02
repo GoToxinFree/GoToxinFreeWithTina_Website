@@ -132,7 +132,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
               </div>
               <h2>{featuredPost.title}</h2>
               <p style={{ fontSize: '1.1rem', marginBottom: '2.5rem' }}>{featuredPost.excerpt || 'Read our latest in-depth analysis on this environmental health topic...'}</p>
-              <Link href={`/blog/${featuredPost.slug}`} className="btn-primary" style={{ width: 'fit-content', padding: '1rem 2rem' }}>
+              <Link href={`/blog/${featuredPost.slug}`} className="btn-primary" style={{ width: 'fit-content', display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
                 Read Full Research <ArrowRight size={20} />
               </Link>
             </div>
@@ -164,7 +164,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
                   </div>
                   <h3>{post.title}</h3>
                   <p>{post.excerpt || 'A summary of our latest findings and methodology...'}</p>
-                  <Link href={`/blog/${post.slug}`} className="postReadMore">
+                  <Link href={`/blog/${post.slug}`} className="btn-outline" style={{ width: 'fit-content', marginTop: '1rem' }}>
                     Read Article <ArrowRight size={18} />
                   </Link>
                 </div>

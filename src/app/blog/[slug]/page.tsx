@@ -45,7 +45,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
       <main>
         <article className="container" style={{ padding: '4rem 0', maxWidth: '800px' }}>
-          <Link href="/blog" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2rem', color: 'var(--text-muted)', fontSize: '0.9rem', textDecoration: 'none' }}>
+          <Link href="/blog" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem', fontSize: '0.9rem' }}>
             <ArrowLeft size={16} /> Back to Blog
           </Link>
 
@@ -110,8 +110,8 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                     <img src={related.imageUrl || ""} alt={related.title} style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '12px 12px 0 0' }} />
                     <div style={{ padding: '1.5rem' }}>
                       <h3 style={{ fontSize: '1.1rem', margin: '0 0 0.75rem 0' }}>{related.title}</h3>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-muted)', fontSize: '0.8rem' }}>
-                        <ArrowRight size={14} /> Read Full Insight
+                      <div className="btn-outline" style={{ fontSize: '0.8rem', padding: '0.4rem 0.8rem', marginTop: '0.5rem', width: 'fit-content' }}>
+                        Read Full Insight <ArrowRight size={14} />
                       </div>
                     </div>
                   </div>
