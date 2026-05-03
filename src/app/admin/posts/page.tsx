@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { PlusCircle, Edit, Trash2, Eye } from "lucide-react";
 import styles from "../layout.module.css";
+import BackupButton from "./BackupButton";
 
 export default async function AdminPostsPage() {
   const posts = await prisma.post.findMany({
@@ -13,9 +14,12 @@ export default async function AdminPostsPage() {
     <div>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
         <h1 style={{ fontSize: '2rem', color: 'var(--primary)' }}>Articles</h1>
-        <Link href="/admin/posts/new" className={styles.btnAction}>
-          <PlusCircle size={20} /> New Article
-        </Link>
+        <div style={{ display: 'flex', gap: '1rem' }}>
+          <BackupButton />
+          <Link href="/admin/posts/new" className={styles.btnAction}>
+            <PlusCircle size={20} /> New Article
+          </Link>
+        </div>
       </div>
 
       <div style={{ background: 'white', borderRadius: '8px', border: '1px solid var(--border)', overflow: 'hidden' }}>

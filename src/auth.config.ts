@@ -1,17 +1,20 @@
 import type { NextAuthConfig } from "next-auth"
-import Nodemailer from "next-auth/providers/nodemailer"
 
+// IMPORTANT: This file must remain edge-compatible.
+// Do NOT import Nodemailer, Prisma, or any Node.js-only modules here.
+// Providers are added in auth.ts which runs in the Node.js runtime only.
 export const authConfig = {
-  providers: [
-    Nodemailer({
-      server: process.env.EMAIL_SERVER,
-      from: process.env.EMAIL_FROM,
-    }),
-  ],
+  providers: [], // Providers are added in auth.ts
   callbacks: {
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user;
+      const isOnAdminApi = nextUrl.pathname.startsWith('/api/admin');
       const isOnAdmin = nextUrl.pathname.startsWith('/admin');
+
+      if (isOnAdminApi) {
+        // Return false for API routes — NextAuth will respond with 401 JSON automatically
+        return isLoggedIn;
+      }
       if (isOnAdmin) {
         if (isLoggedIn) return true;
         return false; // Redirect unauthenticated users to login page

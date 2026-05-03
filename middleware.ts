@@ -1,9 +1,14 @@
-import { NextResponse } from 'next/server'
+import NextAuth from "next-auth"
+import { authConfig } from "@/auth.config"
 
-export default function middleware() {
-  return NextResponse.next()
-}
+// Use the edge-compatible config (no PrismaAdapter) for middleware
+export const { auth: middleware } = NextAuth(authConfig)
 
 export const config = {
-  matcher: ['/((?!api|_next/static|_next/image|favicon.ico).*)'],
+  matcher: [
+    // Protect all /admin pages
+    '/admin/:path*',
+    // Protect all /api/admin routes
+    '/api/admin/:path*',
+  ],
 }
