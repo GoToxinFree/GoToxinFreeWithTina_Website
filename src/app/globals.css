@@ -16,6 +16,19 @@
   
   /* Layout */
   --container-width: 1200px;
+
+  /* Admin Portal Variables (moved from layout.module.css — :root not valid in CSS Modules) */
+  --admin-sidebar-width: 280px;
+  --admin-bg: #f8fafc;
+  --admin-card-bg: #ffffff;
+  --admin-primary: #004e64;
+  --admin-secondary: #00a6ce;
+  --admin-accent: #10b981;
+  --admin-text-main: #1e293b;
+  --admin-text-muted: #64748b;
+  --admin-border: #e2e8f0;
+  --admin-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --admin-radius: 12px;
 }
 
 * {
