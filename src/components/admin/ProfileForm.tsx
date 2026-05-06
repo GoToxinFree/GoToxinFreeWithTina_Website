@@ -71,17 +71,48 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
       </div>
 
       <div>
-        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>Profile Photo URL</label>
-        <input
-          type="url"
-          value={formData.image}
-          onChange={(e) => setFormData({ ...formData, image: e.target.value })}
-          placeholder="https://..."
-          style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--admin-border)', outline: 'none' }}
-        />
-        <p style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--admin-text-muted)' }}>
-          Provide a URL to your professional headshot or avatar.
-        </p>
+        <label style={{ display: 'block', marginBottom: '0.5rem', fontWeight: 600, fontSize: '0.9rem' }}>Profile Photo</label>
+        <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
+          <div style={{ width: '80px', height: '80px', borderRadius: '20px', overflow: 'hidden', backgroundColor: 'var(--admin-secondary)', border: '1px solid var(--admin-border)' }}>
+            {formData.image ? (
+               // eslint-disable-next-line @next/next/no-img-element
+              <img src={formData.image} alt="Profile preview" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            ) : (
+              <div style={{ width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white' }}>
+                No Image
+              </div>
+            )}
+          </div>
+          <div style={{ flex: 1 }}>
+            <input
+              type="file"
+              accept="image/*"
+              onChange={async (e) => {
+                const file = e.target.files?.[0];
+                if (!file) return;
+
+                const data = new FormData();
+                data.append('file', file);
+
+                try {
+                  const res = await fetch('/api/admin/profile/upload', {
+                    method: 'POST',
+                    body: data,
+                  });
+                  if (!res.ok) throw new Error('Upload failed');
+                  const { url } = await res.json();
+                  setFormData({ ...formData, image: url });
+                } catch (err: any) {
+                  setStatus({ type: 'error', message: err.message });
+                }
+              }}
+              style={{ width: '100%', padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--admin-border)', outline: 'none' }}
+            />
+            <p style={{ marginTop: '0.5rem', fontSize: '0.75rem', color: 'var(--admin-text-muted)' }}>
+              Select a new profile photo to replace the current one. This photo will be shown on the website instantly.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div style={{ marginTop: '1rem' }}>

@@ -16,14 +16,19 @@ async function getLatestPosts() {
 
 export default async function Home() {
   let posts: any[] = [];
+  let user: any = null;
   let fetchError = null;
 
   try {
     posts = await getLatestPosts();
+    // Fetch the admin user to get their profile photo
+    user = await prisma.user.findFirst();
   } catch (err: any) {
     console.error("Home page fetch error:", err);
     fetchError = err.message;
   }
+
+  const ownerImage = user?.image || "/owner.jpeg";
 
   return (
     <div className={styles.main}>
@@ -38,9 +43,9 @@ export default async function Home() {
       {/* Hero Section */}
       <section className={styles.hero}>
         <div className={`container ${styles.heroContent}`}>
-          <h1 className="animate-fade-in">Hi, I'm Tina. Let's live toxin-free.</h1>
+          <h1 className="animate-fade-in">Hi, I'm Dr. Tina (Ph.D)</h1>
           <p className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            I'm a researcher and advocate dedicated to uncovering the truth about everyday chemicals. Join me in creating a healthier, safer environment for our families.
+            Decoding the science of everyday chemicals so you don't have to. Let's navigate the noise and build a cleaner, safer, and truly toxin-free life together.
           </p>
           <div className={`${styles.heroButtons} animate-fade-in`} style={{ animationDelay: "0.2s" }}>
             <Link href="#articles" className="btn-primary">
@@ -58,7 +63,7 @@ export default async function Home() {
         <div className="container" style={{ display: 'flex', gap: '3rem', alignItems: 'center', maxWidth: '900px' }}>
           <div style={{ flexShrink: 0, width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Tina" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={ownerImage} alt="Tina" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Welcome to my corner of the internet</h2>

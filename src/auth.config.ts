@@ -22,7 +22,7 @@ export const authConfig = {
       return true;
     },
     async signIn({ user }) {
-      const adminEmail = process.env.ADMIN_EMAIL || "drtinapramanik@gmail.com";
+      const adminEmail = process.env.ADMIN_EMAIL || "drsupriti@gotoxinfreewithtina.com";
       // Only allow the whitelisted admin email to log in
       if (user.email?.toLowerCase() === adminEmail.toLowerCase()) {
         return true;

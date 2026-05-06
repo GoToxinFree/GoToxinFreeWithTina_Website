@@ -33,7 +33,7 @@ export default function Contact() {
 
             <div className={styles.infoItem}>
               <Mail className={styles.infoIcon} size={24} />
-              <span>tina@gotoxinfreewithtina.com</span>
+              <span>drsupriti@gotoxinfreewithtina.com</span>
             </div>
             <div className={styles.infoItem}>
               <Phone className={styles.infoIcon} size={24} />
@@ -41,7 +41,13 @@ export default function Contact() {
             </div>
             <div className={styles.infoItem}>
               <MapPin className={styles.infoIcon} size={24} />
-              <span>1-1-6-1406 UR Oyata , Adachi-ku, Tokyo, Japan, 120-0001</span>
+              <span>Tokyo, Japan -120 0001</span>
+            </div>
+            <div className={styles.infoItem} style={{ marginTop: '1rem' }}>
+              <a href="https://jp.linkedin.com/in/supritidas" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'inherit', textDecoration: 'none' }}>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={styles.infoIcon}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
+                <span>LinkedIn Profile</span>
+              </a>
             </div>
           </div>
 

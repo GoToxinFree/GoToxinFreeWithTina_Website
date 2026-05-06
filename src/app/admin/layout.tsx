@@ -1,11 +1,11 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { signOut } from 'next-auth/react';
 import { 
   LayoutDashboard, FileText, 
-  Settings, LogOut, Home, 
+  Settings, Home, 
   Leaf, ChevronRight, User as UserIcon,
   MessageSquare, Users
 } from 'lucide-react';
@@ -13,6 +13,16 @@ import styles from './layout.module.css';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [profile, setProfile] = useState<{ name?: string | null, image?: string | null, email?: string | null } | null>(null);
+
+  useEffect(() => {
+    fetch('/api/admin/profile')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (data) setProfile(data);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <div className={styles.adminContainer}>
@@ -85,12 +95,17 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             alignItems: 'center',
             gap: '0.75rem'
           }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '8px', backgroundColor: 'var(--admin-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <UserIcon size={18} color="white" />
+            <div style={{ width: '32px', height: '32px', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--admin-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+              {profile?.image ? (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={profile.image} alt={profile.name || "Admin"} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              ) : (
+                <UserIcon size={18} color="white" />
+              )}
             </div>
-            <div style={{ overflow: 'hidden' }}>
-              <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>Tina Pramanik</div>
-              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>Administrator</div>
+            <div style={{ minWidth: 0, overflow: 'hidden' }}>
+              <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{profile?.name || "Loading..."}</div>
+              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>Administrator</div>
             </div>
           </div>
         </div>
@@ -102,9 +117,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div /> 
           
           <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-            <button onClick={() => signOut({ callbackUrl: '/' })} className={styles.btnIcon} title="Sign Out">
-              <LogOut size={22} />
-            </button>
           </div>
         </header>
         {children}

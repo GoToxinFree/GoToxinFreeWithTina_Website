@@ -8,7 +8,7 @@ export default async function AdminProfilePage() {
   const session = await auth();
   
   const user = await prisma.user.findUnique({
-    where: { email: session?.user?.email || "drtinapramanik@gmail.com" }
+    where: { email: session?.user?.email || "drsupriti@gotoxinfreewithtina.com" }
   }) || await prisma.user.findFirst();
 
   if (!user) {

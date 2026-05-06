@@ -80,7 +80,7 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
         body: JSON.stringify({
           content: replyText,
           authorName: 'Tina Pramanik',
-          authorEmail: 'drtinapramanik@gmail.com',
+          authorEmail: 'drsupriti@gotoxinfreewithtina.com',
           parentId: replyingTo.id
         }),
       });

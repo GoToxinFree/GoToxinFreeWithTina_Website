@@ -18,7 +18,7 @@
   --container-width: 1200px;
 
   /* Admin Portal Variables (moved from layout.module.css — :root not valid in CSS Modules) */
-  --admin-sidebar-width: 280px;
+  --admin-sidebar-width: 250px;
   --admin-bg: #f8fafc;
   --admin-card-bg: #ffffff;
   --admin-primary: #004e64;

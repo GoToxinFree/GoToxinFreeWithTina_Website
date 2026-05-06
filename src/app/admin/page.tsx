@@ -2,6 +2,7 @@ import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import styles from './layout.module.css';
 import { PlusCircle, FileText, BarChart3, Clock, ArrowUpRight, MessageSquare, Eye, Users } from "lucide-react";
+import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function AdminDashboard() {
   const postsCount = await prisma.post.count();
@@ -24,9 +25,9 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '3rem' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem' }}>
         <div>
-          <h1 style={{ fontSize: '2.5rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Dashboard</h1>
+          <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Dashboard</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '1.1rem' }}>Welcome back, Dr. Tina. Here is your research impact.</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
@@ -36,12 +37,13 @@ export default async function AdminDashboard() {
             </Link>
           )}
           <Link href="/admin/posts/new" className={styles.btnAction}>
-            <PlusCircle size={20} /> New Research Article
+            <PlusCircle size={20} /> New Article
           </Link>
+          <LogoutButton />
         </div>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', marginBottom: '3rem' }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: '2rem', marginBottom: '2rem' }}>
         <StatCard 
           title="Total Views" 
           value={totalViews} 

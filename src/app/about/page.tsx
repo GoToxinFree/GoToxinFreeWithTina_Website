@@ -3,15 +3,19 @@ import { ArrowLeft, BookOpen, FlaskConical, Search, ShieldCheck } from 'lucide-r
 import styles from './page.module.css';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
+import { prisma } from '@/lib/prisma';
 
-export default function About() {
+export default async function About() {
+  const user = await prisma.user.findFirst();
+  const ownerImage = user?.image || "/owner.jpeg";
+
   return (
     <div>
       <Header />
 
       <section className={styles.aboutHero}>
         <div className="container">
-          <h1>Hi, I'm Tina</h1>
+          <h1>Hi, I'm Dr. Tina (Ph.D)</h1>
           <p>Advocate, researcher, and your guide to navigating a chemical-heavy world safely.</p>
         </div>
       </section>
@@ -24,7 +28,7 @@ export default function About() {
         <div className={styles.aboutContent} style={{ marginBottom: '5rem' }}>
           <div className={styles.imageContainer}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=800" alt="Tina, founder of Go Toxin Free" />
+            <img src={ownerImage} alt="Tina, founder of Go Toxin Free" />
           </div>
           
           <div className={styles.textContent}>

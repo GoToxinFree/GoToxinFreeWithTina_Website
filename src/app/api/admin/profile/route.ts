@@ -26,3 +26,22 @@ export async function PATCH(req: Request) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
+export async function GET(req: Request) {
+  try {
+    const session = await auth();
+    if (!session || !session.user || !session.user.email) {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { name: true, image: true, email: true }
+    });
+
+    return NextResponse.json(user);
+  } catch (error) {
+    console.error("Profile fetch error:", error);
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+  }
+}
