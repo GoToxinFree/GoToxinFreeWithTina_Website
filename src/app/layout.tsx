@@ -10,6 +10,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Go Toxin Free With Tina",
   description: "Eliminating pollutants and building a toxin-free future.",
+  icons: {
+    icon: '/favicon.png',
+  },
 };
 
 export default function RootLayout({

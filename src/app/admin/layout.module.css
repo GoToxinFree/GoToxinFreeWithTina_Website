@@ -133,9 +133,10 @@
 .btnAction {
   background: var(--admin-secondary);
   color: white;
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.25rem;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.9rem;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
@@ -168,9 +169,10 @@
 .btnOutline {
   background: white;
   color: var(--admin-primary);
-  padding: 0.75rem 1.5rem;
+  padding: 0.6rem 1.25rem;
   border-radius: 8px;
   font-weight: 600;
+  font-size: 0.9rem;
   text-decoration: none;
   display: inline-flex;
   align-items: center;

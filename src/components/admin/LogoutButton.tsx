@@ -10,7 +10,6 @@ export default function LogoutButton() {
       onClick={() => signOut({ callbackUrl: '/' })} 
       className={styles.btnOutline} 
       title="Sign Out"
-      style={{ padding: '0.75rem 1rem' }}
     >
       <LogOut size={20} />
       <span>Logout</span>
