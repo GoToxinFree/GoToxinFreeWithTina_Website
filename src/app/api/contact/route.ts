@@ -12,15 +12,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const transport = createTransport({
-      host: 'smtp.hostinger.com',
-      port: 465,
-      secure: true,
-      auth: {
-        user: process.env.EMAIL_USER, // e.g. drsupriti@gotoxinfreewithtina.com
-        pass: process.env.EMAIL_PASS, // Hostinger password
-      },
-    });
+    const transport = createTransport(process.env.EMAIL_SERVER);
 
     const adminEmail = process.env.ADMIN_EMAIL || "drsupriti@gotoxinfreewithtina.com";
 
