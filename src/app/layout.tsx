@@ -11,7 +11,12 @@ export const metadata: Metadata = {
   title: "Go Toxin Free With Tina",
   description: "Eliminating pollutants and building a toxin-free future.",
   icons: {
-    icon: '/favicon.png',
+    icon: [
+      { url: '/favicon.png', type: 'image/png' },
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    shortcut: '/favicon.png',
+    apple: '/icon.png',
   },
 };
 
