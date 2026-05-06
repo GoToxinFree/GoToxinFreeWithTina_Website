@@ -12,7 +12,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     Nodemailer({
       server: process.env.EMAIL_SERVER,
       from: process.env.EMAIL_FROM,
-      maxAge: 60 * 60, // 1 hour in seconds
+      maxAge: 10 * 60, // 10 minutes in seconds
       async sendVerificationRequest(params) {
         const { identifier, url, provider } = params
         const { host } = new URL(url)
@@ -22,7 +22,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           to: identifier,
           from: provider.from,
           subject: `Sign in to ${host}`,
-          text: `Sign in to ${host}\n${url}\n\nThis link will expire in 1 hour.`,
+          text: `Sign in to ${host}\n${url}\n\nThis link will expire in 10 minutes.`,
           html: `
             <div style="background: #f9fafb; padding: 40px 20px; font-family: sans-serif;">
               <div style="max-width: 600px; margin: 0 auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
@@ -33,7 +33,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
                   <h2 style="color: #1e293b; margin-top: 0;">Login Security Link</h2>
                   <p style="color: #64748b; font-size: 16px; line-height: 24px; margin-bottom: 30px;">
                     Click the button below to sign in to your admin dashboard. 
-                    For your security, this link is only valid for <strong>1 hour</strong>.
+                    For your security, this link is only valid for <strong>10 minutes</strong>.
                   </p>
                   <a href="${url}" style="background: #00a6ce; color: white; padding: 14px 28px; border-radius: 6px; text-decoration: none; font-weight: bold; display: inline-block; font-size: 16px;">
                     Sign in to Dashboard
