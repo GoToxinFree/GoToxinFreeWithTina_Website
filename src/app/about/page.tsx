@@ -15,8 +15,8 @@ export default async function About() {
 
       <section className="about-hero">
         <div className="container">
-          <h1>Hi, I&apos;m Dr. Tina (Ph.D)</h1>
-          <p>Advocate, researcher, and your guide to navigating a chemical-heavy world safely.</p>
+          <h1>Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
+          <p>Project Researcher at The University of Tokyo & Environmental Safety Advocate</p>
         </div>
       </section>
 
@@ -30,31 +30,31 @@ export default async function About() {
         <div className="about-content" style={{ marginBottom: '5rem' }}>
           <div className="about-image-container">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={ownerImage} alt="Tina, founder of Go Toxin Free" />
+            <img src={ownerImage} alt="Dr. Supriti Das, founder of Go Toxin Free" />
           </div>
           
           <div className={"about-text-content"}>
-            <h2>My Journey to Toxin-Free Living</h2>
+            <h2>Bridging Science and Safety</h2>
             <p>
-              A few years ago, I started experiencing unexplained allergies and fatigue. After countless doctor visits and personal research, I discovered the shocking truth: our daily environment—from our couches to our cleaning supplies—is filled with unregulated, synthetic chemicals.
+              I am <strong>Dr. Supriti Das (Ph.D.)</strong>, an environmental researcher dedicated to decoding the complex relationship between our environment and human health. Currently, I serve as a <strong>Project Researcher at The University of Tokyo</strong>, where I work on the prestigious <strong>Moonshot Research and Development Program</strong>. My work involves leveraging Artificial Intelligence and Remote Sensing to assess environment-health risks and build disaster resilience.
             </p>
             <p>
-              I decided to take control of my environment. I began reading ingredient labels, researching chemical impacts, and swapping out toxic products for natural, safe alternatives. The difference in my health was astounding.
+              My journey into environmental advocacy began during my doctoral research at the <strong>Indian Institute of Technology (IIT), Hyderabad</strong>. My Ph.D. focused on the Mercury geochemical cycle and human health risk assessment—research that was recognized with the <strong>"Ramky Best Ph.D. Award"</strong> for its contribution to environmental excellence.
             </p>
             <p>
-              <strong>Go Toxin Free With Tina</strong> was born out of a desire to share this research with you. Navigating ingredient lists and scientific studies can be overwhelming. My goal is to simplify this process, providing you with clear, evidence-based insights so you can make informed decisions for yourself and your family.
+              Before moving to Japan, I spent years working at the intersection of engineering and policy, including a tenure as an Assistant Engineer in a government organization and teaching environmental science at both undergraduate and postgraduate levels. My Master&apos;s degree from <strong>NIT Durgapur</strong> specialized in using GIS and Remote Sensing for disaster management—skills I now use to identify and mitigate toxic exposures in our modern world.
             </p>
             <p>
-              Together, we can create safer homes and advocate for a healthier planet.
+              <strong>Go Toxin Free With Tina</strong> was born from a simple realization: while scientific journals are filled with warnings about unregulated synthetic chemicals in our homes, that information rarely reaches the people who need it most. I created this platform to translate high-level research—from the <strong>Minamata Convention on Mercury</strong> to the latest AI-driven toxicity studies—into actionable guides for your everyday life.
             </p>
           </div>
         </div>
 
-        {/* Methodology Section Merged */}
-        <div style={{ paddingTop: '2rem', borderTop: '1px solid var(--border)' }}>
-          <h2 style={{ fontSize: '2rem', color: 'var(--primary)', textAlign: 'center', marginBottom: '1rem' }}>My Research Methodology</h2>
-          <p className={"about-intro-text"}>
-            As a researcher, I know that navigating the world of &quot;green&quot; and &quot;natural&quot; products is filled with greenwashing. Marketing claims mean nothing without empirical evidence. My process is designed to cut through the noise and deliver actionable, scientifically sound advice for a toxin-free life.
+        {/* Methodology Section */}
+        <div style={{ paddingTop: '4rem', borderTop: '1px solid var(--border)' }}>
+          <h2 style={{ fontSize: '2.25rem', color: 'var(--primary)', textAlign: 'center', marginBottom: '1.5rem', fontWeight: 800 }}>The Scientist&apos;s Approach</h2>
+          <p className={"about-intro-text"} style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto 4rem' }}>
+            In a world of &quot;greenwashing&quot; and marketing hype, I apply the same rigorous methodology used in the laboratories of Tokyo and IIT to every product review on this site.
           </p>
 
           <div className={"about-methodology-grid"}>
@@ -62,16 +62,16 @@ export default async function About() {
               <div className={"about-method-icon"}>
                 <BookOpen size={24} />
               </div>
-              <h3>1. Scientific Literature Review</h3>
-              <p>I rely on peer-reviewed studies published in reputable medical and environmental science journals (e.g., PubMed, The Lancet). I do not base conclusions on isolated, non-replicated studies or brand-sponsored research.</p>
+              <h3>1. Peer-Reviewed Foundation</h3>
+              <p>Every insight is rooted in the latest scientific literature. I cross-reference findings from journals like <em>The Lancet</em> and <em>PubMed</em>, ensuring we rely on replicated, empirical evidence rather than anecdotal claims.</p>
             </div>
 
             <div className={"about-method-card"}>
               <div className={"about-method-icon"}>
                 <Search size={24} />
               </div>
-              <h3>2. Ingredient Deep-Dives</h3>
-              <p>Every product recommended is subjected to a strict ingredient analysis. I cross-reference chemical compounds with databases like the EWG (Environmental Working Group) and the EPA&apos;s list of chemicals of concern.</p>
+              <h3>2. AI-Enhanced Toxicity Analysis</h3>
+              <p>Leveraging my background in AI and environmental risk assessment, I analyze chemical profiles against global databases (EWG, EPA, and Minamata Convention standards) to identify even trace-level health risks.</p>
             </div>
 
             <div className={"about-method-card"}>
@@ -79,15 +79,15 @@ export default async function About() {
                 <FlaskConical size={24} />
               </div>
               <h3>3. Independent Verification</h3>
-              <p>I prioritize products and materials that hold respected third-party certifications, such as MADE SAFE®, GOTS (Global Organic Textile Standard), and OEKO-TEX®, ensuring objective safety standards are met.</p>
+              <p>I prioritize materials that meet gold-standard third-party certifications like MADE SAFE®, GOTS, and OEKO-TEX®. If a certification doesn&apos;t meet my scientific standards, I won&apos;t recommend the product.</p>
             </div>
 
             <div className={"about-method-card"}>
               <div className={"about-method-icon"}>
                 <ShieldCheck size={24} />
               </div>
-              <h3>4. Zero Brand Interference</h3>
-              <p>My research is completely independent. I do not accept payment from brands to alter reviews or hide the presence of toxins. If a formulation changes, the review is updated immediately.</p>
+              <h3>4. Absolute Independence</h3>
+              <p>My research is entirely self-funded and objective. I do not accept brand sponsorships to alter reviews. My allegiance is to the data and your family&apos;s safety—never to a corporate bottom line.</p>
             </div>
           </div>
         </div>
