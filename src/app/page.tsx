@@ -51,7 +51,7 @@ export default async function Home() {
             <Link href="#articles" className="btn-primary">
               Read Latest Research
             </Link>
-            <Link href="/about" className="btn-secondary" style={{ borderColor: 'white', color: 'white' }}>
+            <Link href="/about" className="btn-secondary" style={{ borderColor: 'white', color: 'white' }} prefetch={false}>
               Read My Story
             </Link>
           </div>
@@ -71,10 +71,10 @@ export default async function Home() {
               Navigating product labels and scientific studies shouldn't be a full-time job. I'm here to translate the complex research into simple, actionable steps you can take today to protect your health.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} prefetch={false}>
                 Learn more about my journey <ArrowRight size={18} />
               </Link>
-              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} prefetch={false}>
                 Get in touch <ArrowRight size={18} />
               </Link>
             </div>
@@ -86,7 +86,7 @@ export default async function Home() {
       <main className={`container ${styles.blogSection}`} id="articles">
         <div className={styles.sectionHeader}>
           <h2>Latest Insights & Research</h2>
-          <Link href="/blog" className="btn-outline">
+          <Link href="/blog" className="btn-outline" prefetch={false}>
             View All Articles <ArrowRight size={16} />
           </Link>
         </div>
@@ -107,7 +107,7 @@ export default async function Home() {
                   <time className={styles.cardDate}>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
                   <h3 className={styles.cardTitle}>{post.title}</h3>
                   <p className={styles.cardExcerpt}>{post.excerpt || post.content.substring(0, 150).replace(/<[^>]*>/g, '') + '...'}</p>
-                  <Link href={`/blog/${post.slug}`} className="btn-outline" style={{ width: 'fit-content', marginTop: '1rem' }}>
+                  <Link href={`/blog/${post.slug}`} className="btn-outline" style={{ width: 'fit-content', marginTop: '1rem' }} prefetch={false}>
                     Read Full Article <ArrowRight size={16} />
                   </Link>
                 </div>
