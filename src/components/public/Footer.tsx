@@ -5,7 +5,7 @@ import NewsletterForm from "@/components/blog/NewsletterForm";
 export default function Footer() {
   return (
     <footer className="comp-footer">
-      <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
+      <div className="container comp-footer-grid">
         <div className="comp-footer-col">
           <Link href="/" className="comp-logo" style={{ color: 'white', marginBottom: '1.5rem', display: 'inline-flex' }} prefetch={false}>
             <Leaf size={24} color="var(--accent)" />
@@ -44,15 +44,15 @@ export default function Footer() {
       </div>
       
       <div className="container">
-        <div className="comp-footer-bottom" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+        <div className="comp-footer-bottom">
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
             <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login" prefetch={false}>
               {/* Subtle Lock Icon */}
               <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </Link>
           </div>
-          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem' }}>
+          <div style={{ display: 'flex', gap: '1.5rem', fontSize: '0.85rem', justifyContent: 'center' }}>
             <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }} prefetch={false}>Privacy Policy</Link>
             <Link href="/copyright" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }} prefetch={false}>Terms & Copyright</Link>
           </div>

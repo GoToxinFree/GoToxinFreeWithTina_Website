@@ -69,3 +69,10 @@
   height: 100%;
   border: none;
 }
+
+@media (max-width: 768px) {
+  .prose-content h1 { font-size: 2rem; }
+  .prose-content h2 { font-size: 1.75rem; }
+  .prose-content h3 { font-size: 1.35rem; }
+  .prose-content { font-size: 1.1rem !important; }
+}

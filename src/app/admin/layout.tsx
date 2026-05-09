@@ -7,13 +7,14 @@ import {
   LayoutDashboard, FileText, 
   Home, 
   Leaf, ChevronRight, User as UserIcon,
-  MessageSquare, Users
+  MessageSquare, Users, Menu, X
 } from 'lucide-react';
 import { getProfile } from '@/app/actions/admin';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [profile, setProfile] = useState<{ name?: string | null, image?: string | null, email?: string | null } | null>(null);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     getProfile().then(data => {
@@ -21,14 +22,39 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     });
   }, []);
 
+  // Close sidebar on path change (mobile)
+  useEffect(() => {
+    setIsSidebarOpen(false);
+  }, [pathname]);
+
   return (
     <div className="admin-container">
-      <aside className="admin-sidebar">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div 
+          onClick={() => setIsSidebarOpen(false)}
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            zIndex: 90,
+            animation: 'fadeIn 0.2s ease-out'
+          }}
+          className="mobile-only"
+        />
+      )}
+
+      <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="admin-sidebar-header">
-          <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontWeight: 800, lineHeight: 1.2 }}>
-            <Leaf size={22} color="#10b981" />
-            <div style={{ display: 'flex', flexWrap: 'wrap' }}>
-              <span style={{ color: 'white' }}>GoToxinFree</span>
+          <Link href="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
+              <div style={{ backgroundColor: 'white', padding: '0.4rem', borderRadius: '8px', display: 'flex' }}>
+                <Leaf size={22} color="var(--admin-secondary)" />
+              </div>
+              <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Admin<span style={{ color: 'var(--admin-secondary)' }}>Panel</span></h2>
+            </div>
+            <div style={{ display: 'flex', flexWrap: 'wrap', paddingLeft: '3rem', fontSize: '0.7rem', opacity: 0.7 }}>
+              <span>GoToxinFree</span>
               <span style={{ color: '#00a6ce' }}>WithTina</span>
             </div>
           </Link>
@@ -62,59 +88,49 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             Subscribers
             {pathname.startsWith('/admin/subscribers') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
-
+          
+          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '1.5rem 1.25rem 0.75rem' }}>
+            System
+          </div>
+          
           <Link href="/admin/profile" className={`admin-nav-item ${pathname === '/admin/profile' ? 'admin-nav-item-active' : ''}`}>
             <UserIcon size={20} />
             My Profile
-            {pathname === '/admin/profile' && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
-
-          <div style={{ margin: '2rem 0', padding: '0 1rem' }}>
-            <div style={{ height: '1px', backgroundColor: 'rgba(255,255,255,0.1)' }} />
-          </div>
-
-          <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '0 1.25rem 0.75rem' }}>
-            Public Site
-          </div>
-
+          
           <Link href="/" className="admin-nav-item">
             <Home size={20} />
-            View Live Site
+            Live Website
           </Link>
         </nav>
 
-        <div style={{ padding: '1.5rem', marginTop: 'auto' }}>
-          <div style={{ 
-            backgroundColor: 'rgba(0,0,0,0.2)', 
-            padding: '1rem', 
-            borderRadius: '12px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: '0.75rem'
-          }}>
-            <div style={{ width: '32px', height: '32px', borderRadius: '8px', overflow: 'hidden', backgroundColor: 'var(--admin-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div style={{ padding: '1.5rem', borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
+            <div style={{ width: '36px', height: '36px', borderRadius: '50%', backgroundColor: 'rgba(255,255,255,0.1)', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
               {profile?.image ? (
                 // eslint-disable-next-line @next/next/no-img-element
-                <img src={profile.image} alt={profile.name || "Admin"} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={profile.image} alt={profile.name || 'Admin'} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
               ) : (
-                <UserIcon size={18} color="white" />
+                <UserIcon size={18} />
               )}
             </div>
-            <div style={{ minWidth: 0, overflow: 'hidden' }}>
-              <div style={{ fontSize: '0.875rem', fontWeight: 600, color: 'white', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>{profile?.name || "Loading..."}</div>
-              <div style={{ fontSize: '0.75rem', color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap', textOverflow: 'ellipsis', overflow: 'hidden' }}>Administrator</div>
+            <div style={{ overflow: 'hidden' }}>
+              <div style={{ fontSize: '0.85rem', fontWeight: 700, color: 'white', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{profile?.name || 'Tina Pramanik'}</div>
+              <div style={{ fontSize: '0.65rem', color: 'rgba(255,255,255,0.5)', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{profile?.email || 'Admin'}</div>
             </div>
           </div>
         </div>
       </aside>
-      
+
       <main className="admin-main-content">
-        <header className="admin-top-bar">
-          {/* We handle title inside pages for better control */}
-          <div /> 
-          
-          <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-          </div>
+        <header className="admin-top-bar mobile-only" style={{ display: 'none', marginBottom: '1.5rem', alignItems: 'center', gap: '1rem' }}>
+          <button 
+            onClick={() => setIsSidebarOpen(true)}
+            style={{ background: 'white', border: '1px solid var(--admin-border)', borderRadius: '8px', padding: '0.5rem', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
+          >
+            <Menu size={24} color="var(--admin-primary)" />
+          </button>
+          <h2 style={{ fontSize: '1.25rem', margin: 0, fontWeight: 800, color: 'var(--admin-primary)' }}>Admin Panel</h2>
         </header>
         {children}
       </main>

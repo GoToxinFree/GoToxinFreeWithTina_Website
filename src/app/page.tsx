@@ -59,7 +59,7 @@ export default async function Home() {
 
       {/* Mini About Section */}
       <section className="bg-surface section-padding">
-        <div className="container" style={{ display: 'flex', gap: '3rem', alignItems: 'center', maxWidth: '900px' }}>
+        <div className="container home-about-section">
           <div style={{ flexShrink: 0, width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={ownerImage} alt="Tina" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
@@ -69,11 +69,11 @@ export default async function Home() {
             <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem' }}>
               Navigating product labels and scientific studies shouldn&apos;t be a full-time job. I&apos;m here to translate the complex research into simple, actionable steps you can take today to protect your health.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
-              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} prefetch={false}>
+            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'inherit' }}>
+              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: 'fit-content' }} prefetch={false}>
                 Learn more about my journey <ArrowRight size={18} />
               </Link>
-              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} prefetch={false}>
+              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: 'fit-content' }} prefetch={false}>
                 Get in touch <ArrowRight size={18} />
               </Link>
             </div>
