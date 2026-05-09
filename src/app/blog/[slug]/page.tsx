@@ -44,7 +44,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       <Header />
 
       <main>
-        <article className="container" style={{ padding: '4rem 0', maxWidth: '800px' }}>
+        <article className="container" style={{ padding: '4rem 1.5rem', maxWidth: '800px' }}>
           <Link href="/blog" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem', fontSize: '0.9rem' }}>
             <ArrowLeft size={16} /> Back to Blog
           </Link>

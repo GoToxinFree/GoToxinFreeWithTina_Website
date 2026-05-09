@@ -233,9 +233,10 @@ a:hover {
 
 /* --- CONTACT PAGE STYLES --- */
 .contact-main {
-  padding: 4rem 0;
+  padding: 4rem 1.5rem;
   min-height: calc(100vh - 200px);
 }
+
 
 .contact-hero {
   background-color: var(--primary);
@@ -360,9 +361,10 @@ a:hover {
 
 /* --- ABOUT PAGE STYLES --- */
 .about-main {
-  padding: 4rem 0;
+  padding: 4rem 1.5rem;
   min-height: calc(100vh - 200px);
 }
+
 
 .about-hero {
   background-color: var(--primary);
