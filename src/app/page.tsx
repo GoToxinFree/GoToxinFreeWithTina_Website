@@ -42,16 +42,16 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="home-hero">
         <div className={`container home-hero-content`}>
-          <h1 className="animate-fade-in">Hi, I&apos;m Dr. Tina (Ph.D)</h1>
+          <h1 className="animate-fade-in">Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
           <p className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Decoding the science of everyday chemicals so you don&apos;t have to. Let&apos;s navigate the noise and build a cleaner, safer, and truly toxin-free life together.
+            A Project Researcher at <strong>The University of Tokyo</strong> decoding the science of everyday toxins. I translate rigorous environmental research into simple, actionable steps for a safer, cleaner life.
           </p>
           <div className="home-hero-buttons animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <Link href="#articles" className="btn-primary">
               Read Latest Research
             </Link>
             <Link href="/about" className="btn-secondary" style={{ borderColor: 'white', color: 'white' }} prefetch={false}>
-              Read My Story
+              The Story Behind the Science
             </Link>
           </div>
         </div>
@@ -62,19 +62,19 @@ export default async function Home() {
         <div className="container home-about-section">
           <div style={{ flexShrink: 0, width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={ownerImage} alt="Tina" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={ownerImage} alt="Dr. Supriti Das" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Welcome to my corner of the internet</h2>
+            <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Science-Backed Advocacy</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem', textAlign: 'justify', hyphens: 'auto' }}>
-              Navigating product labels and scientific studies shouldn&apos;t be a full-time job. I&apos;m here to translate the complex research into simple, actionable steps you can take today to protect your health.
+              From the laboratories of <strong>IIT Hyderabad</strong> to the <strong>Moonshot Program in Tokyo</strong>, I have spent my career studying how environmental toxins affect human health. I founded this blog to bring that high-level research directly into your home—cutting through the greenwashing to find what truly keeps us safe.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', width: '100%', maxWidth: '450px', marginTop: '1.5rem' }}>
               <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
-                Learn More <ArrowRight size={16} />
+                Explore My Research <ArrowRight size={16} />
               </Link>
               <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
-                Get in touch <ArrowRight size={16} />
+                Collaborate <ArrowRight size={16} />
               </Link>
             </div>
           </div>
