@@ -24,7 +24,8 @@ interface CommentsClientProps {
   initialComments: Comment[];
 }
 
-import { deleteComment as removeComment, toggleCommentApproval, postComment } from '@/app/actions/blog';
+import { postComment } from '@/app/actions/blog';
+import { deleteComment as removeComment, toggleCommentApproval } from '@/app/actions/admin';
 
 export default function CommentsClient({ initialComments }: CommentsClientProps) {
   const [comments, setComments] = useState<Comment[]>(initialComments);

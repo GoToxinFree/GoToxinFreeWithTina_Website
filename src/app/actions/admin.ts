@@ -108,6 +108,11 @@ export async function createPost(data: any) {
   try {
     await ensureAdmin();
 
+    const session = await auth();
+    const email = session?.user?.email;
+
+    if (!email) throw new Error("No user email found");
+
     const post = await prisma.post.create({
       data: {
         title: data.title,
@@ -115,7 +120,10 @@ export async function createPost(data: any) {
         excerpt: data.excerpt,
         content: data.content,
         imageUrl: data.imageUrl,
-        published: data.published
+        published: data.published,
+        author: {
+          connect: { email }
+        }
       }
     });
 
