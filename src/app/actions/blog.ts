@@ -52,7 +52,7 @@ export async function postComment(data: {
         authorEmail,
         postId,
         parentId: parentId || null,
-        published: true // In a real app, you might want moderation
+        status: "approved" // Default to approved for now as per previous logic
       },
       include: {
         replies: true

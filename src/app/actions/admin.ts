@@ -194,7 +194,7 @@ export async function toggleCommentApproval(id: string, currentPublished: boolea
     await ensureAdmin();
     await prisma.comment.update({
       where: { id },
-      data: { published: !currentPublished }
+      data: { status: !currentPublished ? "approved" : "pending" }
     });
     revalidatePath("/admin/comments");
     revalidatePath("/blog/[slug]", "page");
