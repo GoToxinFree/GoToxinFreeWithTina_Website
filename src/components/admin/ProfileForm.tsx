@@ -11,6 +11,8 @@ interface ProfileFormProps {
   };
 }
 
+import { updateProfile } from '@/app/actions/admin';
+
 export default function ProfileForm({ initialData }: ProfileFormProps) {
   const router = useRouter();
   const [formData, setFormData] = useState(initialData);
@@ -23,13 +25,9 @@ export default function ProfileForm({ initialData }: ProfileFormProps) {
     setStatus(null);
 
     try {
-      const res = await fetch('/api/admin/profile', {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
+      const result = await updateProfile(formData);
 
-      if (!res.ok) throw new Error('Failed to update profile');
+      if (!result.success) throw new Error(result.error || 'Failed to update profile');
 
       setStatus({ type: 'success', message: 'Profile updated successfully!' });
       router.refresh();

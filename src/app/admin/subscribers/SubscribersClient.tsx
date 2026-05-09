@@ -15,6 +15,8 @@ interface SubscribersClientProps {
   initialSubscribers: Subscriber[];
 }
 
+import { toggleSubscriberStatus, deleteSubscriber as removeSubscriber, getSubscribers } from '@/app/actions/admin';
+
 export default function SubscribersClient({ initialSubscribers }: SubscribersClientProps) {
   const [subscribers, setSubscribers] = useState<Subscriber[]>(initialSubscribers);
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,11 +25,8 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
   const refetch = async () => {
     setIsRefreshing(true);
     try {
-      const res = await fetch('/api/admin/subscribers');
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data)) setSubscribers(data);
-      }
+      const data = await getSubscribers();
+      if (Array.isArray(data)) setSubscribers(data as any);
     } finally {
       setIsRefreshing(false);
     }
@@ -38,23 +37,19 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
     // Optimistic update
     setSubscribers(prev => prev.map(s => s.id === id ? { ...s, status: newStatus } : s));
     try {
-      const res = await fetch(`/api/admin/subscribers/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status: newStatus }),
-      });
-      if (!res.ok) refetch();
+      const result = await toggleSubscriberStatus(id, currentStatus);
+      if (!result.success) refetch();
     } catch {
       refetch();
     }
   };
 
-  const deleteSubscriber = async (id: string) => {
+  const handleDeleteSubscriber = async (id: string) => {
     if (!confirm('Are you sure you want to delete this subscriber?')) return;
     setSubscribers(prev => prev.filter(s => s.id !== id));
     try {
-      const res = await fetch(`/api/admin/subscribers/${id}`, { method: 'DELETE' });
-      if (!res.ok) refetch();
+      const result = await removeSubscriber(id);
+      if (!result.success) refetch();
     } catch {
       refetch();
     }
@@ -158,7 +153,7 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
                         {s.status === 'active' ? <UserMinus size={18} /> : <UserCheck size={18} />}
                       </button>
                       <button
-                        onClick={() => deleteSubscriber(s.id)}
+                        onClick={() => handleDeleteSubscriber(s.id)}
                         className={`${styles.btnIcon} ${styles.btnDelete}`}
                         title="Delete subscriber"
                       >

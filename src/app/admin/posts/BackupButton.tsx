@@ -4,20 +4,21 @@ import { useState } from 'react';
 import { Download } from "lucide-react";
 import styles from "../layout.module.css";
 
+import { exportPosts } from '@/app/actions/admin';
+
 export default function BackupButton() {
   const [isExporting, setIsExporting] = useState(false);
 
   const handleDownload = async () => {
     setIsExporting(true);
     try {
-      const response = await fetch('/api/admin/posts/export');
+      const result = await exportPosts();
       
-      if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
-        throw new Error(errorData.error || 'Failed to download backup');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to download backup');
       }
       
-      const data = await response.json();
+      const data = result.data;
       const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');

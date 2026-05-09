@@ -17,6 +17,8 @@ interface CommentSectionProps {
   initialComments: any[];
 }
 
+import { postComment } from '@/app/actions/blog';
+
 export default function CommentSection({ postId, initialComments }: CommentSectionProps) {
   const [comments, setComments] = useState<Comment[]>(Array.isArray(initialComments) ? initialComments : []);
   const [newComment, setNewComment] = useState('');
@@ -31,21 +33,16 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
 
     setIsSubmitting(true);
     try {
-      const res = await fetch(`/api/posts/${postId}/comments`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: newComment,
-          authorName: name,
-          authorEmail: email,
-          parentId: replyTo
-        }),
+      const result = await postComment({
+        postId,
+        content: newComment,
+        authorName: name,
+        authorEmail: email,
+        parentId: replyTo
       });
 
-      if (res.ok) {
-        const addedComment = await res.json();
-        // If it's a reply, we should ideally refresh the specific parent
-        // For simplicity, let's just refresh the whole list for now or add it
+      if (result.success && result.comment) {
+        const addedComment = result.comment as any;
         if (replyTo) {
           setComments(comments.map(c => 
             c.id === replyTo 

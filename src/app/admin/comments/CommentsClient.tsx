@@ -24,6 +24,8 @@ interface CommentsClientProps {
   initialComments: Comment[];
 }
 
+import { deleteComment as removeComment, toggleCommentApproval, postComment } from '@/app/actions/blog';
+
 export default function CommentsClient({ initialComments }: CommentsClientProps) {
   const [comments, setComments] = useState<Comment[]>(initialComments);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,38 +36,28 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
 
   const refetchComments = async () => {
     setIsRefreshing(true);
-    try {
-      const res = await fetch('/api/admin/comments');
-      if (res.ok) {
-        const data = await res.json();
-        if (Array.isArray(data)) setComments(data);
-      }
-    } finally {
-      setIsRefreshing(false);
-    }
+    // Since we're using Server Actions + revalidatePath, 
+    // a simple window reload or router.refresh() works well
+    window.location.reload();
   };
 
   const updateStatus = async (id: string, status: string) => {
     // Optimistic UI update
     setComments(prev => prev.map(c => c.id === id ? { ...c, status } : c));
     try {
-      const res = await fetch(`/api/admin/comments/${id}`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ status }),
-      });
-      if (!res.ok) refetchComments(); // revert on failure
+      const result = await toggleCommentApproval(id, status === 'approved');
+      if (!result.success) refetchComments();
     } catch {
       refetchComments();
     }
   };
 
-  const deleteComment = async (id: string) => {
+  const handleDeleteComment = async (id: string) => {
     if (!confirm('Are you sure you want to delete this comment?')) return;
     setComments(prev => prev.filter(c => c.id !== id));
     try {
-      const res = await fetch(`/api/admin/comments/${id}`, { method: 'DELETE' });
-      if (!res.ok) refetchComments();
+      const result = await removeComment(id);
+      if (!result.success) refetchComments();
     } catch {
       refetchComments();
     }
@@ -74,17 +66,15 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
   const handleReply = async () => {
     if (!replyText.trim() || !replyingTo) return;
     try {
-      const res = await fetch(`/api/posts/${replyingTo.postId}/comments`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          content: replyText,
-          authorName: 'Tina Pramanik',
-          authorEmail: 'drsupriti@gotoxinfreewithtina.com',
-          parentId: replyingTo.id
-        }),
+      const result = await postComment({
+        postId: replyingTo.postId,
+        content: replyText,
+        authorName: 'Tina Pramanik',
+        authorEmail: 'drsupriti@gotoxinfreewithtina.com',
+        parentId: replyingTo.id
       });
-      if (res.ok) {
+
+      if (result.success) {
         setReplyingTo(null);
         setReplyText('');
         refetchComments();
@@ -182,7 +172,7 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
                     <button onClick={() => updateStatus(c.id, 'spam')} className={`${styles.btnIcon} ${styles.btnSpam}`} title="Mark as Spam">
                       <Flag size={18} />
                     </button>
-                    <button onClick={() => deleteComment(c.id)} className={`${styles.btnIcon} ${styles.btnDelete}`} title="Delete">
+                    <button onClick={() => handleDeleteComment(c.id)} className={`${styles.btnIcon} ${styles.btnDelete}`} title="Delete">
                       <Trash2 size={18} />
                     </button>
                   </div>

@@ -9,6 +9,8 @@ import EditorTips from '@/components/admin/EditorTips';
 import ArticlePreview from '@/components/admin/ArticlePreview';
 import styles from '../../layout.module.css';
 
+import { createPost } from '@/app/actions/admin';
+
 export default function NewPostPage() {
   const router = useRouter();
   
@@ -42,18 +44,10 @@ export default function NewPostPage() {
     setError('');
 
     try {
-      const res = await fetch('/api/posts', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await createPost(formData);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to create post');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to create post');
       }
 
       router.push('/admin/posts');

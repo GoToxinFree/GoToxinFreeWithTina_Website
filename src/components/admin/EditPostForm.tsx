@@ -13,6 +13,8 @@ interface EditPostFormProps {
   post: any;
 }
 
+import { updatePost, deletePost } from '@/app/actions/admin';
+
 export default function EditPostForm({ post }: EditPostFormProps) {
   const router = useRouter();
   
@@ -41,18 +43,10 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     setError('');
 
     try {
-      const res = await fetch(`/api/posts/${post.id}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await updatePost(post.id, formData);
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        throw new Error(data.error || 'Failed to update post');
+      if (!result.success) {
+        throw new Error(result.error || 'Failed to update post');
       }
 
       router.push('/admin/posts');
@@ -68,11 +62,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     
     setIsDeleting(true);
     try {
-      const res = await fetch(`/api/posts/${post.id}`, {
-        method: 'DELETE',
-      });
+      const result = await deletePost(post.id);
 
-      if (!res.ok) throw new Error('Failed to delete post');
+      if (!result.success) throw new Error(result.error || 'Failed to delete post');
 
       router.push('/admin/posts');
       router.refresh();

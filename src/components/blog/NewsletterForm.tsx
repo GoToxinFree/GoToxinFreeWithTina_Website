@@ -4,6 +4,8 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Send, CheckCircle2 } from 'lucide-react';
 
+import { subscribeToNewsletter } from '@/app/actions/blog';
+
 export default function NewsletterForm() {
   const [email, setEmail] = useState('');
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -15,21 +17,15 @@ export default function NewsletterForm() {
 
     setStatus('loading');
     try {
-      const res = await fetch('/api/newsletter/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
+      const result = await subscribeToNewsletter(email);
 
-      const data = await res.json();
-
-      if (res.ok) {
+      if (result.success) {
         setStatus('success');
-        setMessage(data.message);
+        setMessage(result.message || 'Subscribed successfully!');
         setEmail('');
       } else {
         setStatus('error');
-        setMessage(data.error || 'Something went wrong');
+        setMessage(result.error || 'Something went wrong');
       }
     } catch (err) {
       setStatus('error');

@@ -11,17 +11,16 @@ import {
 } from 'lucide-react';
 import styles from './layout.module.css';
 
+import { getProfile } from '@/app/actions/admin';
+
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [profile, setProfile] = useState<{ name?: string | null, image?: string | null, email?: string | null } | null>(null);
 
   useEffect(() => {
-    fetch('/api/admin/profile')
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (data) setProfile(data);
-      })
-      .catch(console.error);
+    getProfile().then(data => {
+      if (data) setProfile(data as any);
+    });
   }, []);
 
   return (
