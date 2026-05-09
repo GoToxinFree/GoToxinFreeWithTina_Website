@@ -64,9 +64,10 @@ a:hover {
 
 @media (max-width: 768px) {
   .container {
-    padding: 0 1.25rem; /* 20px nominal margin from side for mobile */
+    padding: 0 1.5rem; /* Standardised generous side padding for mobile */
   }
 }
+
 
 .home-about-section {
   display: flex;
@@ -96,11 +97,7 @@ a:hover {
 }
 
 
-@media (max-width: 640px) {
-  .container {
-    padding: 0 1rem;
-  }
-}
+
 
 
 .main {
@@ -706,7 +703,7 @@ a:hover {
   }
   .admin-main-content {
     margin-left: 0 !important;
-    padding: 1.25rem;
+    padding: 1.5rem;
   }
   
   .admin-top-bar.mobile-only {
@@ -1097,3 +1094,29 @@ a:hover {
 .comp-footer-links a:hover { color: white; }
 .comp-nav-link.active { color: var(--secondary); }
 
+
+@media (max-width: 768px) {
+  .home-hero { padding: 4rem 0; }
+  .contact-hero { padding: 3rem 0; margin-bottom: 2rem; }
+  .about-hero { padding: 3rem 0; }
+  .section-padding { padding: 3rem 0; }
+  .home-section-header { flex-direction: column; align-items: flex-start; gap: 1rem; margin-bottom: 2rem; }
+}
+
+@media (max-width: 768px) {
+  .prose-content { font-size: 1.1rem; line-height: 1.6; }
+  .prose-content p { margin-bottom: 1.25rem; }
+  .prose-content img { border-radius: 8px; margin: 1.5rem 0; }
+  /* Ensure flex items in headers don't feel too crowded */
+  .post-header-meta { flex-direction: column; align-items: flex-start; gap: 1rem; }
+}
+
+@media (max-width: 1024px) {
+  .admin-header-flex { flex-direction: column; align-items: flex-start !important; gap: 1.5rem; }
+  .admin-header-actions { width: 100%; justify-content: flex-start !important; flex-wrap: wrap; }
+  .admin-header-actions a, .admin-header-actions button { width: 100%; justify-content: center; }
+}
+
+@media (max-width: 1024px) {
+  .admin-editor-grid { grid-template-columns: 1fr !important; gap: 1.5rem !important; }
+}

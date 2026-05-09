@@ -12,9 +12,9 @@ export default async function AdminPostsPage() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
-        <h1 style={{ fontSize: '2rem', color: 'var(--primary)' }}>Articles</h1>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+      <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
+        <h1 style={{ fontSize: '2rem', color: 'var(--primary)', margin: 0 }}>Articles</h1>
+        <div className="admin-header-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <BackupButton />
           <Link href="/admin/posts/new" className={"admin-btn-action"}>
             <PlusCircle size={20} /> New Article
@@ -23,7 +23,8 @@ export default async function AdminPostsPage() {
       </div>
 
       <div style={{ background: 'white', borderRadius: '8px', border: '1px solid var(--border)', overflow: 'hidden' }}>
-        <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+        <div style={{ overflowX: 'auto', width: '100%' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
           <thead>
             <tr style={{ backgroundColor: 'var(--surface)', borderBottom: '1px solid var(--border)' }}>
               <th style={{ padding: '1rem' }}>Title</th>

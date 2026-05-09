@@ -73,12 +73,12 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+      <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Newsletter Subscribers</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Manage your community and outreach</p>
         </div>
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        <div className="admin-header-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <button onClick={refetch} disabled={isRefreshing} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
           </button>
@@ -108,7 +108,8 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
             <p>No subscribers found matching your search.</p>
           </div>
         ) : (
-          <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left' }}>
+          <div style={{ overflowX: 'auto', width: '100%' }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', textAlign: 'left', minWidth: '600px' }}>
             <thead>
               <tr style={{ backgroundColor: '#f8fafc', borderBottom: '1px solid var(--admin-border)' }}>
                 <th style={{ padding: '1rem 1.5rem', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', color: 'var(--admin-text-muted)' }}>Email Address</th>
@@ -165,7 +166,8 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
               ))}
             </tbody>
           </table>
-        )}
+        </div>
+      )}
       </div>
     </div>
   );

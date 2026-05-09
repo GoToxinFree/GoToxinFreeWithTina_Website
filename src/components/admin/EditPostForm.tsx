@@ -76,7 +76,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
 
   return (
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
-      <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+      <header className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
           <Link href="/admin/posts" className={"admin-logout-btn"} style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}>
             <ArrowLeft size={20} />
@@ -87,7 +87,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
           </div>
         </div>
         
-        <div style={{ display: 'flex', gap: '1rem' }}>
+        <div className="admin-header-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <button 
             type="button"
             onClick={() => setShowPreview(true)}
@@ -136,7 +136,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         </div>
       )}
 
-      <form id="post-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2.5rem' }}>
+      <form id="post-form" className="admin-editor-grid" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2.5rem' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           <div className={"admin-card"} style={{ padding: '2.5rem' }}>
             <input

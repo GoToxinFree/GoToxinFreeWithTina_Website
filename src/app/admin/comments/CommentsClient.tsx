@@ -94,14 +94,16 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
+      <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem', flexWrap: 'wrap', gap: '1.5rem' }}>
         <div>
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Discussion Moderation</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Engage with your community and moderate research feedback</p>
         </div>
-        <button onClick={refetchComments} disabled={isRefreshing} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
-          {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
-        </button>
+        <div className="admin-header-actions" style={{ width: 'auto' }}>
+          <button onClick={refetchComments} disabled={isRefreshing} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+            {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
+          </button>
+        </div>
       </div>
 
       <div className={"admin-card"} style={{ padding: '0', overflow: 'hidden' }}>
@@ -139,8 +141,8 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             {filteredComments.map((c) => (
-              <div key={c.id} style={{ padding: '1.5rem', borderBottom: '1px solid var(--admin-border)', backgroundColor: c.status === 'pending' ? 'rgba(251, 191, 36, 0.03)' : 'transparent' }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1rem' }}>
+              <div key={c.id} style={{ padding: '1.25rem', borderBottom: '1px solid var(--admin-border)', backgroundColor: c.status === 'pending' ? 'rgba(251, 191, 36, 0.03)' : 'transparent' }}>
+                <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '1.5rem', gap: '1rem' }}>
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <div style={{ width: '40px', height: '40px', borderRadius: '50%', backgroundColor: c.isAdmin ? 'var(--admin-secondary)' : 'var(--admin-border)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: c.isAdmin ? 'white' : 'var(--admin-text-muted)' }}>
                       <MessageSquare size={20} />

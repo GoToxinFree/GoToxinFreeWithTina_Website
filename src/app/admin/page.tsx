@@ -25,12 +25,12 @@ export default async function AdminDashboard() {
 
   return (
     <div>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
+      <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', flexWrap: 'wrap', gap: '1rem' }}>
         <div>
           <h1 style={{ fontSize: '1.75rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Dashboard</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0, fontSize: '0.9rem' }}>Welcome back, Dr. Tina.</p>
         </div>
-        <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
+        <div className="admin-header-actions" style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap' }}>
           {pendingCommentsCount > 0 && (
             <Link href="/admin/comments" className="admin-logout-btn" style={{ backgroundColor: '#fef3c7', border: '1px solid #f59e0b', color: '#92400e', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1rem' }}>
               <MessageSquare size={16} /> {pendingCommentsCount} Pending
