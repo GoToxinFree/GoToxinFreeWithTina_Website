@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Download } from "lucide-react";
-import styles from "../layout.module.css";
+
 
 import { exportPosts } from '@/app/actions/admin';
 
@@ -42,7 +42,7 @@ export default function BackupButton() {
     <button 
       onClick={handleDownload} 
       disabled={isExporting}
-      className={styles.btnOutline} 
+      className={"admin-btn-outline"} 
       style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: isExporting ? 'wait' : 'pointer' }}
     >
       <Download size={20} /> 

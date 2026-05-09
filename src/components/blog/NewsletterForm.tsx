@@ -8,15 +8,17 @@ import { subscribeToNewsletter } from '@/app/actions/blog';
 
 export default function NewsletterForm() {
   const [state, formAction, isPending] = useActionState(
-    async (prevState: any, formData: FormData) => {
+    async (_prevState: unknown, formData: FormData) => {
       try {
         const result = await subscribeToNewsletter(formData);
-        return result;
-      } catch (error) {
-        return { success: false, error: 'Failed to connect to the server' };
+        // Ensure we return the correct branch of the union
+        if (result.success) return { success: true, message: result.message || '' };
+        return { success: false, message: (result as { error?: string }).error || 'Failed to subscribe' };
+      } catch {
+        return { success: false, message: 'Failed to connect to the server' };
       }
     },
-    { success: false, error: '', message: '' }
+    { success: false, message: '' }
   );
 
   if (state.success) {
@@ -88,10 +90,10 @@ export default function NewsletterForm() {
         )}
       </button>
       </div>
-      {state.error && (
+      {!state.success && state.message && (
         <p style={{ marginTop: '0.75rem', color: '#fca5a5', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#fca5a5' }} />
-          {state.error}
+          {state.message}
         </p>
       )}
 

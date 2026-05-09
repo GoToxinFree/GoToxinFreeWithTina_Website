@@ -1,37 +1,37 @@
 import Link from 'next/link';
 import { ArrowLeft, BookOpen, FlaskConical, Search, ShieldCheck } from 'lucide-react';
-import styles from './page.module.css';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 import { prisma } from '@/lib/prisma';
+
 
 export default async function About() {
   const user = await prisma.user.findFirst();
   const ownerImage = user?.image || "/owner.jpeg";
 
   return (
-    <div>
+    <div className="main">
       <Header />
 
-      <section className={styles.aboutHero}>
+      <section className="about-hero">
         <div className="container">
-          <h1>Hi, I'm Dr. Tina (Ph.D)</h1>
+          <h1>Hi, I&apos;m Dr. Tina (Ph.D)</h1>
           <p>Advocate, researcher, and your guide to navigating a chemical-heavy world safely.</p>
         </div>
       </section>
 
-      <main className={`container ${styles.aboutMain}`}>
+      <main className="container about-main">
         <Link href="/" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem' }}>
           <ArrowLeft size={16} /> Back to Home
         </Link>
         
-        <div className={styles.aboutContent} style={{ marginBottom: '5rem' }}>
-          <div className={styles.imageContainer}>
+        <div className="about-content" style={{ marginBottom: '5rem' }}>
+          <div className="about-image-container">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={ownerImage} alt="Tina, founder of Go Toxin Free" />
           </div>
           
-          <div className={styles.textContent}>
+          <div className={"about-text-content"}>
             <h2>My Journey to Toxin-Free Living</h2>
             <p>
               A few years ago, I started experiencing unexplained allergies and fatigue. After countless doctor visits and personal research, I discovered the shocking truth: our daily environment—from our couches to our cleaning supplies—is filled with unregulated, synthetic chemicals.
@@ -51,37 +51,37 @@ export default async function About() {
         {/* Methodology Section Merged */}
         <div style={{ paddingTop: '2rem', borderTop: '1px solid var(--border)' }}>
           <h2 style={{ fontSize: '2rem', color: 'var(--primary)', textAlign: 'center', marginBottom: '1rem' }}>My Research Methodology</h2>
-          <p className={styles.introText}>
-            As a researcher, I know that navigating the world of "green" and "natural" products is filled with greenwashing. Marketing claims mean nothing without empirical evidence. My process is designed to cut through the noise and deliver actionable, scientifically sound advice for a toxin-free life.
+          <p className={"about-intro-text"}>
+            As a researcher, I know that navigating the world of &quot;green&quot; and &quot;natural&quot; products is filled with greenwashing. Marketing claims mean nothing without empirical evidence. My process is designed to cut through the noise and deliver actionable, scientifically sound advice for a toxin-free life.
           </p>
 
-          <div className={styles.methodologyGrid}>
-            <div className={styles.methodCard}>
-              <div className={styles.methodIcon}>
+          <div className={"about-methodology-grid"}>
+            <div className={"about-method-card"}>
+              <div className={"about-method-icon"}>
                 <BookOpen size={24} />
               </div>
               <h3>1. Scientific Literature Review</h3>
               <p>I rely on peer-reviewed studies published in reputable medical and environmental science journals (e.g., PubMed, The Lancet). I do not base conclusions on isolated, non-replicated studies or brand-sponsored research.</p>
             </div>
 
-            <div className={styles.methodCard}>
-              <div className={styles.methodIcon}>
+            <div className={"about-method-card"}>
+              <div className={"about-method-icon"}>
                 <Search size={24} />
               </div>
               <h3>2. Ingredient Deep-Dives</h3>
-              <p>Every product recommended is subjected to a strict ingredient analysis. I cross-reference chemical compounds with databases like the EWG (Environmental Working Group) and the EPA's list of chemicals of concern.</p>
+              <p>Every product recommended is subjected to a strict ingredient analysis. I cross-reference chemical compounds with databases like the EWG (Environmental Working Group) and the EPA&apos;s list of chemicals of concern.</p>
             </div>
 
-            <div className={styles.methodCard}>
-              <div className={styles.methodIcon}>
+            <div className={"about-method-card"}>
+              <div className={"about-method-icon"}>
                 <FlaskConical size={24} />
               </div>
               <h3>3. Independent Verification</h3>
               <p>I prioritize products and materials that hold respected third-party certifications, such as MADE SAFE®, GOTS (Global Organic Textile Standard), and OEKO-TEX®, ensuring objective safety standards are met.</p>
             </div>
 
-            <div className={styles.methodCard}>
-              <div className={styles.methodIcon}>
+            <div className={"about-method-card"}>
+              <div className={"about-method-icon"}>
                 <ShieldCheck size={24} />
               </div>
               <h3>4. Zero Brand Interference</h3>

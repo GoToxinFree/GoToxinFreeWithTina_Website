@@ -5,12 +5,10 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { 
   LayoutDashboard, FileText, 
-  Settings, Home, 
+  Home, 
   Leaf, ChevronRight, User as UserIcon,
   MessageSquare, Users
 } from 'lucide-react';
-import styles from './layout.module.css';
-
 import { getProfile } from '@/app/actions/admin';
 
 export default function AdminLayout({ children }: { children: React.ReactNode }) {
@@ -19,14 +17,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   useEffect(() => {
     getProfile().then(data => {
-      if (data) setProfile(data as any);
+      if (data) setProfile(data);
     });
   }, []);
 
   return (
-    <div className={styles.adminContainer}>
-      <aside className={styles.sidebar}>
-        <div className={styles.sidebarHeader}>
+    <div className="admin-container">
+      <aside className="admin-sidebar">
+        <div className="admin-sidebar-header">
           <Link href="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center', gap: '0.5rem', fontSize: '1.25rem', fontWeight: 800, lineHeight: 1.2 }}>
             <Leaf size={22} color="#10b981" />
             <div style={{ display: 'flex', flexWrap: 'wrap' }}>
@@ -36,36 +34,36 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           </Link>
         </div>
         
-        <nav className={styles.sidebarNav}>
+        <nav className="admin-sidebar-nav">
           <div style={{ color: 'rgba(255,255,255,0.4)', fontSize: '0.65rem', fontWeight: 800, textTransform: 'uppercase', letterSpacing: '0.1em', padding: '0 1.25rem 0.75rem' }}>
             Main Menu
           </div>
           
-          <Link href="/admin" className={`${styles.navItem} ${pathname === '/admin' ? styles.navItemActive : ''}`}>
+          <Link href="/admin" className={`admin-nav-item ${pathname === '/admin' ? 'admin-nav-item-active' : ''}`}>
             <LayoutDashboard size={20} />
             Dashboard
             {pathname === '/admin' && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
           
-          <Link href="/admin/posts" className={`${styles.navItem} ${pathname.startsWith('/admin/posts') ? styles.navItemActive : ''}`}>
+          <Link href="/admin/posts" className={`admin-nav-item ${pathname.startsWith('/admin/posts') ? 'admin-nav-item-active' : ''}`}>
             <FileText size={20} />
             Articles
             {pathname.startsWith('/admin/posts') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
 
-          <Link href="/admin/comments" className={`${styles.navItem} ${pathname.startsWith('/admin/comments') ? styles.navItemActive : ''}`}>
+          <Link href="/admin/comments" className={`admin-nav-item ${pathname.startsWith('/admin/comments') ? 'admin-nav-item-active' : ''}`}>
             <MessageSquare size={20} />
             Discussions
             {pathname.startsWith('/admin/comments') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
 
-          <Link href="/admin/subscribers" className={`${styles.navItem} ${pathname.startsWith('/admin/subscribers') ? styles.navItemActive : ''}`}>
+          <Link href="/admin/subscribers" className={`admin-nav-item ${pathname.startsWith('/admin/subscribers') ? 'admin-nav-item-active' : ''}`}>
             <Users size={20} />
             Subscribers
             {pathname.startsWith('/admin/subscribers') && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
           </Link>
 
-          <Link href="/admin/profile" className={`${styles.navItem} ${pathname === '/admin/profile' ? styles.navItemActive : ''}`}>
+          <Link href="/admin/profile" className={`admin-nav-item ${pathname === '/admin/profile' ? 'admin-nav-item-active' : ''}`}>
             <UserIcon size={20} />
             My Profile
             {pathname === '/admin/profile' && <ChevronRight size={16} style={{ marginLeft: 'auto' }} />}
@@ -79,7 +77,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             Public Site
           </div>
 
-          <Link href="/" className={styles.navItem}>
+          <Link href="/" className="admin-nav-item">
             <Home size={20} />
             View Live Site
           </Link>
@@ -110,8 +108,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         </div>
       </aside>
       
-      <main className={styles.mainContent}>
-        <header className={styles.topBar}>
+      <main className="admin-main-content">
+        <header className="admin-top-bar">
           {/* We handle title inside pages for better control */}
           <div /> 
           

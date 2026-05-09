@@ -1,0 +1,62 @@
+{
+  "users": [
+    {
+      "id": "cmoo7jbr70000juq9utwfddzx",
+      "name": "Dr. Tina Pramanik",
+      "email": "drtinapramanik@gmail.com",
+      "emailVerified": null,
+      "image": "https://images.unsplash.com/photo-1594824476967-48c8b964273f?auto=format&fit=crop&q=80&w=200",
+      "createdAt": "2026-05-02T10:37:13.412Z",
+      "updatedAt": "2026-05-02T10:37:13.412Z",
+      "accounts": [],
+      "sessions": []
+    }
+  ],
+  "posts": [
+    {
+      "id": "cmooc2m2s0001n13pofi5pzks",
+      "title": "The Hidden Toxins in Your Daily Routine",
+      "slug": "hidden-toxins-daily-routine",
+      "content": "\n        <h1>Understanding Daily Chemical Exposure</h1>\n        <p>In our modern world, we are surrounded by thousands of synthetic chemicals. While some are harmless, many have been linked to health issues ranging from hormonal disruption to chronic respiratory problems.</p>\n        \n        <h2>Common Sources of Toxins</h2>\n        <ul>\n          <li><strong>Personal Care:</strong> Parabens, phthalates, and sulfates found in soaps and shampoos.</li>\n          <li><strong>Household Cleaning:</strong> Harsh surfactants and synthetic fragrances that linger in the air.</li>\n          <li><strong>Food Packaging:</strong> Bisphenols (BPA/BPS) that can leach into our meals.</li>\n        </ul>\n        \n        <blockquote>\"The first step to a toxin-free life is awareness. Once you know what to look for, you can make empowered choices for your health.\" - Dr. Tina Pramanik</blockquote>\n        \n        <p>Start by reading labels carefully. Look for terms like \"Fragrance-Free\" instead of \"Unscented,\" and opt for glass or stainless steel over plastic whenever possible.</p>\n      ",
+      "excerpt": "From parabens in your shampoo to synthetic fragrances in your living room, learn practical steps to reduce your daily chemical exposure.",
+      "imageUrl": "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200",
+      "published": true,
+      "views": 5,
+      "authorId": "cmoo7jbr70000juq9utwfddzx",
+      "createdAt": "2026-05-02T12:44:11.713Z",
+      "updatedAt": "2026-05-02T16:31:53.900Z",
+      "tags": []
+    },
+    {
+      "id": "cmooc2m380003n13pq0oynqzx",
+      "title": "Why Indoor Dust is a Chemical Soup",
+      "slug": "indoor-dust-chemical-soup",
+      "content": "\n        <h1>The Science of Household Dust</h1>\n        <p>Household dust isn't just skin cells and lint. In fact, it is a complex reservoir of chemicals that have shed from furniture, electronics, and even the shoes we wear inside.</p>\n        \n        <img src=\"https://images.unsplash.com/photo-1581578731522-390bd0234479?auto=format&fit=crop&q=80&w=800\" alt=\"Microscopic view of dust\" />\n        \n        <h2>What's Hiding in Your Dust?</h2>\n        <ol>\n          <li><strong>Flame Retardants (PBDEs):</strong> Used in older foam furniture and electronics.</li>\n          <li><strong>Phthalates:</strong> Shed from PVC flooring and plastic toys.</li>\n          <li><strong>Heavy Metals:</strong> Lead and arsenic tracked in from outside soil.</li>\n        </ol>\n        \n        <p>To reduce your exposure, use a vacuum with a HEPA filter and damp-mop hard surfaces regularly. Removing shoes at the door can reduce lead levels in dust by up to 60%.</p>\n      ",
+      "excerpt": "Research shows household dust acts as a magnet for flame retardants and pesticides. Discover simple ways to improve your indoor air quality.",
+      "imageUrl": "https://images.unsplash.com/photo-1621451537084-482c73073e0f?auto=format&fit=crop&q=80&w=1200",
+      "published": true,
+      "views": 1,
+      "authorId": "cmoo7jbr70000juq9utwfddzx",
+      "createdAt": "2026-05-02T12:44:11.732Z",
+      "updatedAt": "2026-05-02T13:54:21.172Z",
+      "tags": []
+    },
+    {
+      "id": "cmooc2m3g0005n13pwr28y1f0",
+      "title": "Ditching PFAS: Safest Cookware for Your Family",
+      "slug": "safest-cookware-pfas-free",
+      "content": "\n        <h1>The PFAS Problem in Our Kitchens</h1>\n        <p>Per- and polyfluoroalkyl substances (PFAS) are a group of man-made chemicals that include PFOA, PFOS, and GenX. They are used in non-stick coatings because they resist heat, oil, and water.</p>\n        \n        <div data-youtube-video>\n          <iframe src=\"https://www.youtube.com/embed/9W74aeuqsiU\"></iframe>\n        </div>\n        \n        <h2>Top 3 Safe Alternatives</h2>\n        <ul>\n          <li><strong>Cast Iron:</strong> Naturally non-stick when seasoned and lasts a lifetime.</li>\n          <li><strong>Stainless Steel:</strong> The professional choice—durable and non-reactive.</li>\n          <li><strong>100% Ceramic:</strong> (Note: Not ceramic-coated) Truly inert and heat resistant.</li>\n        </ul>\n        \n        <p>Making the switch doesn't have to be expensive. Start by replacing your most-used pan and gradually move away from non-stick coatings as they become scratched or worn.</p>\n      ",
+      "excerpt": "Non-stick pans often contain 'forever chemicals'. We review the latest studies and safest alternatives like cast iron and stainless steel.",
+      "imageUrl": "https://images.unsplash.com/photo-1584820927498-cafe2c1c7669?auto=format&fit=crop&q=80&w=1200",
+      "published": true,
+      "views": 6,
+      "authorId": "cmoo7jbr70000juq9utwfddzx",
+      "createdAt": "2026-05-02T12:44:11.740Z",
+      "updatedAt": "2026-05-02T16:30:37.648Z",
+      "tags": []
+    }
+  ],
+  "tags": [],
+  "comments": [],
+  "subscribers": []
+}

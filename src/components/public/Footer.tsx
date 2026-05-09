@@ -1,14 +1,13 @@
 import Link from "next/link";
 import { Leaf } from "lucide-react";
-import styles from "@/app/page.module.css";
 import NewsletterForm from "@/components/blog/NewsletterForm";
 
 export default function Footer() {
   return (
-    <footer className={styles.footer}>
+    <footer className="comp-footer">
       <div className="container" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '3rem', marginBottom: '3rem' }}>
-        <div className={styles.footerCol}>
-          <Link href="/" className={styles.logo} style={{ color: 'white', marginBottom: '1.5rem', display: 'inline-flex' }} prefetch={false}>
+        <div className="comp-footer-col">
+          <Link href="/" className="comp-logo" style={{ color: 'white', marginBottom: '1.5rem', display: 'inline-flex' }} prefetch={false}>
             <Leaf size={24} color="var(--accent)" />
             GoToxinFree<span style={{ color: 'var(--secondary)' }}>WithTina</span>
           </Link>
@@ -25,9 +24,9 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className={styles.footerCol}>
+        <div className="comp-footer-col">
           <h3>Quick Links</h3>
-          <ul className={styles.footerLinks}>
+          <ul className="comp-footer-links">
             <li><Link href="/" prefetch={false}>Home</Link></li>
             <li><Link href="/about" prefetch={false}>About Tina</Link></li>
             <li><Link href="/blog" prefetch={false}>Blog & Research</Link></li>
@@ -35,7 +34,7 @@ export default function Footer() {
           </ul>
         </div>
         
-        <div className={styles.footerCol} style={{ flexGrow: 1.5 }}>
+        <div className="comp-footer-col" style={{ flexGrow: 1.5 }}>
           <h3>Subscribe to Newsletter</h3>
           <p style={{ opacity: 0.8, marginBottom: '1.5rem' }}>
             Get the latest research and tips on toxin-free living delivered straight to your inbox.
@@ -45,7 +44,7 @@ export default function Footer() {
       </div>
       
       <div className="container">
-        <div className={styles.footerBottom} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
+        <div className="comp-footer-bottom" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '2rem', flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <span>&copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.</span>
             <Link href="/login" style={{ color: 'inherit', opacity: 0.3 }} aria-label="Admin Login" prefetch={false}>
@@ -62,3 +61,4 @@ export default function Footer() {
     </footer>
   );
 }
+

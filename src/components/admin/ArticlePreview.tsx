@@ -1,7 +1,6 @@
 "use client";
 
 import { X, ArrowLeft, Clock, User, Share2, Leaf } from 'lucide-react';
-import styles from '@/app/page.module.css';
 import '@/app/blog/blog.css';
 
 interface ArticlePreviewProps {
@@ -74,17 +73,17 @@ export default function ArticlePreview({ isOpen, onClose, data }: ArticlePreview
 
       {/* Actual Article Render (Replicating blog/[slug]/page.tsx) */}
       <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
-        <header className={styles.header}>
-          <div className={`container ${styles.headerContainer}`}>
-            <div className={styles.logo}>
+        <header className="comp-header">
+          <div className={`container comp-header-container`}>
+            <div className="comp-logo">
               <Leaf size={24} color="var(--accent)" />
               GoToxinFree<span>WithTina</span>
             </div>
-            <nav className={styles.nav}>
-              <span className={styles.navLink}>Home</span>
-              <span className={styles.navLink} style={{color: 'var(--secondary)'}}>Blog</span>
-              <span className={styles.navLink}>About Tina</span>
-              <span className={styles.navLink}>Contact</span>
+            <nav className="comp-nav">
+              <span className="comp-nav-link">Home</span>
+              <span className="comp-nav-link" style={{color: 'var(--secondary)'}}>Blog</span>
+              <span className="comp-nav-link">About Tina</span>
+              <span className="comp-nav-link">Contact</span>
             </nav>
           </div>
         </header>
@@ -134,9 +133,9 @@ export default function ArticlePreview({ isOpen, onClose, data }: ArticlePreview
           </article>
         </main>
 
-        <footer className={styles.footer} style={{ marginTop: '5rem' }}>
+        <footer className="comp-footer" style={{ marginTop: '5rem' }}>
           <div className="container">
-            <div className={styles.footerBottom} style={{ textAlign: 'center' }}>
+            <div className="comp-footer-bottom" style={{ textAlign: 'center' }}>
               &copy; {new Date().getFullYear()} Go Toxin Free With Tina. All rights reserved.
             </div>
           </div>

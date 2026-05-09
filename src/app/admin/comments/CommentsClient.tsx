@@ -5,7 +5,7 @@ import {
   MessageSquare, Trash2, CheckCircle,
   Flag, Reply, Filter, Search, Clock
 } from 'lucide-react';
-import styles from '../layout.module.css';
+
 
 interface Comment {
   id: string;
@@ -99,12 +99,12 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
           <h1 style={{ fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0 }}>Discussion Moderation</h1>
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Engage with your community and moderate research feedback</p>
         </div>
-        <button onClick={refetchComments} disabled={isRefreshing} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+        <button onClick={refetchComments} disabled={isRefreshing} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
           {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
         </button>
       </div>
 
-      <div className={styles.card} style={{ padding: '0', overflow: 'hidden' }}>
+      <div className={"admin-card"} style={{ padding: '0', overflow: 'hidden' }}>
         <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--admin-border)', backgroundColor: '#f8fafc', display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <div style={{ position: 'relative', flexGrow: 1, minWidth: '300px' }}>
             <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--admin-text-muted)' }} />
@@ -167,13 +167,13 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
                     </div>
                   </div>
                   <div style={{ display: 'flex', gap: '0.5rem' }}>
-                    <button onClick={() => updateStatus(c.id, 'approved')} className={`${styles.btnIcon} ${styles.btnApprove}`} title="Approve">
+                    <button onClick={() => updateStatus(c.id, 'approved')} className={`${"admin-btn-icon"} "admin-btn-approve"`} title="Approve">
                       <CheckCircle size={18} />
                     </button>
-                    <button onClick={() => updateStatus(c.id, 'spam')} className={`${styles.btnIcon} ${styles.btnSpam}`} title="Mark as Spam">
+                    <button onClick={() => updateStatus(c.id, 'spam')} className={`${"admin-btn-icon"} "admin-btn-spam"`} title="Mark as Spam">
                       <Flag size={18} />
                     </button>
-                    <button onClick={() => handleDeleteComment(c.id)} className={`${styles.btnIcon} ${styles.btnDelete}`} title="Delete">
+                    <button onClick={() => handleDeleteComment(c.id)} className={`${"admin-btn-icon"} "admin-btn-delete"`} title="Delete">
                       <Trash2 size={18} />
                     </button>
                   </div>
@@ -207,7 +207,7 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
       {/* Reply Modal */}
       {replyingTo && (
         <div style={{ position: 'fixed', inset: 0, backgroundColor: 'rgba(0,0,0,0.5)', zIndex: 1000, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '2rem' }}>
-          <div className={styles.card} style={{ maxWidth: '600px', width: '100%', padding: '2rem' }}>
+          <div className={"admin-card"} style={{ maxWidth: '600px', width: '100%', padding: '2rem' }}>
             <h2 style={{ fontSize: '1.5rem', marginBottom: '1.5rem', color: 'var(--admin-primary)' }}>Reply to {replyingTo.authorName}</h2>
             <div style={{ marginBottom: '1.5rem', padding: '1rem', backgroundColor: '#f8fafc', borderRadius: '8px', fontSize: '0.9rem', color: 'var(--admin-text-muted)' }}>
               &quot;{replyingTo.content}&quot;
@@ -220,8 +220,8 @@ export default function CommentsClient({ initialComments }: CommentsClientProps)
               style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--admin-border)', fontSize: '1rem', marginBottom: '1.5rem', resize: 'none' }}
             />
             <div style={{ display: 'flex', gap: '1rem', justifyContent: 'flex-end' }}>
-              <button onClick={() => setReplyingTo(null)} className={styles.btnOutline}>Cancel</button>
-              <button onClick={handleReply} className={styles.btnAction}>Send Reply</button>
+              <button onClick={() => setReplyingTo(null)} className={"admin-btn-outline"}>Cancel</button>
+              <button onClick={handleReply} className={"admin-btn-action"}>Send Reply</button>
             </div>
           </div>
         </div>

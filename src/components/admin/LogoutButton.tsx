@@ -2,13 +2,13 @@
 
 import { signOut } from 'next-auth/react';
 import { LogOut } from 'lucide-react';
-import styles from '@/app/admin/layout.module.css';
+
 
 export default function LogoutButton() {
   return (
     <button 
       onClick={() => signOut({ callbackUrl: '/' })} 
-      className={styles.btnOutline} 
+      className={"admin-btn-outline"} 
       title="Sign Out"
     >
       <LogOut size={20} />

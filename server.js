@@ -11,7 +11,7 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-console.log('--- Starting Optimized Server with Static Support (Aradhana Pattern) ---');
+console.log('--- Starting Optimized Server with Static Support  ---');
 
 // 2. Load the Next.js standalone handler
 // When building with output: 'standalone', Next.js creates this file

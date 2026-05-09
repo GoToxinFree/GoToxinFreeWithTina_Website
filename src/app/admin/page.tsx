@@ -1,12 +1,10 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
-import styles from './layout.module.css';
-import { PlusCircle, FileText, BarChart3, Clock, ArrowUpRight, MessageSquare, Eye, Users } from "lucide-react";
+import { PlusCircle, FileText, Clock, ArrowUpRight, MessageSquare, Eye, Users } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
 
 export default async function AdminDashboard() {
   const postsCount = await prisma.post.count();
-  const publishedCount = await prisma.post.count({ where: { published: true } });
   
   const totalViewsResult = await prisma.post.aggregate({
     _sum: { views: true }
@@ -32,11 +30,11 @@ export default async function AdminDashboard() {
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
           {pendingCommentsCount > 0 && (
-            <Link href="/admin/comments" className={styles.logoutBtn} style={{ backgroundColor: '#fef3c7', border: '1px solid #f59e0b', color: '#92400e', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1.25rem' }}>
+            <Link href="/admin/comments" className="admin-logout-btn" style={{ backgroundColor: '#fef3c7', border: '1px solid #f59e0b', color: '#92400e', textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem', padding: '0 1.25rem' }}>
               <MessageSquare size={18} /> {pendingCommentsCount} Pending Comments
             </Link>
           )}
-          <Link href="/admin/posts/new" className={styles.btnAction}>
+          <Link href="/admin/posts/new" className="admin-btn-action">
             <PlusCircle size={20} /> New Article
           </Link>
           <LogoutButton />
@@ -70,7 +68,7 @@ export default async function AdminDashboard() {
         />
       </div>
 
-      <div className={styles.card} style={{ padding: '2.5rem' }}>
+      <div className={"admin-card"} style={{ padding: '2.5rem' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem' }}>
           <h2 style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--admin-primary)', margin: 0, display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
             <Clock size={24} /> Recent Activity
@@ -106,7 +104,7 @@ export default async function AdminDashboard() {
                     <div style={{ fontSize: '0.875rem', fontWeight: 700, color: 'var(--admin-primary)' }}>{post._count.comments}</div>
                     <div style={{ fontSize: '0.65rem', color: 'var(--admin-text-muted)', textTransform: 'uppercase' }}>Comments</div>
                   </div>
-                  <Link href={`/admin/posts/edit/${post.id}`} className={styles.logoutBtn} style={{ backgroundColor: 'white' }}>
+                  <Link href={`/admin/posts/edit/${post.id}`} className={"admin-logout-btn"} style={{ backgroundColor: 'white' }}>
                     <ArrowUpRight size={18} />
                   </Link>
                 </div>
@@ -121,7 +119,7 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, color }: { title: string, value: number, icon: React.ReactNode, color: string }) {
   return (
-    <div className={styles.card} style={{ padding: '1.75rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+    <div className="admin-card" style={{ padding: '1.75rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
       <div style={{ 
         width: '56px', 
         height: '56px', 

@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
 
   // OPTIMIZATION FOR HOSTINGER:
   // Limits the number of worker threads to prevent "pthread_create" errors
-  output: 'standalone',
   images: {
     unoptimized: true,
   },

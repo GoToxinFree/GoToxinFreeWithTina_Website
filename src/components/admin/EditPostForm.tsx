@@ -7,7 +7,7 @@ import { ArrowLeft, Save, Globe, Settings as SettingsIcon, Trash2, Eye } from 'l
 import Editor from '@/components/admin/Editor';
 import EditorTips from '@/components/admin/EditorTips';
 import ArticlePreview from './ArticlePreview';
-import styles from '@/app/admin/layout.module.css';
+
 
 interface EditPostFormProps {
   post: any;
@@ -78,7 +78,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <Link href="/admin/posts" className={styles.logoutBtn} style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}>
+          <Link href="/admin/posts" className={"admin-logout-btn"} style={{ backgroundColor: 'white', border: '1px solid var(--admin-border)' }}>
             <ArrowLeft size={20} />
           </Link>
           <div>
@@ -91,7 +91,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
           <button 
             type="button"
             onClick={() => setShowPreview(true)}
-            className={styles.btnAction}
+            className={"admin-btn-action"}
             style={{ backgroundColor: 'white', color: 'var(--admin-primary)', border: '1px solid var(--admin-border)' }}
           >
             <Eye size={20} /> Preview
@@ -101,7 +101,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             type="button" 
             onClick={handleDelete}
             disabled={isDeleting}
-            className={styles.logoutBtn}
+            className={"admin-logout-btn"}
             style={{ backgroundColor: 'white', border: '1px solid #fee2e2', color: '#ef4444' }}
             title="Delete Article"
           >
@@ -112,7 +112,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             type="submit" 
             form="post-form"
             disabled={isSubmitting}
-            className={styles.btnAction}
+            className={"admin-btn-action"}
           >
             {isSubmitting ? 'Saving...' : <><Save size={20} /> Update Article</>}
           </button>
@@ -138,7 +138,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
 
       <form id="post-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2.5rem' }}>
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className={styles.card} style={{ padding: '2.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '2.5rem' }}>
             <input
               type="text"
               required
@@ -169,7 +169,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className={styles.card} style={{ padding: '1.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <Globe size={18} /> Visibility
             </h3>
@@ -203,7 +203,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             </label>
           </div>
 
-          <div className={styles.card} style={{ padding: '1.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <SettingsIcon size={18} /> Configuration
             </h3>

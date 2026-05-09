@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Users, Mail, Trash2, UserMinus, UserCheck, Download, Search } from 'lucide-react';
-import styles from '../layout.module.css';
+
 
 interface Subscriber {
   id: string;
@@ -79,16 +79,16 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
           <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Manage your community and outreach</p>
         </div>
         <div style={{ display: 'flex', gap: '1rem' }}>
-          <button onClick={refetch} disabled={isRefreshing} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+          <button onClick={refetch} disabled={isRefreshing} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             {isRefreshing ? 'Refreshing...' : '↻ Refresh'}
           </button>
-          <button onClick={exportCSV} className={styles.btnOutline} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
+          <button onClick={exportCSV} className={"admin-btn-outline"} style={{ padding: '0.5rem 1rem', fontSize: '0.875rem' }}>
             <Download size={16} /> Export CSV
           </button>
         </div>
       </div>
 
-      <div className={styles.card} style={{ padding: '0', overflow: 'hidden' }}>
+      <div className={"admin-card"} style={{ padding: '0', overflow: 'hidden' }}>
         <div style={{ padding: '1.5rem', borderBottom: '1px solid var(--admin-border)', backgroundColor: '#f8fafc', display: 'flex', gap: '1rem' }}>
           <div style={{ position: 'relative', flexGrow: 1 }}>
             <Search size={18} style={{ position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)', color: 'var(--admin-text-muted)' }} />
@@ -147,14 +147,14 @@ export default function SubscribersClient({ initialSubscribers }: SubscribersCli
                     <div style={{ display: 'flex', justifyContent: 'flex-end', gap: '0.5rem' }}>
                       <button
                         onClick={() => toggleStatus(s.id, s.status)}
-                        className={styles.btnIcon}
+                        className={"admin-btn-icon"}
                         title={s.status === 'active' ? 'Unsubscribe' : 'Reactivate'}
                       >
                         {s.status === 'active' ? <UserMinus size={18} /> : <UserCheck size={18} />}
                       </button>
                       <button
                         onClick={() => handleDeleteSubscriber(s.id)}
-                        className={`${styles.btnIcon} ${styles.btnDelete}`}
+                        className={`${"admin-btn-icon"} "admin-btn-delete"`}
                         title="Delete subscriber"
                       >
                         <Trash2 size={16} />

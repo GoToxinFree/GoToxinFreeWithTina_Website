@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import ProfileForm from "@/components/admin/ProfileForm";
-import styles from "../layout.module.css";
+
 import { User } from "lucide-react";
 
 export default async function AdminProfilePage() {
@@ -27,7 +27,7 @@ export default async function AdminProfilePage() {
         <p style={{ color: 'var(--admin-text-muted)', margin: 0 }}>Manage your personal details and public appearance.</p>
       </div>
 
-      <div className={styles.card} style={{ padding: '2.5rem' }}>
+      <div className={"admin-card"} style={{ padding: '2.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.5rem', marginBottom: '2.5rem', paddingBottom: '2.5rem', borderBottom: '1px solid var(--admin-border)' }}>
           <div style={{ width: '80px', height: '80px', borderRadius: '20px', backgroundColor: 'var(--admin-secondary)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', overflow: 'hidden' }}>
             {user.image ? (

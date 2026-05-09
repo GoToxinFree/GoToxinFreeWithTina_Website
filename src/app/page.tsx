@@ -1,6 +1,5 @@
 import Link from "next/link";
-import { Leaf, ArrowRight } from "lucide-react";
-import styles from "./page.module.css";
+import { ArrowRight } from "lucide-react";
 import Header from "@/components/public/Header";
 import Footer from "@/components/public/Footer";
 import { prisma } from "@/lib/prisma";
@@ -15,23 +14,23 @@ async function getLatestPosts() {
 }
 
 export default async function Home() {
-  let posts: any[] = [];
-  let user: any = null;
+  let posts: Awaited<ReturnType<typeof getLatestPosts>> = [];
+  let user: { image: string | null } | null = null;
   let fetchError = null;
 
   try {
     posts = await getLatestPosts();
     // Fetch the admin user to get their profile photo
-    user = await prisma.user.findFirst();
-  } catch (err: any) {
+    user = await prisma.user.findFirst({ select: { image: true } });
+  } catch (err: unknown) {
     console.error("Home page fetch error:", err);
-    fetchError = err.message;
+    fetchError = (err as Error).message;
   }
 
   const ownerImage = user?.image || "/owner.jpeg";
 
   return (
-    <div className={styles.main}>
+    <div className="main">
       {fetchError && (
         <div style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '1rem', textAlign: 'center', fontSize: '0.9rem' }}>
           Database Error: {fetchError}. Please ensure the database is initialized.
@@ -41,13 +40,13 @@ export default async function Home() {
       <Header />
 
       {/* Hero Section */}
-      <section className={styles.hero}>
-        <div className={`container ${styles.heroContent}`}>
-          <h1 className="animate-fade-in">Hi, I'm Dr. Tina (Ph.D)</h1>
+      <section className="home-hero">
+        <div className={`container home-hero-content`}>
+          <h1 className="animate-fade-in">Hi, I&apos;m Dr. Tina (Ph.D)</h1>
           <p className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            Decoding the science of everyday chemicals so you don't have to. Let's navigate the noise and build a cleaner, safer, and truly toxin-free life together.
+            Decoding the science of everyday chemicals so you don&apos;t have to. Let&apos;s navigate the noise and build a cleaner, safer, and truly toxin-free life together.
           </p>
-          <div className={`${styles.heroButtons} animate-fade-in`} style={{ animationDelay: "0.2s" }}>
+          <div className="home-hero-buttons animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <Link href="#articles" className="btn-primary">
               Read Latest Research
             </Link>
@@ -68,7 +67,7 @@ export default async function Home() {
           <div>
             <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Welcome to my corner of the internet</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem' }}>
-              Navigating product labels and scientific studies shouldn't be a full-time job. I'm here to translate the complex research into simple, actionable steps you can take today to protect your health.
+              Navigating product labels and scientific studies shouldn&apos;t be a full-time job. I&apos;m here to translate the complex research into simple, actionable steps you can take today to protect your health.
             </p>
             <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
               <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }} prefetch={false}>
@@ -83,8 +82,8 @@ export default async function Home() {
       </section>
 
       {/* Main Content (Blog Grid) */}
-      <main className={`container ${styles.blogSection}`} id="articles">
-        <div className={styles.sectionHeader}>
+      <main className="container home-blog-section" id="articles">
+        <div className="home-section-header">
           <h2>Latest Insights & Research</h2>
           <Link href="/blog" className="btn-outline" prefetch={false}>
             View All Articles <ArrowRight size={16} />
@@ -98,15 +97,15 @@ export default async function Home() {
             </p>
           ) : (
             posts.map(post => (
-              <article key={post.id} className={styles.card}>
-                <div className={styles.cardImage}>
+              <article key={post.id} className="home-card">
+                <div className="home-card-image">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} alt={post.title} />
                 </div>
-                <div className={styles.cardContent}>
-                  <time className={styles.cardDate}>{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
-                  <h3 className={styles.cardTitle}>{post.title}</h3>
-                  <p className={styles.cardExcerpt}>{post.excerpt || post.content.substring(0, 150).replace(/<[^>]*>/g, '') + '...'}</p>
+                <div className="home-card-content">
+                  <time className="home-card-date">{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>
+                  <h3 className="home-card-title">{post.title}</h3>
+                  <p className="home-card-excerpt">{post.excerpt || post.content.substring(0, 150).replace(/<[^>]*>/g, '') + '...'}</p>
                   <Link href={`/blog/${post.slug}`} className="btn-outline" style={{ width: 'fit-content', marginTop: '1rem' }} prefetch={false}>
                     Read Full Article <ArrowRight size={16} />
                   </Link>

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
 import { PlusCircle, Edit, Trash2, Eye } from "lucide-react";
-import styles from "../layout.module.css";
+
 import BackupButton from "./BackupButton";
 
 export default async function AdminPostsPage() {
@@ -16,7 +16,7 @@ export default async function AdminPostsPage() {
         <h1 style={{ fontSize: '2rem', color: 'var(--primary)' }}>Articles</h1>
         <div style={{ display: 'flex', gap: '1rem' }}>
           <BackupButton />
-          <Link href="/admin/posts/new" className={styles.btnAction}>
+          <Link href="/admin/posts/new" className={"admin-btn-action"}>
             <PlusCircle size={20} /> New Article
           </Link>
         </div>

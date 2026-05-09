@@ -7,7 +7,7 @@ import { ArrowLeft, Save, Globe, Eye, Layout, Settings as SettingsIcon } from 'l
 import Editor from '@/components/admin/Editor';
 import EditorTips from '@/components/admin/EditorTips';
 import ArticlePreview from '@/components/admin/ArticlePreview';
-import styles from '../../layout.module.css';
+
 
 import { createPost } from '@/app/actions/admin';
 
@@ -62,7 +62,7 @@ export default function NewPostPage() {
     <div style={{ maxWidth: '1200px', margin: '0 auto' }}>
       <header style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '1.25rem' }}>
-          <Link href="/admin/posts" className={styles.btnOutline}>
+          <Link href="/admin/posts" className={"admin-btn-outline"}>
             <ArrowLeft size={20} />
           </Link>
           <div>
@@ -75,7 +75,7 @@ export default function NewPostPage() {
           <button 
             type="button" 
             onClick={() => setShowPreview(true)} 
-            className={styles.btnOutline}
+            className={"admin-btn-outline"}
           >
             <Eye size={20} /> Preview
           </button>
@@ -83,7 +83,7 @@ export default function NewPostPage() {
             type="submit" 
             form="post-form"
             disabled={isSubmitting}
-            className={styles.btnAction}
+            className={"admin-btn-action"}
           >
             {isSubmitting ? 'Saving...' : <><Save size={20} /> Save Article</>}
           </button>
@@ -110,7 +110,7 @@ export default function NewPostPage() {
       <form id="post-form" onSubmit={handleSubmit} style={{ display: 'grid', gridTemplateColumns: '1fr 350px', gap: '2.5rem' }}>
         {/* Main Editor Section */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
-          <div className={styles.card} style={{ padding: '2.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '2.5rem' }}>
             <input
               type="text"
               required
@@ -144,7 +144,7 @@ export default function NewPostPage() {
         <div style={{ display: 'flex', flexDirection: 'column', gap: '2rem' }}>
           
           {/* Status Card */}
-          <div className={styles.card} style={{ padding: '1.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <Globe size={18} /> Visibility
             </h3>
@@ -179,7 +179,7 @@ export default function NewPostPage() {
           </div>
 
           {/* Meta Card */}
-          <div className={styles.card} style={{ padding: '1.5rem' }}>
+          <div className={"admin-card"} style={{ padding: '1.5rem' }}>
             <h3 style={{ margin: '0 0 1.25rem 0', fontSize: '1rem', fontWeight: 700, display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--admin-primary)' }}>
               <SettingsIcon size={18} /> Configuration
             </h3>
