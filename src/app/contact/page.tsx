@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import { Mail, MapPin, Phone, ArrowLeft, Leaf, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 import styles from './page.module.css';
-import headerStyles from '../page.module.css';
+import pageStyles from '../page.module.css';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 
@@ -48,7 +48,7 @@ export default function Contact() {
   };
 
   return (
-    <div style={{ position: 'relative' }}>
+    <div className={pageStyles.main}>
       <Header />
 
       {/* Toast Notification */}

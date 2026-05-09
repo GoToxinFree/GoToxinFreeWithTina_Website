@@ -6,8 +6,10 @@ import { X } from 'lucide-react';
 
 export default function CookieConsent() {
   const [showBanner, setShowBanner] = useState(false);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
+    setIsMounted(true);
     const consent = localStorage.getItem('cookie-consent');
     if (!consent) {
       setShowBanner(true);
@@ -24,7 +26,7 @@ export default function CookieConsent() {
     setShowBanner(false);
   };
 
-  if (!showBanner) return null;
+  if (!isMounted || !showBanner) return null;
 
   return (
     <div style={{

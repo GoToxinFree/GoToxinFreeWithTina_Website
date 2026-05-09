@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { Clock, User, ArrowRight, FileText, Leaf, Search, Tag as TagIcon, Send } from 'lucide-react';
-import styles from '../page.module.css';
+import pageStyles from '../page.module.css';
 import './listing.css';
 import NewsletterForm from '@/components/blog/NewsletterForm';
 
@@ -31,7 +31,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
   });
 
   return (
-    <div style={{ backgroundColor: 'var(--surface)', minHeight: '100vh' }}>
+    <div className={pageStyles.main}>
       <Header />
 
       <section className="blogHero">

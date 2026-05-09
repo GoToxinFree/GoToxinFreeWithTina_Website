@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
 import { ArrowLeft, Clock, User, Share2, Leaf, ArrowRight } from 'lucide-react';
-import styles from '../../page.module.css';
+import pageStyles from '../../page.module.css';
 import '../blog.css';
 
 import CommentSection from '@/components/blog/CommentSection';
@@ -40,7 +40,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
   const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   return (
-    <div style={{ backgroundColor: 'white', minHeight: '100vh' }}>
+    <div className={pageStyles.main}>
       <Header />
 
       <main>
