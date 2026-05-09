@@ -2,12 +2,12 @@
 
 import nodemailer from "nodemailer";
 
-export async function sendContactEmail(formData: { name: string; email: string; message: string }) {
+export async function sendContactEmail(formData: FormData) {
   try {
-    const { name, email, message } = formData;
+    const { name, email, message } = Object.fromEntries(formData.entries()) as { name: string; email: string; message: string };
 
     if (!name || !email || !message) {
-      throw new Error('Name, email, and message are required');
+      return { success: false, error: "Please fill in all fields." };
     }
 
     // Reuse the existing EMAIL_SERVER connection string

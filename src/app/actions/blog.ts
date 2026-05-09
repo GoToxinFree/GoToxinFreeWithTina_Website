@@ -6,8 +6,10 @@ import { revalidatePath } from "next/cache";
 /**
  * NEWSLETTER ACTIONS
  */
-export async function subscribeToNewsletter(email: string) {
+export async function subscribeToNewsletter(formData: FormData) {
   try {
+    const email = formData.get('email') as string;
+
     if (!email || !email.includes('@')) {
       throw new Error("Please provide a valid email address.");
     }

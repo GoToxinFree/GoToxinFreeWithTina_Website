@@ -1,66 +1,45 @@
 "use client";
 
-import { useState } from 'react';
+import { useActionState } from 'react';
 import Link from 'next/link';
 import { Send, CheckCircle2 } from 'lucide-react';
 
 import { subscribeToNewsletter } from '@/app/actions/blog';
 
 export default function NewsletterForm() {
-  const [email, setEmail] = useState('');
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [message, setMessage] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email) return;
-
-    setStatus('loading');
-    try {
-      const result = await subscribeToNewsletter(email);
-
-      if (result.success) {
-        setStatus('success');
-        setMessage(result.message || 'Subscribed successfully!');
-        setEmail('');
-      } else {
-        setStatus('error');
-        setMessage(result.error || 'Something went wrong');
+  const [state, formAction, isPending] = useActionState(
+    async (prevState: any, formData: FormData) => {
+      try {
+        const result = await subscribeToNewsletter(formData);
+        return result;
+      } catch (error) {
+        return { success: false, error: 'Failed to connect to the server' };
       }
-    } catch (err) {
-      setStatus('error');
-      setMessage('Failed to connect to the server');
-    }
-  };
+    },
+    { success: false, error: '', message: '' }
+  );
 
-  if (status === 'success') {
+  if (state.success) {
     return (
       <div style={{ padding: '1.5rem', backgroundColor: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.3)', borderRadius: '12px', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: '#10b981' }}>
           <CheckCircle2 size={20} />
           <h3 style={{ margin: 0, fontSize: '1.1rem' }}>Success!</h3>
         </div>
-        <p style={{ margin: 0, opacity: 0.9, fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>{message}</p>
-        <button
-          onClick={() => setStatus('idle')}
-          style={{ background: 'none', border: 'none', color: 'var(--secondary)', textAlign: 'left', padding: 0, cursor: 'pointer', fontSize: '0.85rem', marginTop: '0.5rem', textDecoration: 'underline' }}
-        >
-          Subscribe another email
-        </button>
+        <p style={{ margin: 0, opacity: 0.9, fontSize: '0.9rem', color: 'rgba(255,255,255,0.9)' }}>{state.message}</p>
       </div>
     );
   }
 
   return (
-    <form onSubmit={handleSubmit} style={{ width: '100%', maxWidth: '400px' }}>
+    <form action={formAction} style={{ width: '100%', maxWidth: '400px' }}>
       <div style={{ position: 'relative', width: '100%', display: 'flex', alignItems: 'center' }}>
         <input
           type="email"
+          name="email"
         required
         placeholder="Enter your email address"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        disabled={status === 'loading'}
+        disabled={isPending}
         style={{
           display: 'block',
           width: '100%',
@@ -78,7 +57,8 @@ export default function NewsletterForm() {
         onBlur={(e) => e.target.style.borderColor = 'rgba(255,255,255,0.2)'}
       />
       <button
-        disabled={status === 'loading'}
+        type="submit"
+        disabled={isPending}
         title="Subscribe"
         style={{
           position: 'absolute',
@@ -95,23 +75,23 @@ export default function NewsletterForm() {
           alignItems: 'center',
           justifyContent: 'center',
           cursor: 'pointer',
-          opacity: status === 'loading' ? 0.7 : 1,
+          opacity: isPending ? 0.7 : 1,
           transition: 'background-color 0.2s ease'
         }}
         onMouseOver={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary-hover)'}
         onMouseOut={(e) => e.currentTarget.style.backgroundColor = 'var(--secondary)'}
       >
-        {status === 'loading' ? (
+        {isPending ? (
           <div style={{ width: '16px', height: '16px', border: '2px solid rgba(255,255,255,0.3)', borderTopColor: 'white', borderRadius: '50%', animation: 'spin 1s linear infinite' }} />
         ) : (
           <Send size={16} style={{ marginLeft: '-2px' }} />
         )}
       </button>
       </div>
-      {status === 'error' && (
+      {state.error && (
         <p style={{ marginTop: '0.75rem', color: '#fca5a5', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
           <span style={{ display: 'inline-block', width: '4px', height: '4px', borderRadius: '50%', backgroundColor: '#fca5a5' }} />
-          {message}
+          {state.error}
         </p>
       )}
 

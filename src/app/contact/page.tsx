@@ -3,67 +3,43 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { Mail, MapPin, Phone, ArrowLeft, Leaf, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
-import styles from './page.module.css';
-import pageStyles from '../page.module.css';
+import styles from './contact.module.css';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 
 import { sendContactEmail } from '@/app/actions/contact';
 
+import { useActionState } from 'react';
+
 export default function Contact() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    message: ''
-  });
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const [errorMessage, setErrorMessage] = useState('');
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setStatus('loading');
-    setErrorMessage('');
-
-    try {
-      const result = await sendContactEmail(formData);
-
-      if (result.success) {
-        setStatus('success');
-        setFormData({ name: '', email: '', message: '' });
-        // Reset success message after 5 seconds
-        setTimeout(() => setStatus('idle'), 5000);
-      } else {
-        setStatus('error');
-        setErrorMessage(result.error || 'Something went wrong. Please try again.');
+  const [state, formAction, isPending] = useActionState(
+    async (prevState: any, formData: FormData) => {
+      try {
+        const result = await sendContactEmail(formData);
+        return result;
+      } catch (error) {
+        return { success: false, error: 'Failed to connect to the server. Please try again later.' };
       }
-    } catch (error) {
-      setStatus('error');
-      setErrorMessage('Failed to connect to the server. Please try again later.');
-    }
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target;
-    setFormData(prev => ({ ...prev, [id]: value }));
-  };
+    },
+    { success: false, error: '' }
+  );
 
   return (
-    <div className={pageStyles.main}>
+    <div className="main">
       <Header />
 
       {/* Toast Notification */}
-      {status === 'success' && (
+      {state.success && (
         <div className={styles.toast} style={{ backgroundColor: '#10b981' }}>
           <CheckCircle size={20} />
           <span>Message sent successfully! I'll get back to you soon.</span>
         </div>
       )}
 
-      {status === 'error' && (
+      {state.error && (
         <div className={styles.toast} style={{ backgroundColor: '#ef4444' }}>
           <AlertCircle size={20} />
-          <span>{errorMessage}</span>
-          <button onClick={() => setStatus('idle')} style={{ background: 'none', border: 'none', color: 'white', cursor: 'pointer', marginLeft: 'auto' }}>×</button>
+          <span>{state.error}</span>
         </div>
       )}
 
@@ -96,7 +72,7 @@ export default function Contact() {
             </div>
             <div className={styles.infoItem}>
               <MapPin className={styles.infoIcon} size={24} />
-              <span>Tokyo, Japan -120 0001</span>
+              <span>1-1-6-1406 UR Oyata , Adachi-ku, Tokyo, Japan, 120-0001</span>
             </div>
             <div className={styles.infoItem} style={{ marginTop: '1rem' }}>
               <a href="https://jp.linkedin.com/in/supritidas" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'inherit', textDecoration: 'none' }}>
@@ -107,17 +83,16 @@ export default function Contact() {
           </div>
 
           <div className={styles.contactForm}>
-            <form onSubmit={handleSubmit}>
+            <form action={formAction}>
               <div className={styles.formGroup}>
                 <label htmlFor="name">Name</label>
                 <input 
                   type="text" 
                   id="name" 
+                  name="name"
                   placeholder="Your Name" 
                   required 
-                  value={formData.name}
-                  onChange={handleChange}
-                  disabled={status === 'loading'}
+                  disabled={isPending}
                 />
               </div>
               <div className={styles.formGroup}>
@@ -125,31 +100,29 @@ export default function Contact() {
                 <input 
                   type="email" 
                   id="email" 
+                  name="email"
                   placeholder="your@email.com" 
                   required 
-                  value={formData.email}
-                  onChange={handleChange}
-                  disabled={status === 'loading'}
+                  disabled={isPending}
                 />
               </div>
               <div className={styles.formGroup}>
                 <label htmlFor="message">Message</label>
                 <textarea 
                   id="message" 
+                  name="message"
                   rows={5} 
                   placeholder="How can I help you?" 
                   required 
-                  value={formData.message}
-                  onChange={handleChange}
-                  disabled={status === 'loading'}
+                  disabled={isPending}
                 ></textarea>
               </div>
               <button 
                 type="submit" 
                 className={`btn-primary ${styles.submitBtn}`}
-                disabled={status === 'loading'}
+                disabled={isPending}
               >
-                {status === 'loading' ? (
+                {isPending ? (
                   <>
                     <Loader2 className="animate-spin" size={20} /> Sending...
                   </>

@@ -1,9 +1,9 @@
 /**
- * Optimized Hostinger Startup File for GoToxinFree
- * This file handles static file serving and limits the Node.js thread pool.
+ * Optimized Hostinger Startup File (Synced with AradhanaTrust)
+ * This file handles static file serving manually and limits the Node.js thread pool.
  */
 
-// 1. Force the thread pool to minimum size (Crucial for Hostinger Shared Hosting)
+// 1. Force the thread pool to minimum size (Crucial for Hostinger)
 process.env.UV_THREADPOOL_SIZE = '1';
 process.env.NODE_ENV = 'production';
 
@@ -11,13 +11,14 @@ const http = require('http');
 const path = require('path');
 const fs = require('fs');
 
-console.log('--- Starting Optimized Server for GoToxinFree ---');
+console.log('--- Starting Optimized Server with Static Support (Aradhana Pattern) ---');
 
 // 2. Load the Next.js standalone handler
-// When using output: 'standalone', Next.js creates this file
+// When building with output: 'standalone', Next.js creates this file
 const standalonePath = path.join(__dirname, '.next', 'standalone', 'server.js');
 if (!fs.existsSync(standalonePath)) {
-    console.error('CRITICAL: .next/standalone/server.js not found! Ensure you have run "npm run build".');
+    console.error('CRITICAL: .next/standalone/server.js not found!');
+    console.error('Did you run "npm run build" first?');
     process.exit(1);
 }
 
@@ -26,14 +27,12 @@ const nextHandler = require(standalonePath).currentHandler || require(standalone
 
 // 3. Create a wrapper server
 const server = http.createServer((req, res) => {
-    const url = req.url.split('?')[0];
-
     // A. Check for static files in /public
     const publicDir = path.join(__dirname, 'public');
-    const publicFilePath = path.join(publicDir, url);
+    const filePath = path.join(publicDir, req.url.split('?')[0]);
 
-    if (fs.existsSync(publicFilePath) && fs.lstatSync(publicFilePath).isFile()) {
-        const ext = path.extname(publicFilePath).toLowerCase();
+    if (fs.existsSync(filePath) && fs.lstatSync(filePath).isFile()) {
+        const ext = path.extname(filePath).toLowerCase();
         const mimeTypes = {
             '.png': 'image/png',
             '.jpg': 'image/jpeg',
@@ -43,39 +42,25 @@ const server = http.createServer((req, res) => {
             '.ico': 'image/x-icon',
             '.css': 'text/css',
             '.js': 'text/javascript',
-            '.woff': 'font/woff',
-            '.woff2': 'font/woff2',
-            '.ttf': 'font/ttf',
-            '.otf': 'font/otf'
+            '.json': 'application/json'
         };
 
-        res.writeHead(200, { 
-            'Content-Type': mimeTypes[ext] || 'application/octet-stream',
-            'Cache-Control': 'public, max-age=31536000, immutable'
-        });
-        fs.createReadStream(publicFilePath).pipe(res);
+        res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
+        fs.createReadStream(filePath).pipe(res);
         return;
     }
 
     // B. Check for static files in /.next/static
-    if (url.startsWith('/_next/static/')) {
-        const staticFilePath = path.join(__dirname, '.next', 'static', url.replace('/_next/static/', ''));
+    if (req.url.startsWith('/_next/static/')) {
+        const staticFilePath = path.join(__dirname, '.next', req.url.replace('/_next/', ''));
         if (fs.existsSync(staticFilePath) && fs.lstatSync(staticFilePath).isFile()) {
             const ext = path.extname(staticFilePath).toLowerCase();
             const mimeTypes = {
                 '.css': 'text/css',
                 '.js': 'text/javascript',
-                '.json': 'application/json',
-                '.png': 'image/png',
-                '.jpg': 'image/jpeg',
-                '.jpeg': 'image/jpeg',
-                '.woff': 'font/woff',
-                '.woff2': 'font/woff2'
+                '.json': 'application/json'
             };
-            res.writeHead(200, { 
-                'Content-Type': mimeTypes[ext] || 'application/octet-stream',
-                'Cache-Control': 'public, max-age=31536000, immutable'
-            });
+            res.writeHead(200, { 'Content-Type': mimeTypes[ext] || 'application/octet-stream' });
             fs.createReadStream(staticFilePath).pipe(res);
             return;
         }
