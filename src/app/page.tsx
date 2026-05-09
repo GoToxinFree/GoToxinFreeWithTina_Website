@@ -44,11 +44,11 @@ export default async function Home() {
         <div className={`container home-hero-content`}>
           <h1 className="animate-fade-in">Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
           <p className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
-            A Project Researcher at <strong>The University of Tokyo</strong> decoding the science of everyday toxins. I translate rigorous environmental research into simple, actionable steps for a safer, cleaner life.
+            A **Global Environmental Researcher** decoding the science of toxins. I translate years of rigorous scientific study into simple, actionable steps for a safer, cleaner life.
           </p>
           <div className="home-hero-buttons animate-fade-in" style={{ animationDelay: "0.2s" }}>
             <Link href="#articles" className="btn-primary">
-              Read Latest Research
+              Explore the Research
             </Link>
             <Link href="/about" className="btn-secondary" style={{ borderColor: 'white', color: 'white' }} prefetch={false}>
               The Story Behind the Science
@@ -65,16 +65,16 @@ export default async function Home() {
             <img src={ownerImage} alt="Dr. Supriti Das" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
-            <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Science-Backed Advocacy</h2>
+            <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Evidence-Based Advocacy</h2>
             <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem', textAlign: 'justify', hyphens: 'auto' }}>
-              From the laboratories of <strong>IIT Hyderabad</strong> to the <strong>Moonshot Program in Tokyo</strong>, I have spent my career studying how environmental toxins affect human health. I founded this blog to bring that high-level research directly into your home—cutting through the greenwashing to find what truly keeps us safe.
+              With a background spanning elite research institutions in **India and Japan**, I have dedicated my career to understanding how environmental toxins affect our health. I founded this blog to bridge the gap between high-level laboratory research and our everyday homes—cutting through the noise to find what truly keeps us safe.
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', width: '100%', maxWidth: '450px', marginTop: '1.5rem' }}>
               <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
-                Explore My Research <ArrowRight size={16} />
+                About My Mission <ArrowRight size={16} />
               </Link>
               <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
-                Collaborate <ArrowRight size={16} />
+                Get in Touch <ArrowRight size={16} />
               </Link>
             </div>
           </div>

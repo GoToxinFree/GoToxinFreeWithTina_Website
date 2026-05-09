@@ -16,7 +16,7 @@ export default async function About() {
       <section className="about-hero">
         <div className="container">
           <h1>Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
-          <p>Project Researcher at The University of Tokyo & Environmental Safety Advocate</p>
+          <p>Global Environmental Researcher & Advocate for Toxin-Free Living</p>
         </div>
       </section>
 
@@ -36,16 +36,16 @@ export default async function About() {
           <div className={"about-text-content"}>
             <h2>Bridging Science and Safety</h2>
             <p>
-              I am <strong>Dr. Supriti Das (Ph.D.)</strong>, an environmental researcher dedicated to decoding the complex relationship between our environment and human health. Currently, I serve as a <strong>Project Researcher at The University of Tokyo</strong>, where I work on the prestigious <strong>Moonshot Research and Development Program</strong>. My work involves leveraging Artificial Intelligence and Remote Sensing to assess environment-health risks and build disaster resilience.
+              I am <strong>Dr. Supriti Das (Ph.D.)</strong>, a global environmental researcher dedicated to decoding the complex relationship between our environment and human health. Over the years, my work has spanned elite academic institutions and international research programs, focusing on assessing environmental risks and building a safer, more resilient world.
             </p>
             <p>
               My journey into environmental advocacy began during my doctoral research at the <strong>Indian Institute of Technology (IIT), Hyderabad</strong>. My Ph.D. focused on the Mercury geochemical cycle and human health risk assessment—research that was recognized with the <strong>"Ramky Best Ph.D. Award"</strong> for its contribution to environmental excellence.
             </p>
             <p>
-              Before moving to Japan, I spent years working at the intersection of engineering and policy, including a tenure as an Assistant Engineer in a government organization and teaching environmental science at both undergraduate and postgraduate levels. My Master&apos;s degree from <strong>NIT Durgapur</strong> specialized in using GIS and Remote Sensing for disaster management—skills I now use to identify and mitigate toxic exposures in our modern world.
+              Throughout my career, I have leveraged Artificial Intelligence, Remote Sensing, and GIS to identify and mitigate toxic exposures. My experience includes conducting high-level research at <strong>The University of Tokyo</strong> (under the Moonshot R&D Program), serving in government engineering roles, and teaching environmental science to the next generation of researchers. 
             </p>
             <p>
-              <strong>Go Toxin Free With Tina</strong> was born from a simple realization: while scientific journals are filled with warnings about unregulated synthetic chemicals in our homes, that information rarely reaches the people who need it most. I created this platform to translate high-level research—from the <strong>Minamata Convention on Mercury</strong> to the latest AI-driven toxicity studies—into actionable guides for your everyday life.
+              <strong>Go Toxin Free With Tina</strong> was born from a simple realization: while scientific journals are filled with warnings about unregulated synthetic chemicals in our homes, that information rarely reaches the families who need it most. I created this platform to translate years of academic research—from the <strong>Minamata Convention on Mercury</strong> to the latest AI-driven toxicity studies—into actionable guides for your everyday life.
             </p>
           </div>
         </div>
