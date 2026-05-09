@@ -1040,3 +1040,10 @@ a:hover {
 .admin-btn-approve:hover { background-color: #dcfce7; color: #166534; border-color: #166534; }
 .admin-btn-spam:hover { background-color: #fef3c7; color: #92400e; border-color: #92400e; }
 .admin-btn-delete:hover { background-color: #fee2e2; color: #991b1b; border-color: #991b1b; }
+
+/* --- ERROR PAGE STYLES --- */
+.error-container { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 70vh; text-align: center; padding: 2rem; }
+.error-code { font-size: 8rem; font-weight: 900; color: var(--primary); line-height: 1; margin-bottom: 1rem; opacity: 0.2; }
+.error-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 1rem; }
+.error-text { font-size: 1.25rem; color: var(--text-muted); max-width: 500px; margin-bottom: 2rem; }
+@media (max-width: 768px) { .error-code { font-size: 5rem; } .error-title { font-size: 1.75rem; } }
