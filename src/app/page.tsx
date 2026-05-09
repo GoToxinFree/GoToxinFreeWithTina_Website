@@ -66,15 +66,15 @@ export default async function Home() {
           </div>
           <div>
             <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Welcome to my corner of the internet</h2>
-            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem' }}>
+            <p style={{ color: 'var(--text-muted)', marginBottom: '1rem', fontSize: '1.05rem', textAlign: 'justify', hyphens: 'auto' }}>
               Navigating product labels and scientific studies shouldn&apos;t be a full-time job. I&apos;m here to translate the complex research into simple, actionable steps you can take today to protect your health.
             </p>
-            <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'inherit' }}>
-              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: 'fit-content' }} prefetch={false}>
-                Learn more about my journey <ArrowRight size={18} />
+            <div style={{ display: 'flex', gap: '0.75rem', width: '100%', maxWidth: '450px', marginTop: '1.5rem' }}>
+              <Link href="/about" className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
+                Learn More <ArrowRight size={16} />
               </Link>
-              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', width: 'fit-content' }} prefetch={false}>
-                Get in touch <ArrowRight size={18} />
+              <Link href="/contact" className="btn-secondary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem', flex: 1, padding: '0.75rem 0.5rem', fontSize: '0.9rem', whiteSpace: 'nowrap' }} prefetch={false}>
+                Get in touch <ArrowRight size={16} />
               </Link>
             </div>
           </div>
@@ -83,11 +83,8 @@ export default async function Home() {
 
       {/* Main Content (Blog Grid) */}
       <main className="container home-blog-section" id="articles">
-        <div className="home-section-header">
+        <div className="home-section-header centered">
           <h2>Latest Insights & Research</h2>
-          <Link href="/blog" className="btn-outline" prefetch={false}>
-            View All Articles <ArrowRight size={16} />
-          </Link>
         </div>
 
         <div className="grid-3">
@@ -113,6 +110,12 @@ export default async function Home() {
               </article>
             ))
           )}
+        </div>
+
+        <div className="home-section-footer">
+          <Link href="/blog" className="btn-outline" style={{ minWidth: '200px', justifyContent: 'center' }} prefetch={false}>
+            View All Articles <ArrowRight size={16} />
+          </Link>
         </div>
       </main>
 

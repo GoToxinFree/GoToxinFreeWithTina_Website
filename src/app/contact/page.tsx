@@ -48,9 +48,11 @@ export default function Contact() {
       </section>
 
       <main className="container contact-main">
-        <Link href="/" className="btn-ghost" style={{ marginBottom: '2rem', marginLeft: '-0.75rem' }}>
-          <ArrowLeft size={16} /> Back to Home
-        </Link>
+        <div style={{ marginBottom: '2rem' }}>
+          <Link href="/" className="btn-ghost" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem' }}>
+            <ArrowLeft size={16} /> Back to Home
+          </Link>
+        </div>
 
         <div className="contact-layout">
           <div className="contact-info">
