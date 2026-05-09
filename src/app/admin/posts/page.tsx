@@ -79,5 +79,6 @@ export default async function AdminPostsPage() {
         </table>
       </div>
     </div>
+    </div>
   );
 }
