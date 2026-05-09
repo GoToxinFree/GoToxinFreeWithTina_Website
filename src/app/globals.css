@@ -1228,8 +1228,9 @@ a:hover {
   
   .contact-hero { text-align: center; padding: 4rem 1rem; }
   .contact-hero p { max-width: 90%; margin: 0 auto; text-align: center; }
-  .contact-info { max-width: 90%; margin: 0 auto 3rem; text-align: center; }
+  .contact-info { max-width: 100%; margin-bottom: 3rem; text-align: left; }
   .contact-info p { text-align: justify; hyphens: auto; }
-  .contact-info-item { justify-content: center; text-align: left; }
+  .contact-info-item { justify-content: flex-start; text-align: left; }
+
   .contact-form { width: 95%; margin: 0 auto; padding: 1.5rem; }
 }
