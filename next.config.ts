@@ -10,7 +10,6 @@ const nextConfig: NextConfig = {
 
   // OPTIMIZATION FOR HOSTINGER:
   // Limits the number of worker threads to prevent "pthread_create" errors
-  // which happen when the hosting account hits its process/thread limit.
   experimental: {
     cpus: 1,
     workerThreads: false,
