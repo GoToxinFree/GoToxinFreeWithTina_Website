@@ -3,6 +3,8 @@ import Link from "next/link";
 import { PlusCircle, FileText, Clock, ArrowUpRight, MessageSquare, Eye, Users } from "lucide-react";
 import LogoutButton from "@/components/admin/LogoutButton";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminDashboard() {
   const postsCount = await prisma.post.count();
   

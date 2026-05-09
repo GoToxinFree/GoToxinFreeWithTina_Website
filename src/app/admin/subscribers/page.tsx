@@ -1,6 +1,8 @@
 import { prisma } from '@/lib/prisma';
 import SubscribersClient from './SubscribersClient';
 
+export const dynamic = 'force-dynamic';
+
 export default async function SubscribersPage() {
   const subscribers = await prisma.subscriber.findMany({
     orderBy: { createdAt: 'desc' },

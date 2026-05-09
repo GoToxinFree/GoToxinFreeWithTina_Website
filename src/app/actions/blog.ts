@@ -27,6 +27,9 @@ export async function subscribeToNewsletter(formData: FormData) {
       data: { email }
     });
 
+    revalidatePath('/admin');
+    revalidatePath('/admin/subscribers');
+
     return { success: true, message: "Welcome to the community! Check your inbox soon." };
   } catch (error: any) {
     console.error("Newsletter Action Error:", error);
@@ -62,6 +65,8 @@ export async function postComment(data: {
     });
 
     revalidatePath(`/blog/[slug]`, 'page');
+    revalidatePath('/admin');
+    revalidatePath('/admin/comments');
     return { success: true, comment };
   } catch (error: any) {
     console.error("Comment Action Error:", error);

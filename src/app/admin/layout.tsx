@@ -51,11 +51,10 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               <div style={{ backgroundColor: 'white', padding: '0.4rem', borderRadius: '8px', display: 'flex' }}>
                 <Leaf size={22} color="var(--admin-secondary)" />
               </div>
-              <h2 style={{ margin: 0, fontSize: '1.25rem', fontWeight: 800 }}>Admin<span style={{ color: 'var(--admin-secondary)' }}>Panel</span></h2>
+              <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>GoToxinFree<span style={{ color: 'var(--admin-secondary)' }}>WithTina</span></h2>
             </div>
-            <div style={{ display: 'flex', flexWrap: 'wrap', paddingLeft: '3rem', fontSize: '0.7rem', opacity: 0.7 }}>
-              <span>GoToxinFree</span>
-              <span style={{ color: '#00a6ce' }}>WithTina</span>
+            <div style={{ paddingLeft: '3rem', fontSize: '0.85rem', fontWeight: 600, opacity: 0.8, color: 'var(--admin-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+              Admin Panel
             </div>
           </Link>
         </div>
@@ -130,7 +129,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           >
             <Menu size={24} color="var(--admin-primary)" />
           </button>
-          <h2 style={{ fontSize: '1.25rem', margin: 0, fontWeight: 800, color: 'var(--admin-primary)' }}>Admin Panel</h2>
+          <h2 style={{ fontSize: '1.1rem', margin: 0, fontWeight: 800, color: 'var(--admin-primary)' }}>GoToxinFree<span style={{ color: 'var(--admin-secondary)' }}>WithTina</span></h2>
         </header>
         {children}
       </main>
