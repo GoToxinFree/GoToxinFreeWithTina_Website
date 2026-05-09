@@ -285,8 +285,8 @@ a:hover {
   margin-bottom: 2rem;
   font-size: 1.1rem;
   text-align: justify;
-  hyphens: auto;
 }
+
 
 
 .contact-info-item {
@@ -983,8 +983,8 @@ a:hover {
   margin-left: auto;
   margin-right: auto;
   text-align: justify;
-  hyphens: auto;
 }
+
 
 
 .home-hero-buttons {
@@ -1105,8 +1105,8 @@ a:hover {
   margin-bottom: 1.5rem;
   flex-grow: 1;
   text-align: justify;
-  hyphens: auto;
 }
+
 
 
 .home-card-read-more {
@@ -1190,8 +1190,8 @@ a:hover {
     line-height: 1.8; 
     margin-bottom: 1.5rem;
     text-align: justify;
-    hyphens: auto;
   }
+
   
   .about-main { padding-top: 2rem; }
   
@@ -1231,7 +1231,8 @@ a:hover {
   .contact-hero { text-align: center; padding: 4rem 1rem; }
   .contact-hero p { max-width: 90%; margin: 0 auto; text-align: center; }
   .contact-info { max-width: 100%; margin-bottom: 3rem; text-align: left; }
-  .contact-info p { text-align: justify; hyphens: auto; }
+  .contact-info p { text-align: justify; }
+
   .contact-info-item { justify-content: flex-start; text-align: left; }
 
   .contact-form { width: 95%; margin: 0 auto; padding: 1.5rem; }

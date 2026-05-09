@@ -172,7 +172,7 @@
 @media (max-width: 768px) {
   .featuredCard { border-radius: 12px; margin-top: -2rem; }
   .featuredContent h2 { font-size: 1.75rem; text-align: center; }
-  .featuredContent p, .postCardContent p { text-align: justify; hyphens: auto; }
+  .featuredContent p, .postCardContent p { text-align: justify; }
   .blogHero h1 { font-size: 2.25rem; }
   .blogHero p { font-size: 1.1rem; max-width: 90%; margin: 0 auto; }
   .blogGrid { gap: 1.5rem; margin: 3rem 0; }
