@@ -15,6 +15,12 @@ const nextConfig: NextConfig = {
     cpus: 1,
     workerThreads: false,
   },
+
+  // Disable image optimization because it spawns multiple processes per image,
+  // which triggers the "pthread_create" limit on Hostinger shared hosting.
+  images: {
+    unoptimized: true,
+  },
 };
 
 export default nextConfig;
