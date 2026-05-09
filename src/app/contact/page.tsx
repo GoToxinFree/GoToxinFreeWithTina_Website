@@ -8,6 +8,8 @@ import headerStyles from '../page.module.css';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 
+import { sendContactEmail } from '@/app/actions/contact';
+
 export default function Contact() {
   const [formData, setFormData] = useState({
     name: '',
@@ -23,24 +25,16 @@ export default function Contact() {
     setErrorMessage('');
 
     try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
+      const result = await sendContactEmail(formData);
 
-      const data = await response.json();
-
-      if (response.ok) {
+      if (result.success) {
         setStatus('success');
         setFormData({ name: '', email: '', message: '' });
         // Reset success message after 5 seconds
         setTimeout(() => setStatus('idle'), 5000);
       } else {
         setStatus('error');
-        setErrorMessage(data.error || 'Something went wrong. Please try again.');
+        setErrorMessage(result.error || 'Something went wrong. Please try again.');
       }
     } catch (error) {
       setStatus('error');
