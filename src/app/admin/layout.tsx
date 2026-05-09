@@ -47,13 +47,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       <aside className={`admin-sidebar ${isSidebarOpen ? 'open' : ''}`}>
         <div className="admin-sidebar-header">
           <Link href="/admin" style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.25rem' }}>
-              <div style={{ backgroundColor: 'white', padding: '0.4rem', borderRadius: '8px', display: 'flex' }}>
-                <Leaf size={22} color="var(--admin-secondary)" />
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.5rem' }}>
+              <div style={{ backgroundColor: 'white', padding: '0.5rem', borderRadius: '10px', display: 'flex', flexShrink: 0 }}>
+                <Leaf size={24} color="var(--admin-secondary)" />
               </div>
-              <h2 style={{ margin: 0, fontSize: '1.2rem', fontWeight: 800 }}>GoToxinFree<span style={{ color: 'var(--admin-secondary)' }}>WithTina</span></h2>
+              <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
+                <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800 }}>GoToxinFree</h2>
+                <h2 style={{ margin: 0, fontSize: '1.1rem', fontWeight: 800, color: 'var(--admin-secondary)' }}>WithTina</h2>
+              </div>
             </div>
-            <div style={{ paddingLeft: '3rem', fontSize: '0.85rem', fontWeight: 600, opacity: 0.8, color: 'var(--admin-secondary)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+            <div style={{ paddingLeft: '3.35rem', fontSize: '0.75rem', fontWeight: 600, opacity: 0.8, color: 'white', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               Admin Panel
             </div>
           </Link>
