@@ -27,10 +27,17 @@ export async function subscribeToNewsletter(formData: FormData) {
       data: { email }
     });
 
+    try {
+      const { sendWelcomeEmail } = await import("@/lib/mail");
+      await sendWelcomeEmail(email);
+    } catch (mailError) {
+      console.error("Failed to send welcome email:", mailError);
+    }
+
     revalidatePath('/admin');
     revalidatePath('/admin/subscribers');
 
-    return { success: true, message: "Welcome to the community! Check your inbox soon." };
+    return { success: true, message: "Welcome to the community! Check your inbox for a welcome message." };
   } catch (error: any) {
     console.error("Newsletter Action Error:", error);
     return { success: false, error: error.message || "Failed to subscribe. Please try again." };
