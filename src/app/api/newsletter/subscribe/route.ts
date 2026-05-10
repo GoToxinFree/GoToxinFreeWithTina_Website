@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { sendWelcomeEmail } from '@/lib/mail';
 
 export async function POST(req: Request) {
   try {
@@ -28,7 +29,14 @@ export async function POST(req: Request) {
       data: { email }
     });
 
-    return NextResponse.json({ message: 'Thank you for subscribing! Keep an eye on your inbox for research updates.' });
+    try {
+      await sendWelcomeEmail(email);
+    } catch (mailError) {
+      console.error('Failed to send welcome email:', mailError);
+      // We don't fail the subscription if email fails
+    }
+
+    return NextResponse.json({ message: 'Thank you for subscribing! Check your inbox for a welcome message.' });
   } catch (error) {
     console.error('Newsletter error:', error);
     return NextResponse.json({ error: 'Failed to process subscription' }, { status: 500 });

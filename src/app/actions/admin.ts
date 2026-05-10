@@ -204,15 +204,72 @@ export async function toggleCommentApproval(id: string, currentPublished: boolea
   }
 }
 
-export async function exportPosts() {
+export async function notifySubscribersOfNewPost(postId: string) {
   try {
     await ensureAdmin();
-    const posts = await prisma.post.findMany({
-      orderBy: { createdAt: 'desc' }
+
+    const post = await prisma.post.findUnique({
+      where: { id: postId }
     });
-    return { success: true, data: posts };
+
+    if (!post || !post.published) {
+      throw new Error("Post not found or not published");
+    }
+
+    const subscribers = await prisma.subscriber.findMany({
+      where: { status: 'active' },
+      select: { email: true }
+    });
+
+    if (subscribers.length === 0) {
+      return { success: true, message: "No active subscribers to notify." };
+    }
+
+    const { sendNewPostNotification } = await import("@/lib/mail");
+    const emails = subscribers.map(s => s.email);
+    
+    // We send this in the background (or as much as Next.js allows in a Server Action)
+    // For large lists, this should ideally be a job queue, but for small lists it's fine
+    await sendNewPostNotification(emails, post);
+
+    return { success: true, count: emails.length };
   } catch (error: any) {
+    console.error("Newsletter Notification Error:", error);
     return { success: false, error: error.message };
   }
 }
 
+
+export async function sendNewsletterSummaryAction(postIds: string[]) {
+  try {
+    await ensureAdmin();
+
+    const posts = await prisma.post.findMany({
+      where: { id: { in: postIds }, published: true },
+      select: { title: true, excerpt: true, slug: true }
+    });
+
+    if (posts.length === 0) {
+      throw new Error("No published posts found to summarize.");
+    }
+
+    const subscribers = await prisma.subscriber.findMany({
+      where: { status: 'active' },
+      select: { email: true }
+    });
+
+    if (subscribers.length === 0) {
+      return { success: true, message: "No active subscribers to notify." };
+    }
+
+    const { sendNewsletterSummary } = await import("@/lib/mail");
+    const emails = subscribers.map(s => s.email);
+    
+    await sendNewsletterSummary(emails, posts);
+
+    return { success: true, count: emails.length };
+  } catch (error: any) {
+    console.error("Newsletter Summary Error:", error);
+    return { success: false, error: error.message };
+  }
+}

@@ -3,6 +3,8 @@ import Link from "next/link";
 import { PlusCircle, Edit, Trash2, Eye } from "lucide-react";
 
 import BackupButton from "./BackupButton";
+import NotifyButton from "./NotifyButton";
+import BroadcastSummaryButton from "./BroadcastSummaryButton";
 
 export default async function AdminPostsPage() {
   const posts = await prisma.post.findMany({
@@ -15,6 +17,7 @@ export default async function AdminPostsPage() {
       <div className="admin-header-flex" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
         <h1 style={{ fontSize: '2rem', color: 'var(--primary)', margin: 0 }}>Articles</h1>
         <div className="admin-header-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <BroadcastSummaryButton postIds={posts.filter(p => p.published).slice(0, 3).map(p => p.id)} />
           <BackupButton />
           <Link href="/admin/posts/new" className={"admin-btn-action"}>
             <PlusCircle size={20} /> New Article
@@ -70,6 +73,7 @@ export default async function AdminPostsPage() {
                       <Link href={`/admin/posts/edit/${post.id}`} style={{ color: 'var(--secondary)' }} title="Edit">
                         <Edit size={18} />
                       </Link>
+                      <NotifyButton postId={post.id} isPublished={post.published} />
                     </div>
                   </td>
                 </tr>
