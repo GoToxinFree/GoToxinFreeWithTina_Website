@@ -3,6 +3,7 @@ import { prisma } from '@/lib/prisma';
 import { auth } from '@/auth';
 import JSZip from 'jszip';
 import { promises as fs } from 'fs';
+import { UPLOADS_DIR } from '@/lib/uploadPath';
 import path from 'path';
 
 export async function POST(req: Request) {
@@ -31,10 +32,9 @@ export async function POST(req: Request) {
     const jsonData = JSON.parse(await jsonFile.async('string'));
     const articles = jsonData.articles;
 
-    // 2. Extract Images
+    // 2. Extract Images to the same folder the upload API uses
     const imagesFolder = zip.folder('images');
-    const uploadDir = path.join(process.cwd(), 'public', 'uploads');
-    await fs.mkdir(uploadDir, { recursive: true });
+    await fs.mkdir(UPLOADS_DIR, { recursive: true });
 
     if (imagesFolder) {
       const imageFiles = Object.keys(zip.files).filter(f => f.startsWith('images/') && !zip.files[f].dir);
@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       for (const filePath of imageFiles) {
         const fileName = filePath.replace('images/', '');
         const imageBuffer = await zip.files[filePath].async('nodebuffer');
-        await fs.writeFile(path.join(uploadDir, fileName), imageBuffer);
+        await fs.writeFile(path.join(UPLOADS_DIR, fileName), imageBuffer);
       }
     }
 

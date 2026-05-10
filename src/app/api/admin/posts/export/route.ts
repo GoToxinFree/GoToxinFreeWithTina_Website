@@ -2,7 +2,8 @@ import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import JSZip from 'jszip';
 import { promises as fs } from 'fs';
-import path from 'path';
+import { existsSync } from 'fs';
+import { getUploadFilePath } from '@/lib/uploadPath';
 
 export const dynamic = 'force-dynamic';
 
@@ -38,6 +39,7 @@ export async function GET() {
     zip.file('articles.json', JSON.stringify(backupData, null, 2));
 
     // 2. Collect and bundle images
+    // Uses the SAME path resolver as the upload API — guaranteed consistency
     const imagesFolder = zip.folder('images');
     const processedImages = new Set<string>();
     
@@ -47,40 +49,27 @@ export async function GET() {
       if (post.imageUrl && (post.imageUrl.includes('/uploads/') || post.imageUrl.includes('uploads/'))) {
         const fileName = post.imageUrl.split('uploads/').pop();
         if (fileName && !processedImages.has(fileName)) {
-          // Define multiple possible search paths for the image
-          const possiblePaths = [
-            path.join(process.cwd(), 'public', 'uploads', fileName),
-            path.join(process.cwd(), 'uploads', fileName),
-            // Standalone mode path (sometimes needed on Hostinger)
-            path.join(process.cwd(), '.next', 'standalone', 'public', 'uploads', fileName),
-            // Absolute path from app root
-            path.resolve('public', 'uploads', fileName)
-          ];
+          const filePath = getUploadFilePath(fileName);
+          
+          console.log(`Export: Looking for image at ${filePath}`);
 
-          let found = false;
-          for (const filePath of possiblePaths) {
+          if (existsSync(filePath)) {
             try {
-              if (require('fs').existsSync(filePath)) {
-                console.log(`Export: Found image at ${filePath}`);
-                const imageBuffer = await fs.readFile(filePath);
-                imagesFolder?.file(fileName, imageBuffer);
-                processedImages.add(fileName);
-                found = true;
-                break; 
-              }
+              const imageBuffer = await fs.readFile(filePath);
+              imagesFolder?.file(fileName, imageBuffer);
+              processedImages.add(fileName);
+              console.log(`Export: ✓ Bundled image ${fileName}`);
             } catch (err) {
-              // Continue to next path
+              console.error(`Export: Failed to read image ${fileName}:`, err);
             }
-          }
-
-          if (!found) {
-            console.error(`Export: Could not find image ${fileName} in any location.`);
+          } else {
+            console.error(`Export: ✗ Image file not found: ${filePath}`);
           }
         }
       }
     }
     
-    console.log(`Export: Bundled ${processedImages.size} images into ZIP.`);
+    console.log(`Export: Bundled ${processedImages.size} / ${posts.length} images into ZIP.`);
 
     // 3. Generate ZIP buffer
     const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
