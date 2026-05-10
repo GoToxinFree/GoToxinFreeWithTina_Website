@@ -214,6 +214,7 @@ export async function toggleCommentApproval(id: string, currentPublished: boolea
 
 export async function notifySubscribersOfNewPost(postId: string) {
   try {
+    console.log(`[Notification] Triggered for Post ID: ${postId}`);
     await ensureAdmin();
 
     const post = await prisma.post.findUnique({
@@ -221,6 +222,7 @@ export async function notifySubscribersOfNewPost(postId: string) {
     });
 
     if (!post || !post.published) {
+      console.log(`[Notification] Aborted: Post not found or not published.`);
       throw new Error("Post not found or not published");
     }
 
@@ -229,6 +231,8 @@ export async function notifySubscribersOfNewPost(postId: string) {
       select: { email: true }
     });
 
+    console.log(`[Notification] Found ${subscribers.length} active subscribers.`);
+
     if (subscribers.length === 0) {
       return { success: true, message: "No active subscribers to notify." };
     }
@@ -236,9 +240,11 @@ export async function notifySubscribersOfNewPost(postId: string) {
     const { sendNewPostNotification } = await import("@/lib/mail");
     const emails = subscribers.map(s => s.email);
     
+    console.log(`[Notification] Sending emails to: ${emails.join(', ')}`);
     const results = await sendNewPostNotification(emails, post);
     const successCount = results.filter(r => r.success).length;
 
+    console.log(`[Notification] Completed. Success: ${successCount}/${emails.length}`);
     return { success: true, count: successCount, total: emails.length };
   } catch (error: any) {
     console.error("Newsletter Notification Error:", error);
