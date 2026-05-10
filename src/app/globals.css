@@ -1237,3 +1237,19 @@ a:hover {
 
   .contact-form { width: 95%; margin: 0 auto; padding: 1.5rem; }
 }
+
+/* --- COMMENT SECTION STYLES --- */
+.comment-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+@media (max-width: 600px) {
+  .comment-form-grid {
+    grid-template-columns: 1fr;
+  }
+  .comment-form-container div {
+    padding: 1.5rem !important;
+  }
+}

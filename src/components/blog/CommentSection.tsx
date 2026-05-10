@@ -69,56 +69,64 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
       </h2>
 
       {/* Comment Form */}
-      <div style={{ backgroundColor: 'var(--surface)', padding: '2rem', borderRadius: '12px', marginBottom: '3rem' }}>
-        <h3 style={{ fontSize: '1.1rem', marginBottom: '1.5rem', fontWeight: 700 }}>
-          {replyTo ? 'Reply to Comment' : 'Leave a Thought'}
-        </h3>
-        <form onSubmit={handleSubmit}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem', marginBottom: '1rem' }}>
-            <input 
-              type="text" 
-              placeholder="Your Name*" 
+      <div className="comment-form-container" style={{ backgroundColor: 'var(--surface)', borderRadius: '12px', marginBottom: '3rem', border: '1px solid var(--border)', overflow: 'hidden' }}>
+        <div style={{ padding: '2rem' }}>
+          <h3 style={{ fontSize: '1.25rem', marginBottom: '1.5rem', fontWeight: 800, color: 'var(--primary)' }}>
+            {replyTo ? 'Reply to Comment' : 'Leave a Thought'}
+          </h3>
+          <form onSubmit={handleSubmit}>
+            <div className="comment-form-grid" style={{ marginBottom: '1rem' }}>
+              <input 
+                type="text" 
+                placeholder="Your Name*" 
+                required 
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '1rem', backgroundColor: 'white', outline: 'none', transition: 'border-color 0.2s' }}
+                onFocus={(e) => (e.target.style.borderColor = 'var(--secondary)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
+              />
+              <input 
+                type="email" 
+                placeholder="Your Email (private)" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '1rem', backgroundColor: 'white', outline: 'none', transition: 'border-color 0.2s' }}
+                onFocus={(e) => (e.target.style.borderColor = 'var(--secondary)')}
+                onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
+              />
+            </div>
+            <textarea 
+              placeholder="Share your perspective or ask a question..." 
               required 
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '0.9rem' }}
+              rows={4}
+              value={newComment}
+              onChange={(e) => setNewComment(e.target.value)}
+              style={{ width: '100%', padding: '1.25rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '1.05rem', marginBottom: '1.5rem', resize: 'none', backgroundColor: 'white', outline: 'none', transition: 'border-color 0.2s' }}
+              onFocus={(e) => (e.target.style.borderColor = 'var(--secondary)')}
+              onBlur={(e) => (e.target.style.borderColor = 'var(--border)')}
             />
-            <input 
-              type="email" 
-              placeholder="Your Email (private)" 
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              style={{ padding: '0.75rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '0.9rem' }}
-            />
-          </div>
-          <textarea 
-            placeholder="Share your perspective or ask a question..." 
-            required 
-            rows={4}
-            value={newComment}
-            onChange={(e) => setNewComment(e.target.value)}
-            style={{ width: '100%', padding: '1rem', borderRadius: '8px', border: '1px solid var(--border)', fontSize: '1rem', marginBottom: '1rem', resize: 'none' }}
-          />
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-            {replyTo && (
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '1rem' }}>
+              {replyTo ? (
+                <button 
+                  type="button" 
+                  onClick={() => setReplyTo(null)}
+                  style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.95rem', fontWeight: 600, display: 'flex', alignItems: 'center', gap: '0.25rem' }}
+                >
+                  Cancel Reply
+                </button>
+              ) : <div />}
               <button 
-                type="button" 
-                onClick={() => setReplyTo(null)}
-                style={{ background: 'none', border: 'none', color: '#ef4444', cursor: 'pointer', fontSize: '0.85rem' }}
+                type="submit" 
+                disabled={isSubmitting}
+                className="btn-primary" 
+                style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.9rem 2rem', borderRadius: '99px', boxShadow: '0 4px 12px rgba(0, 166, 206, 0.2)' }}
               >
-                Cancel Reply
+                {isSubmitting ? 'Posting...' : <><Send size={18} /> Post Comment</>}
               </button>
-            )}
-            <button 
-              type="submit" 
-              disabled={isSubmitting}
-              className="btn-primary" 
-              style={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
-            >
-              {isSubmitting ? 'Posting...' : <><Send size={18} /> Post Comment</>}
-            </button>
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
 
       {/* Comments List */}
