@@ -110,7 +110,7 @@ export default async function Home() {
                         {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
                       </span>
                     </div>
-                    <h3 className="postCardContent h3" style={{ fontSize: '1.35rem', margin: '0 0 1rem 0' }}>{post.title}</h3>
+                    <h3>{post.title}</h3>
                     <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '1.5rem', flexGrow: 1 }}>
                       {post.excerpt || post.content.substring(0, 120).replace(/<[^>]*>/g, '') + '...'}
                     </p>

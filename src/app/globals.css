@@ -1128,11 +1128,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   height: 100%;
+  text-align: left; /* CRISP LEFT ALIGNMENT */
 }
 
 .postCard:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.06);
   border-color: var(--secondary);
 }
 
@@ -1148,30 +1149,34 @@ a:hover {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-}
-
-.postCardContent h3 {
-  font-size: 1.5rem;
-  color: var(--primary);
-  margin-bottom: 1rem;
-  line-height: 1.3;
-}
-
-.postCardContent p {
-  color: var(--text-muted);
-  font-size: 1rem;
-  line-height: 1.6;
-  margin-bottom: 2rem;
-  flex-grow: 1;
+  gap: 0.5rem; /* TIGHTER BASE SPACING */
 }
 
 .postMeta {
   display: flex;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1rem;
   font-size: 0.85rem;
   color: var(--text-muted);
-  margin-bottom: 1.25rem;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+}
+
+.postCardContent h3 {
+  font-size: 1.5rem;
+  color: var(--primary);
+  margin-bottom: 0.75rem;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+.postCardContent p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+  flex-grow: 1;
 }
 
 .postReadMore {
@@ -1181,17 +1186,20 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  transition: gap 0.2s;
+  transition: all 0.2s;
+  font-size: 0.95rem;
+  margin-top: auto;
 }
 
 .postCard:hover .postReadMore {
   gap: 0.75rem;
+  color: var(--primary);
 }
 
 @media (max-width: 768px) {
   .postCard { border-radius: 12px; }
-  .postCardContent h3 { font-size: 1.35rem; }
   .postCardContent { padding: 1.5rem; }
+  .postCardContent h3 { font-size: 1.35rem; }
 }
 
 .admin-btn-approve:hover { background-color: #dcfce7; color: #166534; border-color: #166534; }
