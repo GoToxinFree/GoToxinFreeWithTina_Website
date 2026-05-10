@@ -1,49 +1,33 @@
 /**
- * Centralized, consistent upload path resolution.
+ * Centralized upload path resolution.
  *
- * Problem: In Next.js standalone mode, process.chdir() is called to switch
- * the working directory to .next/standalone/. This breaks process.cwd()-based
- * paths. Using __dirname is also unreliable because it resolves to the
- * compiled output location inside .next/, not the source tree.
+ * Two modes:
+ * 
+ * LOCAL DEV (npm run dev):
+ *   UPLOAD_ROOT is blank → files go to {cwd}/public/uploads/
+ *   Next.js dev server automatically serves /public/ files, so preview works.
  *
- * Solution: Use the UPLOAD_ROOT environment variable on Hostinger (set it to
- * the project root absolute path, e.g. /home/user/htdocs/gotoxinfreewithtina.com).
- * Falls back to process.cwd() which is correct on local dev.
+ * HOSTINGER PRODUCTION:
+ *   UPLOAD_ROOT = /home/u602836791/domains/gotoxinfreewithtina.com/file_uploads
+ *   Files are saved there (a persistent folder outside the app that survives redeployments).
+ *   server.js intercepts /uploads/ requests and serves from this directory.
  *
- * On Hostinger hPanel → Node.js → Environment Variables:
- *   UPLOAD_ROOT = /home/u123456789/htdocs/gotoxinfreewithtina.com
+ * Set in hPanel → Node.js → Environment Variables:
+ *   UPLOAD_ROOT = /home/u602836791/domains/gotoxinfreewithtina.com/file_uploads
  */
 import path from 'path';
 import { existsSync } from 'fs';
 
-function resolveProjectRoot(): string {
-  // 1. Explicit env var — most reliable for production Hostinger
-  if (process.env.UPLOAD_ROOT) {
-    return process.env.UPLOAD_ROOT;
-  }
-
-  // 2. process.cwd() works correctly in local dev ('npm run dev')
-  //    and also in Hostinger if the outer server.js is launched from the project root
-  const cwd = process.cwd();
-
-  // 3. If cwd already points to standalone dir, climb up to project root
-  if (cwd.includes('.next')) {
-    return path.resolve(cwd, '..', '..');
-  }
-
-  return cwd;
-}
-
-export const PROJECT_ROOT = resolveProjectRoot();
-
-// All uploaded images land here — consistent between upload API, export, and restore
-export const UPLOADS_DIR = path.join(PROJECT_ROOT, 'public', 'uploads');
+// If UPLOAD_ROOT env var is set, use it directly as the uploads directory.
+// Otherwise fall back to public/uploads (correct for local dev).
+export const UPLOADS_DIR = process.env.UPLOAD_ROOT
+  ? process.env.UPLOAD_ROOT
+  : path.join(process.cwd(), 'public', 'uploads');
 
 export function getUploadFilePath(fileName: string): string {
   return path.join(UPLOADS_DIR, fileName);
 }
 
-// Log on startup so you can verify in Hostinger logs
-console.log(`[uploadPath] PROJECT_ROOT = ${PROJECT_ROOT}`);
-console.log(`[uploadPath] UPLOADS_DIR  = ${UPLOADS_DIR}`);
-console.log(`[uploadPath] Dir exists   = ${existsSync(UPLOADS_DIR)}`);
+// Startup diagnostic log — check Hostinger Node.js logs to verify
+console.log(`[uploadPath] UPLOADS_DIR = ${UPLOADS_DIR}`);
+console.log(`[uploadPath] Dir exists  = ${existsSync(UPLOADS_DIR)}`);

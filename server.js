@@ -27,7 +27,35 @@ const nextHandler = require(standalonePath).currentHandler || require(standalone
 
 // 3. Create a wrapper server
 const server = http.createServer((req, res) => {
-    // A. Check for static files in /public
+
+    // A. Serve uploaded images from the persistent UPLOAD_ROOT directory.
+    //    On Hostinger this is the file_uploads folder outside the app.
+    //    On local dev this falls back to public/uploads (served by Next.js directly).
+    if (req.url && req.url.startsWith('/uploads/')) {
+        const uploadsDir = process.env.UPLOAD_ROOT || path.join(__dirname, 'public', 'uploads');
+        const fileName = req.url.replace('/uploads/', '').split('?')[0];
+        const filePath = path.join(uploadsDir, fileName);
+
+        if (fs.existsSync(filePath) && fs.lstatSync(filePath).isFile()) {
+            const ext = path.extname(filePath).toLowerCase();
+            const mimeTypes = {
+                '.png': 'image/png',
+                '.jpg': 'image/jpeg',
+                '.jpeg': 'image/jpeg',
+                '.gif': 'image/gif',
+                '.webp': 'image/webp',
+                '.svg': 'image/svg+xml',
+            };
+            res.writeHead(200, {
+                'Content-Type': mimeTypes[ext] || 'application/octet-stream',
+                'Cache-Control': 'public, max-age=31536000, immutable',
+            });
+            fs.createReadStream(filePath).pipe(res);
+            return;
+        }
+    }
+
+    // B. Check for other static files in /public
     const publicDir = path.join(__dirname, 'public');
     const filePath = path.join(publicDir, req.url.split('?')[0]);
 
