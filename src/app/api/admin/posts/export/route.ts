@@ -65,7 +65,7 @@ export async function GET() {
     const timestamp = now.toISOString().replace(/[:T]/g, '-').slice(0, 16);
     const fileName = `gotoxinfree-backup-${timestamp}.zip`;
 
-    return new NextResponse(zipBuffer, {
+    return new NextResponse(new Uint8Array(zipBuffer), {
       status: 200,
       headers: {
         'Content-Type': 'application/zip',
