@@ -39,14 +39,16 @@ export default async function About() {
               I am <strong>Dr. Supriti Das (Ph.D.)</strong>, a global environmental researcher dedicated to decoding the complex relationship between our environment and human health. Over the years, my work has spanned elite academic institutions and international research programs, focusing on assessing environmental risks and building a safer, more resilient world.
             </p>
             <p>
-              My journey into environmental advocacy began during my doctoral research at the <strong>Indian Institute of Technology (IIT), Hyderabad</strong>. My Ph.D. focused on the Mercury geochemical cycle and human health risk assessment—research that was recognized with the <strong>"Ramky Best Ph.D. Award"</strong> for its contribution to environmental excellence.
+              My journey into environmental advocacy began during my doctoral research at the <strong>Indian Institute of Technology (IIT), Hyderabad</strong>. My Ph.D. focused on the Mercury geochemical cycle and human health risk assessment, research that was recognized with the <strong>"Ramky Best Ph.D. Award"</strong> for its contribution to environmental excellence.
             </p>
+
             <p>
               Throughout my career, I have leveraged Artificial Intelligence, Remote Sensing, and GIS to identify and mitigate toxic exposures. My experience includes conducting high-level research at <strong>The University of Tokyo</strong> (under the Moonshot R&D Program), serving in government engineering roles, and teaching environmental science to the next generation of researchers. 
             </p>
             <p>
-              <strong>Go Toxin Free With Tina</strong> was born from a simple realization: while scientific journals are filled with warnings about unregulated synthetic chemicals in our homes, that information rarely reaches the families who need it most. I created this platform to translate years of academic research—from the <strong>Minamata Convention on Mercury</strong> to the latest AI-driven toxicity studies—into actionable guides for your everyday life.
+              <strong>Go Toxin Free With Tina</strong> was born from a simple realization: while scientific journals are filled with warnings about unregulated synthetic chemicals in our homes, that information rarely reaches the families who need it most. I created this platform to translate years of academic research, ranging from the <strong>Minamata Convention on Mercury</strong> to the latest AI-driven toxicity studies, into actionable guides for your everyday life.
             </p>
+
           </div>
         </div>
 
