@@ -66,11 +66,11 @@ export default async function AdminPostsPage() {
                     {new Date(post.createdAt).toLocaleDateString()}
                   </td>
                   <td style={{ padding: '1rem' }}>
-                    <div style={{ display: 'flex', gap: '1rem' }}>
-                      <Link href={`/blog/${post.slug}`} target="_blank" style={{ color: 'var(--text-muted)' }} title="View Live">
+                    <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'center' }}>
+                      <Link href={`/blog/${post.slug}`} target="_blank" style={{ color: 'var(--text-muted)', display: 'flex', alignItems: 'center' }} title="View Live">
                         <Eye size={18} />
                       </Link>
-                      <Link href={`/admin/posts/edit/${post.id}`} style={{ color: 'var(--secondary)' }} title="Edit">
+                      <Link href={`/admin/posts/edit/${post.id}`} style={{ color: 'var(--secondary)', display: 'flex', alignItems: 'center' }} title="Edit">
                         <Edit size={18} />
                       </Link>
                       <NotifyButton postId={post.id} isPublished={post.published} />

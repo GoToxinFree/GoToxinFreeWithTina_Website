@@ -34,31 +34,29 @@ export default function NotifyButton({ postId, isPublished }: { postId: string, 
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+    <div style={{ display: 'flex', alignItems: 'center' }}>
       <button 
         onClick={handleNotify}
         disabled={status === 'loading' || status === 'success'}
-        className="admin-logout-btn"
         style={{ 
-          backgroundColor: status === 'success' ? '#dcfce7' : 'white',
-          color: status === 'success' ? '#166534' : 'var(--admin-secondary)',
-          border: '1px solid var(--admin-border)',
-          width: '32px',
-          height: '32px',
-          borderRadius: '6px',
+          background: 'none',
+          border: 'none',
+          color: status === 'success' ? '#10b981' : 'var(--admin-secondary)',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
           cursor: status === 'loading' ? 'not-allowed' : 'pointer',
-          padding: 0
+          padding: '4px',
+          opacity: status === 'loading' ? 0.5 : 1,
+          transition: 'color 0.2s ease'
         }}
         title="Notify Subscribers"
       >
-        {status === 'loading' ? <Loader2 size={16} className="animate-spin" /> : 
-         status === 'success' ? <Check size={16} /> : 
-         <Send size={16} />}
+        {status === 'loading' ? <Loader2 size={18} className="animate-spin" /> : 
+         status === 'success' ? <Check size={18} /> : 
+         <Send size={18} />}
       </button>
-      {error && <span style={{ fontSize: '0.7rem', color: '#b91c1c' }}>{error}</span>}
+      {error && <span style={{ fontSize: '0.6rem', color: '#ef4444', position: 'absolute', marginTop: '30px' }}>{error}</span>}
     </div>
   );
 }
