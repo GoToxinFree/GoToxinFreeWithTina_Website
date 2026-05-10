@@ -9,6 +9,7 @@ import CommentSection from '@/components/blog/CommentSection';
 
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
+import ShareButton from '@/components/blog/ShareButton';
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
@@ -80,9 +81,10 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
                 <span style={{ fontSize: '0.85rem', color: 'var(--text-muted)' }}>{post.views} views</span>
-                <button style={{ background: 'none', border: '1px solid var(--border)', padding: '0.5rem 1rem', borderRadius: '6px', display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: 'pointer', color: 'var(--text-muted)' }}>
-                  <Share2 size={16} /> Share
-                </button>
+                <ShareButton 
+                  title={post.title} 
+                  text={post.excerpt || 'Read this interesting article on toxin-free living.'} 
+                />
               </div>
             </div>
           </header>
