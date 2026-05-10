@@ -45,18 +45,36 @@ export async function GET() {
 
     for (const post of posts) {
       if (post.imageUrl && (post.imageUrl.includes('/uploads/') || post.imageUrl.includes('uploads/'))) {
-        // Handle both /uploads/ and uploads/
         const fileName = post.imageUrl.split('uploads/').pop();
         if (fileName && !processedImages.has(fileName)) {
-          try {
-            const filePath = path.join(process.cwd(), 'public', 'uploads', fileName);
-            console.log(`Export: Bundling image ${fileName} from ${filePath}`);
-            
-            const imageBuffer = await fs.readFile(filePath);
-            imagesFolder?.file(fileName, imageBuffer);
-            processedImages.add(fileName);
-          } catch (err) {
-            console.error(`Export: Failed to bundle image ${fileName}:`, err);
+          // Define multiple possible search paths for the image
+          const possiblePaths = [
+            path.join(process.cwd(), 'public', 'uploads', fileName),
+            path.join(process.cwd(), 'uploads', fileName),
+            // Standalone mode path (sometimes needed on Hostinger)
+            path.join(process.cwd(), '.next', 'standalone', 'public', 'uploads', fileName),
+            // Absolute path from app root
+            path.resolve('public', 'uploads', fileName)
+          ];
+
+          let found = false;
+          for (const filePath of possiblePaths) {
+            try {
+              if (require('fs').existsSync(filePath)) {
+                console.log(`Export: Found image at ${filePath}`);
+                const imageBuffer = await fs.readFile(filePath);
+                imagesFolder?.file(fileName, imageBuffer);
+                processedImages.add(fileName);
+                found = true;
+                break; 
+              }
+            } catch (err) {
+              // Continue to next path
+            }
+          }
+
+          if (!found) {
+            console.error(`Export: Could not find image ${fileName} in any location.`);
           }
         }
       }
