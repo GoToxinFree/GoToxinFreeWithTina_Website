@@ -3,9 +3,14 @@ import { createTransport } from 'nodemailer';
 const transport = createTransport(process.env.EMAIL_SERVER);
 
 const siteUrl = process.env.AUTH_URL || 'https://gotoxinfreewithtina.com';
+const senderName = 'Dr. Supriti Das | Go Toxin Free';
+const senderEmail = process.env.EMAIL_FROM || 'drsupriti@gotoxinfreewithtina.com';
 
 export async function sendWelcomeEmail(to: string) {
   const html = `
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+      Welcome to the community! Let's start our journey toward a toxin-free life together.
+    </div>
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
       <div style="background: #004e64; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
         <h1 style="color: white; margin: 0; font-size: 24px;">Welcome to Go Toxin Free!</h1>
@@ -33,7 +38,7 @@ export async function sendWelcomeEmail(to: string) {
   `;
 
   return transport.sendMail({
-    from: process.env.EMAIL_FROM,
+    from: `"${senderName}" <${senderEmail}>`,
     to,
     subject: 'Welcome to Go Toxin Free With Tina!',
     html,
@@ -44,6 +49,9 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
   const postUrl = `${siteUrl}/blog/${post.slug}`;
   
   const html = `
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+      ${post.excerpt || 'New research published on toxin-free living.'}
+    </div>
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
       <div style="background: #004e64; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
         <h1 style="color: white; margin: 0; font-size: 24px;">New Research Published</h1>
@@ -61,7 +69,7 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
         </div>
         <p style="font-size: 12px; color: #94a3b8; margin-top: 40px; border-top: 1px solid #f1f5f9; padding-top: 20px;">
           You are receiving this because you subscribed to Go Toxin Free With Tina. <br/>
-          <a href="${siteUrl}/api/newsletter/unsubscribe?email=${encodeURIComponent('{{EMAIL}}')}" style="color: #94a3b8;">Unsubscribe</a>
+          <a href="${siteUrl}/api/newsletter/unsubscribe?email={{EMAIL}}" style="color: #94a3b8;">Unsubscribe</a>
         </p>
       </div>
     </div>
@@ -72,6 +80,8 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
 
   for (const email of to) {
     try {
+      const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${encodeURIComponent(email)}`;
+      
       // Ensure image URL is absolute if it exists
       let finalImageUrl = post.imageUrl;
       if (finalImageUrl && !finalImageUrl.startsWith('http')) {
@@ -80,13 +90,17 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
 
       const personalHtml = html
         .replace('{{EMAIL}}', encodeURIComponent(email))
-        .replace(post.imageUrl || '', finalImageUrl || '');
+        .replace(post.imageUrl || '___IMAGE_URL_PLACEHOLDER___', finalImageUrl || '___IMAGE_URL_PLACEHOLDER___');
 
       await transport.sendMail({
-        from: process.env.EMAIL_FROM,
+        from: `"${senderName}" <${senderEmail}>`,
         to: email,
         subject: `New Research: ${post.title}`,
         html: personalHtml,
+        headers: {
+          'List-Unsubscribe': `<${unsubscribeUrl}>`,
+          'Precedence': 'bulk'
+        }
       });
       console.log(`[Mail] Successfully sent to ${email}`);
       results.push({ email, success: true });
@@ -100,6 +114,9 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
 
 export async function sendNewsletterSummary(to: string[], posts: { title: string, excerpt?: string | null, slug: string }[]) {
   const html = `
+    <div style="display: none; max-height: 0px; overflow: hidden;">
+      Stay informed with our latest research on toxin-free living and environmental health.
+    </div>
     <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; color: #1e293b;">
       <div style="background: #004e64; padding: 30px; text-align: center; border-radius: 8px 8px 0 0;">
         <h1 style="color: white; margin: 0; font-size: 24px;">Your Research Summary</h1>
@@ -128,7 +145,7 @@ export async function sendNewsletterSummary(to: string[], posts: { title: string
 
         <p style="font-size: 12px; color: #94a3b8; margin-top: 40px; border-top: 1px solid #f1f5f9; padding-top: 20px;">
           You are receiving this because you subscribed to Go Toxin Free With Tina. <br/>
-          <a href="${siteUrl}/api/newsletter/unsubscribe?email=${encodeURIComponent('{{EMAIL}}')}" style="color: #94a3b8;">Unsubscribe</a>
+          <a href="${siteUrl}/api/newsletter/unsubscribe?email={{EMAIL}}" style="color: #94a3b8;">Unsubscribe</a>
         </p>
       </div>
     </div>
@@ -137,11 +154,17 @@ export async function sendNewsletterSummary(to: string[], posts: { title: string
   const results = [];
   for (const email of to) {
     try {
+      const unsubscribeUrl = `${siteUrl}/api/newsletter/unsubscribe?email=${encodeURIComponent(email)}`;
+
       await transport.sendMail({
-        from: process.env.EMAIL_FROM,
+        from: `"${senderName}" <${senderEmail}>`,
         to: email,
         subject: 'Research Summary: Toxin-Free Living Updates',
-        html: html.replace('{{EMAIL}}', email),
+        html: html.replace('{{EMAIL}}', encodeURIComponent(email)),
+        headers: {
+          'List-Unsubscribe': `<${unsubscribeUrl}>`,
+          'Precedence': 'bulk'
+        }
       });
       results.push({ email, success: true });
     } catch (error) {
