@@ -86,7 +86,9 @@ export default function NewPostPage() {
             disabled={isSubmitting}
             className={"admin-btn-action"}
           >
-            {isSubmitting ? 'Saving...' : <><Save size={20} /> Save Article</>}
+            {isSubmitting ? 'Saving...' : (
+              formData.published ? <><Globe size={20} /> Publish Article</> : <><Save size={20} /> Save Draft</>
+            )}
           </button>
         </div>
       </header>

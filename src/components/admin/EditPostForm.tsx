@@ -115,7 +115,9 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             disabled={isSubmitting}
             className={"admin-btn-action"}
           >
-            {isSubmitting ? 'Saving...' : <><Save size={20} /> Update Article</>}
+            {isSubmitting ? 'Saving...' : (
+              formData.published ? <><Globe size={20} /> Update & Publish</> : <><Save size={20} /> Update Draft</>
+            )}
           </button>
         </div>
       </header>
