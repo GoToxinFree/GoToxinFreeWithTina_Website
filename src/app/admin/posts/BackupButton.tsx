@@ -3,26 +3,19 @@
 import { useState } from 'react';
 import { Download } from "lucide-react";
 
-
-import { exportPosts } from '@/app/actions/admin';
-
 export default function BackupButton() {
   const [isExporting, setIsExporting] = useState(false);
 
   const handleDownload = async () => {
     setIsExporting(true);
     try {
-      const result = await exportPosts();
+      const res = await fetch('/api/admin/posts/export');
+      if (!res.ok) throw new Error('Backup failed');
       
-      if (!result.success) {
-        throw new Error(result.error || 'Failed to download backup');
-      }
-      
-      const data = result.data;
-      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      const fileName = `gotoxinfree-articles-backup-${new Date().toISOString().split('T')[0]}.json`;
+      const fileName = `gotoxinfree-backup-${new Date().toISOString().split('T')[0]}.zip`;
       
       a.href = url;
       a.download = fileName;
@@ -46,7 +39,7 @@ export default function BackupButton() {
       style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', cursor: isExporting ? 'wait' : 'pointer' }}
     >
       <Download size={20} /> 
-      {isExporting ? 'Preparing Backup...' : 'Backup Articles'}
+      {isExporting ? 'Preparing ZIP...' : 'Full Backup (ZIP)'}
     </button>
   );
 }

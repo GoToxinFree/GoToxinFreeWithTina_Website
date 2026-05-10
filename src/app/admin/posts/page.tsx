@@ -3,6 +3,7 @@ import Link from "next/link";
 import { PlusCircle, Edit, Trash2, Eye } from "lucide-react";
 
 import BackupButton from "./BackupButton";
+import RestoreButton from "./RestoreButton";
 import NotifyButton from "./NotifyButton";
 import BroadcastSummaryButton from "./BroadcastSummaryButton";
 
@@ -18,6 +19,7 @@ export default async function AdminPostsPage() {
         <h1 style={{ fontSize: '2rem', color: 'var(--primary)', margin: 0 }}>Articles</h1>
         <div className="admin-header-actions" style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
           <BroadcastSummaryButton postIds={posts.filter(p => p.published).slice(0, 3).map(p => p.id)} />
+          <RestoreButton />
           <BackupButton />
           <Link href="/admin/posts/new" className={"admin-btn-action"}>
             <PlusCircle size={20} /> New Article
