@@ -40,22 +40,29 @@ export async function GET() {
     // 2. Collect and bundle images
     const imagesFolder = zip.folder('images');
     const processedImages = new Set<string>();
+    
+    console.log(`Export: Scanning ${posts.length} articles for local images...`);
 
     for (const post of posts) {
-      if (post.imageUrl && post.imageUrl.startsWith('/uploads/')) {
-        const fileName = post.imageUrl.replace('/uploads/', '');
-        if (!processedImages.has(fileName)) {
+      if (post.imageUrl && (post.imageUrl.includes('/uploads/') || post.imageUrl.includes('uploads/'))) {
+        // Handle both /uploads/ and uploads/
+        const fileName = post.imageUrl.split('uploads/').pop();
+        if (fileName && !processedImages.has(fileName)) {
           try {
             const filePath = path.join(process.cwd(), 'public', 'uploads', fileName);
+            console.log(`Export: Bundling image ${fileName} from ${filePath}`);
+            
             const imageBuffer = await fs.readFile(filePath);
             imagesFolder?.file(fileName, imageBuffer);
             processedImages.add(fileName);
           } catch (err) {
-            console.warn(`Could not find image: ${fileName}`);
+            console.error(`Export: Failed to bundle image ${fileName}:`, err);
           }
         }
       }
     }
+    
+    console.log(`Export: Bundled ${processedImages.size} images into ZIP.`);
 
     // 3. Generate ZIP buffer
     const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
