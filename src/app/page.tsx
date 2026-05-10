@@ -97,31 +97,29 @@ export default async function Home() {
             </p>
           ) : (
             posts.map(post => (
-              <Link key={post.id} href={`/blog/${post.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-                <article className="postCard">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img 
-                    src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} 
-                    alt={post.title} 
-                    className="postCardImage"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="postCardContent">
-                    <div className="postMeta">
-                      <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                        {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
-                      </span>
-                    </div>
-                    <h3>{post.title}</h3>
-                    <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '1.5rem', flexGrow: 1 }}>
-                      {post.excerpt || post.content.substring(0, 120).replace(/<[^>]*>/g, '') + '...'}
-                    </p>
-                    <div className="postReadMore">
-                      Read Article <ArrowRight size={16} />
-                    </div>
+              <article key={post.id} className="postCard">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img 
+                  src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} 
+                  alt={post.title} 
+                  className="postCardImage"
+                  referrerPolicy="no-referrer"
+                />
+                <div className="postCardContent">
+                  <div className="postMeta">
+                    <span style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      {new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+                    </span>
                   </div>
-                </article>
-              </Link>
+                  <h3>{post.title}</h3>
+                  <p style={{ fontSize: '0.95rem', color: 'var(--text-muted)', marginBottom: '1.5rem', flexGrow: 1 }}>
+                    {post.excerpt || post.content.substring(0, 120).replace(/<[^>]*>/g, '') + '...'}
+                  </p>
+                  <Link href={`/blog/${post.slug}`} className="btn-outline" style={{ width: 'fit-content', marginTop: '1rem' }}>
+                    Read Article <ArrowRight size={16} />
+                  </Link>
+                </div>
+              </article>
             ))
           )}
         </div>
