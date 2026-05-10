@@ -119,7 +119,7 @@ export default function CommentSection({ postId, initialComments }: CommentSecti
               <button 
                 type="submit" 
                 disabled={isSubmitting}
-                className="btn-primary" 
+                className="btn-primary comment-submit-btn" 
                 style={{ display: 'flex', alignItems: 'center', gap: '0.6rem', padding: '0.9rem 2rem', borderRadius: '99px', boxShadow: '0 4px 12px rgba(0, 166, 206, 0.2)' }}
               >
                 {isSubmitting ? 'Posting...' : <><Send size={18} /> Post Comment</>}

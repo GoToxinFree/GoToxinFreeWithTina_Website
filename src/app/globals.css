@@ -1245,11 +1245,23 @@ a:hover {
   gap: 1rem;
 }
 
-@media (max-width: 600px) {
+@media (max-width: 768px) {
   .comment-form-grid {
     grid-template-columns: 1fr;
   }
+  
   .comment-form-container div {
-    padding: 1.5rem !important;
+    padding: 1.25rem !important;
+  }
+  
+  .comment-form-container h3 {
+    text-align: center;
+    font-size: 1.15rem !important;
+  }
+  
+  .comment-submit-btn {
+    width: 100%;
+    justify-content: center;
   }
 }
+
