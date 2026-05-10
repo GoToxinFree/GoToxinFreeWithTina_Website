@@ -338,7 +338,7 @@ export default function NewPostPage() {
               <div style={{ marginTop: '1.5rem' }}>
                 <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.75rem', fontWeight: 700, color: 'var(--admin-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>External Image URL</label>
                 <input
-                  type="url"
+                  type="text"
                   value={formData.imageUrl}
                   onChange={(e) => setFormData({ ...formData, imageUrl: e.target.value })}
                   placeholder="Paste URL here..."
