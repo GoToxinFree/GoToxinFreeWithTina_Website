@@ -15,7 +15,10 @@ export default function BackupButton() {
       const blob = await res.blob();
       const url = window.URL.createObjectURL(blob);
       const a = document.createElement('a');
-      const fileName = `gotoxinfree-backup-${new Date().toISOString().split('T')[0]}.zip`;
+      
+      const now = new Date();
+      const timestamp = now.toISOString().replace(/[:T]/g, '-').slice(0, 16);
+      const fileName = `gotoxinfree-backup-${timestamp}.zip`;
       
       a.href = url;
       a.download = fileName;

@@ -59,7 +59,11 @@ export async function GET() {
 
     // 3. Generate ZIP buffer
     const zipBuffer = await zip.generateAsync({ type: 'nodebuffer' });
-    const fileName = `gotoxinfree-backup-${new Date().toISOString().split('T')[0]}.zip`;
+    
+    // Format: YYYY-MM-DD-HH-mm
+    const now = new Date();
+    const timestamp = now.toISOString().replace(/[:T]/g, '-').slice(0, 16);
+    const fileName = `gotoxinfree-backup-${timestamp}.zip`;
 
     return new NextResponse(zipBuffer, {
       status: 200,
