@@ -68,17 +68,30 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
   `;
 
   const results = [];
+  console.log(`[Mail] Starting notification broadcast for post: ${post.title} to ${to.length} subscribers.`);
+
   for (const email of to) {
     try {
+      // Ensure image URL is absolute if it exists
+      let finalImageUrl = post.imageUrl;
+      if (finalImageUrl && !finalImageUrl.startsWith('http')) {
+        finalImageUrl = `${siteUrl}${finalImageUrl.startsWith('/') ? '' : '/'}${finalImageUrl}`;
+      }
+
+      const personalHtml = html
+        .replace('{{EMAIL}}', encodeURIComponent(email))
+        .replace(post.imageUrl || '', finalImageUrl || '');
+
       await transport.sendMail({
         from: process.env.EMAIL_FROM,
         to: email,
-        subject: `New on Go Toxin Free: ${post.title}`,
-        html: html.replace('{{EMAIL}}', email),
+        subject: `New Research: ${post.title}`,
+        html: personalHtml,
       });
+      console.log(`[Mail] Successfully sent to ${email}`);
       results.push({ email, success: true });
-    } catch (error) {
-      console.error(`Failed to send email to ${email}:`, error);
+    } catch (error: any) {
+      console.error(`[Mail] Failed to send to ${email}:`, error.message);
       results.push({ email, success: false });
     }
   }

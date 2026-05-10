@@ -228,11 +228,10 @@ export async function notifySubscribersOfNewPost(postId: string) {
     const { sendNewPostNotification } = await import("@/lib/mail");
     const emails = subscribers.map(s => s.email);
     
-    // We send this in the background (or as much as Next.js allows in a Server Action)
-    // For large lists, this should ideally be a job queue, but for small lists it's fine
-    await sendNewPostNotification(emails, post);
+    const results = await sendNewPostNotification(emails, post);
+    const successCount = results.filter(r => r.success).length;
 
-    return { success: true, count: emails.length };
+    return { success: true, count: successCount, total: emails.length };
   } catch (error: any) {
     console.error("Newsletter Notification Error:", error);
     return { success: false, error: error.message };
