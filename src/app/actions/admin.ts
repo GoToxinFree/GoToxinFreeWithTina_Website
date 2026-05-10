@@ -273,3 +273,14 @@ export async function sendNewsletterSummaryAction(postIds: string[]) {
     return { success: false, error: error.message };
   }
 }
+export async function exportPosts() {
+  try {
+    await ensureAdmin();
+    const posts = await prisma.post.findMany({
+      orderBy: { createdAt: 'desc' }
+    });
+    return { success: true, data: posts };
+  } catch (error: any) {
+    return { success: false, error: error.message };
+  }
+}
