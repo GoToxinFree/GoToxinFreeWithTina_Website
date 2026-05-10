@@ -34,7 +34,7 @@ export async function POST(req: Request) {
 
     console.log(`Upload: Saved image to ${getUploadFilePath(fileName)}`);
 
-    const url = `/uploads/${fileName}`;
+    const url = `/api/uploads/${fileName}`;
     return NextResponse.json({ url });
   } catch (error) {
     console.error("Image upload error:", error);

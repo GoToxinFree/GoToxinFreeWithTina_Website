@@ -68,13 +68,24 @@ export async function POST(req: Request) {
         }
       }
 
+      // Ensure backward compatibility with old backups that used /uploads/
+      let finalImageUrl = article.imageUrl;
+      if (finalImageUrl && finalImageUrl.startsWith('/uploads/')) {
+        finalImageUrl = finalImageUrl.replace('/uploads/', '/api/uploads/');
+      }
+
+      let finalContent = article.content;
+      if (finalContent && finalContent.includes('/uploads/')) {
+        finalContent = finalContent.replace(/\/uploads\//g, '/api/uploads/');
+      }
+
       await prisma.post.upsert({
         where: { slug: article.slug },
         update: {
           title: article.title,
-          content: article.content,
+          content: finalContent,
           excerpt: article.excerpt,
-          imageUrl: article.imageUrl,
+          imageUrl: finalImageUrl,
           published: article.published,
           updatedAt: new Date(),
           tags: {
@@ -85,9 +96,9 @@ export async function POST(req: Request) {
         create: {
           title: article.title,
           slug: article.slug,
-          content: article.content,
+          content: finalContent,
           excerpt: article.excerpt,
-          imageUrl: article.imageUrl,
+          imageUrl: finalImageUrl,
           published: article.published,
           authorId: author.id,
           createdAt: new Date(article.createdAt),
