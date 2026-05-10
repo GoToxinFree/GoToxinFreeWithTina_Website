@@ -98,7 +98,11 @@ export default async function Home() {
               <article key={post.id} className="home-card">
                 <div className="home-card-image">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} alt={post.title} />
+                  <img 
+                    src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} 
+                    alt={post.title} 
+                    referrerPolicy="no-referrer"
+                  />
                 </div>
                 <div className="home-card-content">
                   <time className="home-card-date">{new Date(post.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</time>

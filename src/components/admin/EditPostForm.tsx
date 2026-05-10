@@ -267,7 +267,62 @@ export default function EditPostForm({ post }: EditPostFormProps) {
             </div>
             
             <div>
-              <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: 600 }}>Cover Image URL</label>
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.875rem', fontWeight: 600 }}>Cover Image</label>
+              
+              <div style={{ marginBottom: '1rem', border: '1px dashed var(--admin-border)', borderRadius: '8px', padding: '1rem', textAlign: 'center', backgroundColor: 'rgba(0,0,0,0.02)' }}>
+                {formData.imageUrl ? (
+                  <div style={{ position: 'relative' }}>
+                    <img src={formData.imageUrl} alt="Preview" style={{ width: '100%', height: '150px', objectFit: 'cover', borderRadius: '6px', marginBottom: '1rem' }} />
+                    <button 
+                      type="button" 
+                      onClick={() => setFormData({ ...formData, imageUrl: '' })}
+                      style={{ position: 'absolute', top: '5px', right: '5px', backgroundColor: 'rgba(239, 68, 68, 0.9)', color: 'white', border: 'none', borderRadius: '4px', padding: '2px 8px', fontSize: '0.7rem', cursor: 'pointer' }}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ) : (
+                  <div style={{ padding: '1rem 0', color: 'var(--admin-text-muted)', fontSize: '0.875rem' }}>
+                    No image selected
+                  </div>
+                )}
+                
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="image-upload"
+                  style={{ display: 'none' }}
+                  onChange={async (e) => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+
+                    const data = new FormData();
+                    data.append('file', file);
+
+                    try {
+                      const res = await fetch('/api/admin/upload', {
+                        method: 'POST',
+                        body: data,
+                      });
+                      if (!res.ok) throw new Error('Upload failed');
+                      const { url } = await res.json();
+                      setFormData({ ...formData, imageUrl: url });
+                    } catch (err: any) {
+                      setError('Image upload failed: ' + err.message);
+                    }
+                  }}
+                />
+                <button 
+                  type="button"
+                  onClick={() => document.getElementById('image-upload')?.click()}
+                  className="admin-logout-btn"
+                  style={{ width: '100%', justifyContent: 'center', fontSize: '0.875rem', backgroundColor: 'white', border: '1px solid var(--admin-border)' }}
+                >
+                  Upload Image
+                </button>
+              </div>
+
+              <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.75rem', fontWeight: 600, color: 'var(--admin-text-muted)' }}>OR Image URL</label>
               <input
                 type="url"
                 value={formData.imageUrl}

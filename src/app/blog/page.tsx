@@ -123,6 +123,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
               src={featuredPost.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200"} 
               alt={featuredPost.title} 
               className="featuredImage"
+              referrerPolicy="no-referrer"
             />
             <div className="featuredContent">
               <span className="categoryTag">Latest Research</span>
@@ -157,6 +158,7 @@ export default async function BlogPage({ searchParams }: { searchParams: Promise
                   src={post.imageUrl || "https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=600"} 
                   alt={post.title} 
                   className="postCardImage"
+                  referrerPolicy="no-referrer"
                 />
                 <div className="postCardContent">
                   <div className="postMeta">
