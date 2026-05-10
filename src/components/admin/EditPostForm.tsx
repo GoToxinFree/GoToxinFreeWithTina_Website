@@ -25,6 +25,7 @@ export default function EditPostForm({ post }: EditPostFormProps) {
     content: post.content,
     imageUrl: post.imageUrl || '',
     published: post.published,
+    notifySubscribers: false,
   });
   
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -184,12 +185,13 @@ export default function EditPostForm({ post }: EditPostFormProps) {
               cursor: 'pointer',
               border: '1px solid',
               borderColor: formData.published ? 'rgba(16, 185, 129, 0.2)' : 'transparent',
-              transition: 'all 0.2s'
+              transition: 'all 0.2s',
+              marginBottom: formData.published ? '1rem' : 0
             }}>
               <input
                 type="checkbox"
                 checked={formData.published}
-                onChange={(e) => setFormData({ ...formData, published: e.target.checked })}
+                onChange={(e) => setFormData({ ...formData, published: e.target.checked, notifySubscribers: e.target.checked ? formData.notifySubscribers : false })}
                 style={{ width: '20px', height: '20px', accentColor: 'var(--admin-accent)' }}
               />
               <div>
@@ -201,6 +203,35 @@ export default function EditPostForm({ post }: EditPostFormProps) {
                 </span>
               </div>
             </label>
+
+            {formData.published && (
+              <label style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '1rem', 
+                padding: '1rem', 
+                backgroundColor: 'rgba(0, 166, 206, 0.05)',
+                borderRadius: '8px',
+                cursor: 'pointer',
+                border: '1px solid rgba(0, 166, 206, 0.2)',
+                transition: 'all 0.2s'
+              }}>
+                <input
+                  type="checkbox"
+                  checked={formData.notifySubscribers}
+                  onChange={(e) => setFormData({ ...formData, notifySubscribers: e.target.checked })}
+                  style={{ width: '20px', height: '20px', accentColor: 'var(--admin-secondary)' }}
+                />
+                <div>
+                  <span style={{ display: 'block', fontWeight: 600, color: 'var(--admin-secondary)' }}>
+                    Notify Subscribers
+                  </span>
+                  <span style={{ fontSize: '0.75rem', color: 'var(--admin-text-muted)' }}>
+                    Send email alert on save
+                  </span>
+                </div>
+              </label>
+            )}
           </div>
 
           <div className={"admin-card"} style={{ padding: '1.5rem' }}>

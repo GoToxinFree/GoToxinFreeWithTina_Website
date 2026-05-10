@@ -65,7 +65,7 @@ export async function updatePost(id: string, data: any) {
   try {
     await ensureAdmin();
 
-    await prisma.post.update({
+    const post = await prisma.post.update({
       where: { id },
       data: {
         title: data.title,
@@ -76,6 +76,10 @@ export async function updatePost(id: string, data: any) {
         published: data.published
       }
     });
+
+    if (data.published && data.notifySubscribers) {
+      await notifySubscribersOfNewPost(post.id);
+    }
 
     revalidatePath("/admin/posts");
     revalidatePath("/blog");
@@ -126,6 +130,10 @@ export async function createPost(data: any) {
         }
       }
     });
+
+    if (data.published && data.notifySubscribers) {
+      await notifySubscribersOfNewPost(post.id);
+    }
 
     revalidatePath("/admin/posts");
     revalidatePath("/blog");
