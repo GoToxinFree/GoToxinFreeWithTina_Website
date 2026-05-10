@@ -161,36 +161,36 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
 export async function sendNewsletterSummary(to: string[], posts: { title: string, excerpt?: string | null, slug: string }[]) {
   const html = `
     <div style="display: none; max-height: 0px; overflow: hidden;">
-      Your latest toxin-free living research summary is here.
+      I wanted to share a few recent research updates and guides with you.
     </div>
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; color: #334155; line-height: 1.6;">
       <div style="padding: 20px 0; border-bottom: 2px solid #004e64; margin-bottom: 30px;">
-        <h2 style="color: #004e64; margin: 0; font-size: 20px;">Research Summary</h2>
+        <h2 style="color: #004e64; margin: 0; font-size: 20px;">Latest Research & Updates</h2>
       </div>
 
       <p>Hello,</p>
-      <p>Here is a summary of our most recent articles to help you stay informed on environmental health and safe living:</p>
+      <p>I hope you're having a good week. I've been working on several new pieces of research recently and wanted to make sure you didn't miss them:</p>
       
       <div style="margin: 30px 0;">
         ${posts.map(post => `
-          <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 10px; background: #fcfcfc;">
-            <h3 style="color: #004e64; margin-top: 0; font-size: 18px;">${post.title}</h3>
-            <p style="font-size: 14px; color: #475569; margin-bottom: 15px;">${post.excerpt || 'Latest research update.'}</p>
-            <a href="${siteUrl}/blog/${post.slug}" style="color: #004e64; font-weight: bold; text-decoration: underline; font-size: 14px;">Read the Full Guide &rarr;</a>
+          <div style="margin-bottom: 20px; padding-left: 15px; border-left: 3px solid #e2e8f0;">
+            <h3 style="color: #004e64; margin: 0 0 5px 0; font-size: 17px;">${post.title}</h3>
+            <p style="font-size: 14px; color: #475569; margin: 0 0 8px 0;">${post.excerpt || 'Latest research update.'}</p>
+            <a href="${siteUrl}/blog/${post.slug}" style="color: #004e64; font-weight: bold; text-decoration: underline; font-size: 14px;">View the article &rarr;</a>
           </div>
         `).join('')}
       </div>
 
-      <p>I hope these guides provide valuable insights for your home. As always, thank you for being part of this community.</p>
+      <p>I hope these insights are helpful for your home and health. Feel free to reply to this email if you have any questions or topics you'd like me to cover next.</p>
 
       <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
-        Warmly,<br />
+        Best,<br />
         <strong>Dr. Supriti Das</strong>
       </p>
 
       <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #94a3b8;">
         <p>
-          Sent from Go Toxin Free With Tina.
+          Go Toxin Free With Tina | Research & Advocacy
           <br />
           <a href="${siteUrl}/api/newsletter/unsubscribe?email={{EMAIL}}" style="color: #94a3b8; text-decoration: underline;">Unsubscribe</a>
         </p>
@@ -206,7 +206,7 @@ export async function sendNewsletterSummary(to: string[], posts: { title: string
       await transport.sendMail({
         from: `"${senderName}" <${senderEmail}>`,
         to: email,
-        subject: 'Your Toxin-Free Living Summary',
+        subject: 'Recent research updates from Go Toxin Free',
         html: html.replace('{{EMAIL}}', encodeURIComponent(email)),
         headers: {
           'List-Unsubscribe': `<${unsubscribeUrl}>`,
