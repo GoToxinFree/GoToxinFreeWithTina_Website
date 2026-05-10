@@ -7,6 +7,8 @@ import RestoreButton from "./RestoreButton";
 import NotifyButton from "./NotifyButton";
 import BroadcastSummaryButton from "./BroadcastSummaryButton";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminPostsPage() {
   const posts = await prisma.post.findMany({
     orderBy: { createdAt: 'desc' },

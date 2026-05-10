@@ -4,6 +4,8 @@ import ProfileForm from "@/components/admin/ProfileForm";
 
 import { User } from "lucide-react";
 
+export const dynamic = 'force-dynamic';
+
 export default async function AdminProfilePage() {
   const session = await auth();
   
