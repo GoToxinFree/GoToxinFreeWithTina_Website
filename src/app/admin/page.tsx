@@ -121,8 +121,8 @@ export default async function AdminDashboard() {
 
 function StatCard({ title, value, icon, color }: { title: string, value: number, icon: React.ReactNode, color: string }) {
   return (
-    <div className="admin-card" style={{ padding: '1.75rem', display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
-      <div style={{ 
+    <div className="admin-card stat-card-flex" style={{ display: 'flex', alignItems: 'center', gap: '1.5rem' }}>
+      <div className="stat-card-icon" style={{ 
         width: '56px', 
         height: '56px', 
         borderRadius: '16px', 
@@ -130,15 +130,16 @@ function StatCard({ title, value, icon, color }: { title: string, value: number,
         color: color, 
         display: 'flex', 
         alignItems: 'center', 
-        justifyContent: 'center' 
+        justifyContent: 'center',
+        flexShrink: 0
       }}>
         {icon}
       </div>
       <div>
-        <h3 style={{ margin: 0, fontSize: '0.875rem', fontWeight: 600, color: 'var(--admin-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
+        <h3 style={{ margin: 0, fontSize: '0.75rem', fontWeight: 600, color: 'var(--admin-text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
           {title}
         </h3>
-        <p style={{ margin: 0, fontSize: '2rem', fontWeight: 800, color: 'var(--admin-primary)' }}>
+        <p style={{ margin: 0, fontSize: '1.75rem', fontWeight: 800, color: 'var(--admin-primary)', lineHeight: 1.2 }}>
           {value}
         </p>
       </div>
