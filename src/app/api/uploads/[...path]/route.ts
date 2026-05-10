@@ -31,7 +31,8 @@ export async function GET(
         'Cache-Control': 'public, max-age=31536000, immutable',
       },
     });
-  } catch (error) {
+  } catch (error: any) {
+    console.error(`[Image API Error] Failed to read image:`, error.message);
     return new NextResponse('File not found', { status: 404 });
   }
 }

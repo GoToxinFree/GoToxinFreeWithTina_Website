@@ -11,6 +11,8 @@ import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 import ShareButton from '@/components/blog/ShareButton';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   

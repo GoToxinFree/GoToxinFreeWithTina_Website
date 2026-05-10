@@ -13,6 +13,8 @@ async function getLatestPosts() {
   });
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function Home() {
   let posts: Awaited<ReturnType<typeof getLatestPosts>> = [];
   let user: { image: string | null } | null = null;

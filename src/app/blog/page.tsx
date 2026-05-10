@@ -8,6 +8,8 @@ import NewsletterForm from '@/components/blog/NewsletterForm';
 import Header from '@/components/public/Header';
 import Footer from '@/components/public/Footer';
 
+export const dynamic = 'force-dynamic';
+
 export default async function BlogPage({ searchParams }: { searchParams: Promise<{ q?: string; tag?: string }> }) {
   const { q, tag } = await searchParams;
 
