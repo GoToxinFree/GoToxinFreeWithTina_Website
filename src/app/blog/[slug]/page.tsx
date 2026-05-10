@@ -51,9 +51,14 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           </Link>
 
           {post.imageUrl && (
-            <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', marginBottom: '2rem', aspectRatio: '21/9' }}>
+            <div style={{ width: '100%', borderRadius: '12px', overflow: 'hidden', marginBottom: '2rem', aspectRatio: '21/9', backgroundColor: 'var(--surface)' }}>
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={post.imageUrl} alt={post.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img 
+                src={post.imageUrl} 
+                alt={post.title} 
+                referrerPolicy="no-referrer"
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }} 
+              />
             </div>
           )}
 
