@@ -71,7 +71,7 @@ export default function Contact() {
             </div>
             <div className="contact-info-item">
               <MapPin className="contact-info-icon" size={24} />
-              <span>1-1-6-1406 UR Oyata , Adachi-ku, Tokyo, Japan, 120-0001</span>
+              <span>Adachi-ku, Tokyo, Japan</span>
             </div>
             <div className="contact-info-item" style={{ marginTop: '1rem' }}>
               <a href="https://jp.linkedin.com/in/supritidas" target="_blank" rel="noopener noreferrer" style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'inherit', textDecoration: 'none' }}>
