@@ -22,8 +22,11 @@ export default async function Home() {
 
   try {
     posts = await getLatestPosts();
-    // Fetch the admin user to get their profile photo
-    user = await prisma.user.findFirst({ select: { image: true } });
+    // Fetch the admin user to get their profile photo (first created user)
+    user = await prisma.user.findFirst({ 
+      orderBy: { createdAt: 'asc' },
+      select: { image: true } 
+    });
   } catch (err: unknown) {
     console.error("Home page fetch error:", err);
     fetchError = (err as Error).message;
