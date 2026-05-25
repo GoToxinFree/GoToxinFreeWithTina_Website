@@ -3,7 +3,7 @@ import { createTransport } from 'nodemailer';
 const transport = createTransport(process.env.EMAIL_SERVER);
 
 const siteUrl = process.env.AUTH_URL || 'https://gotoxinfreewithtina.com';
-const senderName = 'Dr. Supriti Das | Go Toxin Free';
+const senderName = 'Dr. Supriti Pramanik | Go Toxin Free';
 const senderEmail = process.env.EMAIL_FROM || 'drsupriti@gotoxinfreewithtina.com';
 
 export async function sendWelcomeEmail(to: string) {
@@ -19,7 +19,7 @@ export async function sendWelcomeEmail(to: string) {
       <p>Hi there,</p>
       
       <p>
-        Thank you so much for joining my community! I’m Dr. Supriti Das, and I’m thrilled to have you here.
+        Thank you so much for joining my community! I’m Dr. Supriti Pramanik, and I’m thrilled to have you here.
       </p>
       
       <p>
@@ -47,7 +47,7 @@ export async function sendWelcomeEmail(to: string) {
 
       <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
         Best regards,<br />
-        <strong>Dr. Supriti Das (Ph.D.)</strong><br />
+        <strong>Dr. Supriti Pramanik (Ph.D.)</strong><br />
         <span style="color: #64748b; font-size: 14px;">Go Toxin Free With Tina</span>
       </p>
       
@@ -75,7 +75,7 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
   
   const html = `
     <div style="display: none; max-height: 0px; overflow: hidden;">
-      ${post.excerpt || 'New research update from Dr. Supriti Das.'}
+      ${post.excerpt || 'New research update from Dr. Supriti Pramanik.'}
     </div>
     <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; max-width: 600px; margin: 0 auto; color: #334155; line-height: 1.6;">
       <div style="padding: 20px 0; border-bottom: 2px solid #004e64; margin-bottom: 30px;">
@@ -109,7 +109,7 @@ export async function sendNewPostNotification(to: string[], post: { title: strin
 
       <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
         Stay safe,<br />
-        <strong>Dr. Supriti Das</strong>
+        <strong>Dr. Supriti Pramanik</strong>
       </p>
 
       <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #94a3b8;">
@@ -185,7 +185,7 @@ export async function sendNewsletterSummary(to: string[], posts: { title: string
 
       <p style="margin-top: 40px; padding-top: 20px; border-top: 1px solid #e2e8f0;">
         Best,<br />
-        <strong>Dr. Supriti Das</strong>
+        <strong>Dr. Supriti Pramanik</strong>
       </p>
 
       <div style="margin-top: 50px; text-align: center; font-size: 12px; color: #94a3b8;">

@@ -44,7 +44,7 @@ export default async function Home() {
       {/* Hero Section */}
       <section className="home-hero">
         <div className={`container home-hero-content`}>
-          <h1 className="animate-fade-in">Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
+          <h1 className="animate-fade-in">Hi, I&apos;m Dr. Supriti Pramanik (Ph.D.)</h1>
           <p className="animate-fade-in" style={{ animationDelay: "0.1s" }}>
             A <strong>Global Environmental Researcher</strong> decoding the science of toxins. I translate years of rigorous scientific study into simple, actionable steps for a safer, cleaner life.
           </p>
@@ -65,7 +65,7 @@ export default async function Home() {
         <div className="container home-about-section">
           <div style={{ flexShrink: 0, width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', border: '4px solid white', boxShadow: '0 4px 6px -1px rgba(0,0,0,0.1)' }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={ownerImage} alt="Dr. Supriti Das" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src={ownerImage} alt="Dr. Supriti Pramanik" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div>
             <h2 style={{ fontSize: '1.75rem', color: 'var(--primary)', marginBottom: '0.5rem' }}>Evidence-Based Advocacy</h2>

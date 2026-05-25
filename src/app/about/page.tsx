@@ -15,7 +15,7 @@ export default async function About() {
 
       <section className="about-hero">
         <div className="container">
-          <h1>Hi, I&apos;m Dr. Supriti Das (Ph.D.)</h1>
+          <h1>Hi, I&apos;m Dr. Supriti Pramanik (Ph.D.)</h1>
           <p>Global Environmental Researcher & Advocate for Toxin-Free Living</p>
         </div>
       </section>
@@ -30,13 +30,13 @@ export default async function About() {
         <div className="about-content" style={{ marginBottom: '5rem' }}>
           <div className="about-image-container">
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={ownerImage} alt="Dr. Supriti Das, founder of Go Toxin Free" />
+            <img src={ownerImage} alt="Dr. Supriti Pramanik, founder of Go Toxin Free" />
           </div>
           
           <div className={"about-text-content"}>
             <h2>Bridging Science and Safety</h2>
             <p>
-              I am <strong>Dr. Supriti Das (Ph.D.)</strong>, a global environmental researcher dedicated to decoding the complex relationship between our environment and human health. Over the years, my work has spanned elite academic institutions and international research programs, focusing on assessing environmental risks and building a safer, more resilient world.
+              I am <strong>Dr. Supriti Pramanik (Ph.D.)</strong>, a global environmental researcher dedicated to decoding the complex relationship between our environment and human health. Over the years, my work has spanned elite academic institutions and international research programs, focusing on assessing environmental risks and building a safer, more resilient world.
             </p>
             <p>
               My journey into environmental advocacy began during my doctoral research at the <strong>Indian Institute of Technology (IIT), Hyderabad</strong>. My Ph.D. focused on the Mercury geochemical cycle and human health risk assessment, research that was recognized with the <strong>"Ramky Best Ph.D. Award"</strong> for its contribution to environmental excellence.
