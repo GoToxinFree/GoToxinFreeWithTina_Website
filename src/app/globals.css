@@ -1019,7 +1019,12 @@ a:hover {
 
 @media (max-width: 768px) {
   .home-hero h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
+    white-space: normal;
+  }
+  .home-hero p {
+    font-size: 1.1rem;
+    padding: 0 1rem;
   }
 }
 
