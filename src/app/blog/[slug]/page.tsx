@@ -31,9 +31,15 @@ export async function generateMetadata(
   const description =
     post.excerpt || "Read evidence-based insights on toxin-free living.";
 
+  const SITE_URL = "https://gotoxinfreewithtina.com";
+
+  // Social crawlers require absolute URLs — resolve relative paths against the site origin
+  const resolveUrl = (url: string) =>
+    url.startsWith("http") ? url : `${SITE_URL}${url.startsWith("/") ? "" : "/"}${url}`;
+
   const ogImage = post.imageUrl
-    ? { url: post.imageUrl, width: 1200, height: 630, alt: post.title }
-    : { url: "/favicon.png", width: 512, height: 512, alt: "Go Toxin Free With Tina" };
+    ? { url: resolveUrl(post.imageUrl), width: 1200, height: 630, alt: post.title }
+    : { url: `${SITE_URL}/favicon.png`, width: 512, height: 512, alt: "Go Toxin Free With Tina" };
 
   return {
     title: `${post.title} | Go Toxin Free With Tina`,
