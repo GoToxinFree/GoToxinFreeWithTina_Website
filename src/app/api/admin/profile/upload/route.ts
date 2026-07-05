@@ -1,7 +1,8 @@
 import { NextResponse } from 'next/server';
 import { auth } from '@/auth';
 import { promises as fs } from 'fs';
-import path from 'path';
+import { v4 as uuidv4 } from 'uuid';
+import { UPLOADS_DIR, getUploadFilePath } from '@/lib/uploadPath';
 
 export async function POST(req: Request) {
   try {
@@ -17,7 +18,6 @@ export async function POST(req: Request) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    // We only accept image files
     if (!file.type.startsWith('image/')) {
       return NextResponse.json({ error: 'File must be an image' }, { status: 400 });
     }
@@ -25,22 +25,23 @@ export async function POST(req: Request) {
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Save to public directory as owner.jpeg
-    const publicPath = path.join(process.cwd(), 'public');
-    const filePath = path.join(publicPath, 'owner.jpeg');
-    
-    // Ensure public dir exists
-    await fs.mkdir(publicPath, { recursive: true });
-    
-    // Write file
-    await fs.writeFile(filePath, buffer);
+    // Save with a unique UUID filename — same approach as article images.
+    // This gives every upload a distinct URL, naturally busting browser/CDN caches
+    // on all devices and systems without relying on ?v= query parameters.
+    const fileExtension = file.name.split('.').pop() || 'jpg';
+    const fileName = `profile-${uuidv4()}.${fileExtension}`;
 
-    // Return the URL
-    // We add a timestamp query parameter to bypass browser caching when updated
-    const url = `/owner.jpeg?v=${Date.now()}`;
+    await fs.mkdir(UPLOADS_DIR, { recursive: true });
+    await fs.writeFile(getUploadFilePath(fileName), buffer);
+
+    console.log(`Profile upload: Saved to ${getUploadFilePath(fileName)}`);
+
+    // Return the same /api/uploads/ path used by article images
+    const url = `/api/uploads/${fileName}`;
     return NextResponse.json({ url });
   } catch (error) {
     console.error("Profile upload error:", error);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
+
