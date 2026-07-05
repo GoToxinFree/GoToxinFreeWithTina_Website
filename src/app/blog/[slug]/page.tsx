@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 import { notFound } from 'next/navigation';
@@ -12,6 +13,49 @@ import Footer from '@/components/public/Footer';
 import ShareButton from '@/components/blog/ShareButton';
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ slug: string }> }
+): Promise<Metadata> {
+  const { slug } = await params;
+
+  const post = await prisma.post.findUnique({
+    where: { slug },
+    select: { title: true, excerpt: true, imageUrl: true, slug: true },
+  }).catch(() => null);
+
+  if (!post) {
+    return { title: "Article Not Found | Go Toxin Free With Tina" };
+  }
+
+  const description =
+    post.excerpt || "Read evidence-based insights on toxin-free living.";
+
+  const ogImage = post.imageUrl
+    ? { url: post.imageUrl, width: 1200, height: 630, alt: post.title }
+    : { url: "/favicon.png", width: 512, height: 512, alt: "Go Toxin Free With Tina" };
+
+  return {
+    title: `${post.title} | Go Toxin Free With Tina`,
+    description,
+    openGraph: {
+      title: post.title,
+      description,
+      url: `https://gotoxinfreewithtina.com/blog/${post.slug}`,
+      siteName: "Go Toxin Free With Tina",
+      images: [ogImage],
+      type: "article",
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description,
+      images: [ogImage.url],
+    },
+  };
+}
+
 
 export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;

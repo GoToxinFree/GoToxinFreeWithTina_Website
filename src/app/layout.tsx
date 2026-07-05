@@ -10,6 +10,7 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "Go Toxin Free With Tina",
   description: "Eliminating pollutants and building a toxin-free future.",
+  metadataBase: new URL("https://gotoxinfreewithtina.com"),
   icons: {
     icon: [
       { url: '/favicon.png', type: 'image/png' },
@@ -17,6 +18,28 @@ export const metadata: Metadata = {
     ],
     shortcut: '/favicon.png',
     apple: '/icon.png',
+  },
+  openGraph: {
+    title: "Go Toxin Free With Tina",
+    description: "Eliminating pollutants and building a toxin-free future.",
+    url: "https://gotoxinfreewithtina.com",
+    siteName: "Go Toxin Free With Tina",
+    images: [
+      {
+        url: "/favicon.png",
+        width: 512,
+        height: 512,
+        alt: "Go Toxin Free With Tina logo",
+      },
+    ],
+    type: "website",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Go Toxin Free With Tina",
+    description: "Eliminating pollutants and building a toxin-free future.",
+    images: ["/favicon.png"],
   },
 };
 
