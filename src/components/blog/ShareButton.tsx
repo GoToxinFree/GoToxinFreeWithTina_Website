@@ -13,7 +13,9 @@ export default function ShareButton({ title, text, url }: ShareButtonProps) {
   const [copied, setCopied] = useState(false);
   const [showOptions, setShowOptions] = useState(false);
 
-  const shareUrl = url || (typeof window !== 'undefined' ? window.location.href : '');
+  const shareUrl = url 
+    ? url 
+    : (typeof window !== 'undefined' ? window.location.href : '');
 
   const handleShare = async () => {
     if (navigator.share) {

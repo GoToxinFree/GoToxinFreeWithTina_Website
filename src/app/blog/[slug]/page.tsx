@@ -135,6 +135,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
                 <ShareButton 
                   title={post.title} 
                   text={post.excerpt || 'Read this interesting article on toxin-free living.'} 
+                  url={`https://gotoxinfreewithtina.com/blog/${post.slug}`}
                 />
               </div>
             </div>
